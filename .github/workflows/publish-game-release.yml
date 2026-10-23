@@ -1,0 +1,111 @@
+# Publish a game release for the launcher.
+#
+# How to use it (Roy):
+#   1. Releases > "Draft a new release": a NEW tag (the next one, for example v36; release tags are numbered apart from
+#      game rounds), title, notes. Attach every file from the output folder release-vNN (SerpentsOath-Launcher*.zip,
+#      content-*.gz, game-manifest.json).
+#      Click "Save draft" (NOT "Publish release").
+#   2. Actions > "Publish game release" > "Run workflow" > type the tag (v36) > "Run workflow".
+#
+# What it does: checks the draft has the launcher and game files, checks the launchers trust the signing key,
+# rebuilds the game manifest from the uploaded files (size + SHA-256 of every file, recomputed here), signs it with the
+# GAME_MANIFEST_SIGNING_KEY secret, uploads it, publishes the release as "latest", then downloads everything again from
+# the public addresses the launcher and the website use and checks it. If that last check fails, the release goes back
+# to draft so players never see a broken one. Players' launchers only ever see a release after all of this passed.
+#
+# One-time setup: the repository secret GAME_MANIFEST_SIGNING_KEY (Settings > Secrets and variables > Actions),
+# holding the Ed25519 private key whose public half is built into the launcher. Free: runs on GitHub's free runners.
+name: Publish game release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag of the DRAFT release to publish (for example v36)'
+        required: true
+        type: string
+
+permissions:
+  contents: write # read the draft, upload the manifest, publish the release; nothing else
+
+concurrency:
+  group: publish-game-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ inputs.tag }}
+      REPO: ${{ github.repository }}
+      TOOL: .github/release/release.mjs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: The tag is a draft release
+        run: |
+          [[ "$TAG" =~ ^v[0-9][A-Za-z0-9._-]{0,30}$ ]] || { echo "::error::the tag should look like v36"; exit 1; }
+          draft="$(gh release view "$TAG" -R "$REPO" --json isDraft -q .isDraft)"
+          [ "$draft" = "true" ] || { echo "::error::release $TAG is not a draft. Create it as a draft and let this workflow publish it."; exit 1; }
+
+      - name: The signing secret is set
+        env:
+          GAME_MANIFEST_SIGNING_KEY: ${{ secrets.GAME_MANIFEST_SIGNING_KEY }}
+        run: |
+          [ -n "$GAME_MANIFEST_SIGNING_KEY" ] || { echo "::error::add the GAME_MANIFEST_SIGNING_KEY secret (Settings > Secrets and variables > Actions)"; exit 1; }
+          node "$TOOL" pubkey --key-env GAME_MANIFEST_SIGNING_KEY > "$RUNNER_TEMP/release-public.pem"
+          echo "Signing with public key:"; cat "$RUNNER_TEMP/release-public.pem"
+
+      - name: Download the draft's files
+        run: |
+          mkdir rel
+          gh release download "$TAG" -R "$REPO" -D rel
+          ls -l rel
+          for f in SerpentsOath-Launcher.zip game-manifest.json; do
+            [ -f "rel/$f" ] || { echo "::error::$f is missing from the draft release"; exit 1; }
+          done
+          ls rel/content-*.gz >/dev/null 2>&1 || { echo "::error::no content-*.gz game files in the draft release"; exit 1; }
+          for old in SerpentsOath.zip SerpentsOath-Mac.zip; do
+            [ ! -f "rel/$old" ] || echo "::warning::$old (the old direct game download) is attached. The website links only the launcher now; you can delete it from the release."
+          done
+
+      - name: The launchers trust this signing key
+        run: |
+          for z in rel/SerpentsOath-Launcher*.zip; do node "$TOOL" launcher-key --zip "$z" --pub "$RUNNER_TEMP/release-public.pem"; done
+
+      - name: Rebuild and sign the game manifest from the uploaded files
+        env:
+          GAME_MANIFEST_SIGNING_KEY: ${{ secrets.GAME_MANIFEST_SIGNING_KEY }}
+        run: |
+          node "$TOOL" finalize --dir rel --tag "$TAG" --key-env GAME_MANIFEST_SIGNING_KEY \
+            --platforms win32-x64,darwin-arm64,darwin-x64 --asset-base "https://github.com/$REPO/releases/download/"
+          node "$TOOL" verify --dir rel --pub "$RUNNER_TEMP/release-public.pem"
+
+      - name: Upload the signed manifest (the release is still a draft)
+        run: gh release upload "$TAG" rel/game-manifest.json rel/game-manifest.json.sig -R "$REPO" --clobber
+
+      - name: Publish as the latest release
+        run: gh release edit "$TAG" -R "$REPO" --draft=false --latest
+
+      - name: Check the published release from its public addresses
+        run: |
+          node "$TOOL" verify-remote --url "https://github.com/$REPO/releases/latest/download/game-manifest.json" \
+            --pub "$RUNNER_TEMP/release-public.pem" --tag "$TAG" --tries 8
+          for z in rel/SerpentsOath-Launcher*.zip; do
+            n="$(basename "$z")"
+            curl -fsSL -o "$RUNNER_TEMP/$n" "https://github.com/$REPO/releases/latest/download/$n"
+            cmp "$RUNNER_TEMP/$n" "$z" && echo "website link OK: releases/latest/download/$n"
+          done
+
+      - name: Put the release back to draft if the public check failed
+        if: failure()
+        run: |
+          if [ "$(gh release view "$TAG" -R "$REPO" --json isDraft -q .isDraft 2>/dev/null)" = "false" ]; then
+            gh release edit "$TAG" -R "$REPO" --draft=true
+            echo "::error::the published release failed its check and was set back to draft; players keep the previous version"
+          fi
