@@ -1,11 +1,11 @@
 # Publish a game release for the launcher.
 #
 # How to use it (Roy):
-#   1. Releases > "Draft a new release": a NEW tag (the next one, for example v36; release tags are numbered apart from
-#      game rounds), title, notes. Attach every file from the output folder release-vNN (SerpentsOath-Launcher*.zip,
+#   1. Releases > "Draft a new release": a NEW tag (the next one, for example v30, the game round; GitHub marks the newest
+#      published release "latest"), title, notes. Attach every file from the output folder release-vNN (SerpentsOath-Launcher*.zip,
 #      content-*.gz, game-manifest.json).
 #      Click "Save draft" (NOT "Publish release").
-#   2. Actions > "Publish game release" > "Run workflow" > type the tag (v36) > "Run workflow".
+#   2. Actions > "Publish game release" > "Run workflow" > type the tag (v30) > "Run workflow".
 #
 # What it does: checks the draft has the launcher and game files, checks the launchers trust the signing key,
 # rebuilds the game manifest from the uploaded files (size + SHA-256 of every file, recomputed here), signs it with the
@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag of the DRAFT release to publish (for example v36)'
+        description: 'Tag of the DRAFT release to publish (for example v30)'
         required: true
         type: string
 
@@ -49,7 +49,7 @@ jobs:
 
       - name: The tag is a draft release
         run: |
-          [[ "$TAG" =~ ^v[0-9][A-Za-z0-9._-]{0,30}$ ]] || { echo "::error::the tag should look like v36"; exit 1; }
+          [[ "$TAG" =~ ^v[0-9][A-Za-z0-9._-]{0,30}$ ]] || { echo "::error::the tag should look like v30"; exit 1; }
           draft="$(gh release view "$TAG" -R "$REPO" --json isDraft -q .isDraft)"
           [ "$draft" = "true" ] || { echo "::error::release $TAG is not a draft. Create it as a draft and let this workflow publish it."; exit 1; }
 
