@@ -114,11 +114,14 @@ footer .brandline { font: 700 18px/1 "Pixelify Sans", sans-serif; letter-spacing
 * { scrollbar-width: thin; scrollbar-color: rgba(226, 173, 72, .35) transparent; }
 
 @media (max-width: 720px) {
-  .bar nav a:not([aria-current="page"]):not(.wikilink) { display: none; }
+  .bar nav a:not([aria-current="page"]):not(.wikilink):not(.forumlink):not(.acctlink) { display: none; }
+  .bar nav a { padding: 0 10px; }
   .bar nav { padding: 2px; }
   .sech { font-size: 22px; gap: 10px; }
 }
-@media (max-width: 420px) { .brand span { font-size: 16px; } }
+@media (max-width: 900px) and (min-width: 721px) { .bar nav a { padding: 0 9px; } .bar { gap: 10px; } }
+@media (max-width: 880px) { .bar nav a[href$="#about"], .bar nav a[href$="#updates"] { display: none; } } /* (room for Wiki, Forum and Sign in) */
+@media (max-width: 520px) { .brand span { display: none; } } /* (the snake stays; the bar keeps room for Wiki, Forum and Sign in) */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }

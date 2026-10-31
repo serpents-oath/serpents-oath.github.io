@@ -1,0 +1,909 @@
+{
+ "note": "Made from the game repo forum migration on a local Postgres (public.forum_home categories, forum_filter_words, forum_ranks), for the browser tests stand-in server.",
+ "categories": [
+  {
+   "id": "announcements",
+   "icon": "gstar",
+   "name": {
+    "en": "Announcements",
+    "es": "Anuncios",
+    "he": "הודעות"
+   },
+   "sort": 10,
+   "blurb": {
+    "en": "News from the team: new versions, events and maintenance.",
+    "es": "Noticias del equipo: versiones nuevas, eventos y mantenimiento.",
+    "he": "חדשות מהצוות: גרסאות חדשות, אירועים ותחזוקה."
+   },
+   "section": "news",
+   "admin_only": true
+  },
+  {
+   "id": "general",
+   "icon": "emblem",
+   "name": {
+    "en": "General Discussion",
+    "es": "Discusión general",
+    "he": "דיון כללי"
+   },
+   "sort": 20,
+   "blurb": {
+    "en": "Anything about The Serpent's Oath.",
+    "es": "Todo sobre The Serpent's Oath.",
+    "he": "כל מה שקשור ל-The Serpent's Oath."
+   },
+   "section": "news",
+   "admin_only": false
+  },
+  {
+   "id": "quests",
+   "icon": "compass",
+   "name": {
+    "en": "Quests",
+    "es": "Misiones",
+    "he": "משימות"
+   },
+   "sort": 30,
+   "blurb": {
+    "en": "Story chapters, side quests, job lessons and the Herald's Road: where to go and what to do.",
+    "es": "Capítulos de la historia, misiones secundarias, lecciones de oficio y el Camino del Heraldo: adónde ir y qué hacer.",
+    "he": "פרקי הסיפור, משימות צד, שיעורי המקצועות ודרך הכרוז: לאן ללכת ומה לעשות."
+   },
+   "section": "game",
+   "admin_only": false
+  },
+  {
+   "id": "items",
+   "icon": "sword",
+   "name": {
+    "en": "Items & Loot",
+    "es": "Objetos y botín",
+    "he": "חפצים ושלל"
+   },
+   "sort": 40,
+   "blurb": {
+    "en": "Weapons, armour, sets, heirlooms and quest items: normal, epic and legendary.",
+    "es": "Armas, armaduras, conjuntos, reliquias y objetos de misión: normal, épico y legendario.",
+    "he": "נשקים, שריון, סטים, ירושות וחפצי משימה: רגיל, אפי ואגדי."
+   },
+   "section": "game",
+   "admin_only": false
+  },
+  {
+   "id": "builds",
+   "icon": "axe",
+   "name": {
+    "en": "Builds & Skills",
+    "es": "Builds y habilidades",
+    "he": "בילדים וכישורים"
+   },
+   "sort": 50,
+   "blurb": {
+    "en": "Stat points (STR, DEX, INT, LUK, VIT), skills and combos.",
+    "es": "Puntos de atributo (STR, DEX, INT, LUK, VIT), habilidades y combos.",
+    "he": "נקודות סטט (STR, DEX, INT, LUK, VIT), כישורים וקומבו."
+   },
+   "section": "game",
+   "admin_only": false
+  },
+  {
+   "id": "jobs",
+   "icon": "spear",
+   "name": {
+    "en": "Jobs",
+    "es": "Oficios",
+    "he": "מקצועות"
+   },
+   "sort": 60,
+   "blurb": {
+    "en": "Warrior, Archer, Rogue and Mage: the tiers, the Second Oath and switching jobs.",
+    "es": "Guerrero, Arquero, Pícaro y Mago: los rangos, el Segundo Juramento y el cambio de oficio.",
+    "he": "לוחם, קשת, נוכל ואשף: הדרגות, השבועה השנייה והחלפת מקצוע."
+   },
+   "section": "game",
+   "admin_only": false
+  },
+  {
+   "id": "bosses",
+   "icon": "medal",
+   "name": {
+    "en": "Bosses & Regions",
+    "es": "Jefes y regiones",
+    "he": "בוסים ואזורים"
+   },
+   "sort": 70,
+   "blurb": {
+    "en": "From Attica to the islands: monsters, the boss caves (the Lion of Kithairon, Asterion, the Serpent King...) and how to beat them.",
+    "es": "De Ática a las islas: monstruos, las cuevas de jefes (el León del Citerón, Asterión, el Rey Serpiente...) y cómo vencerlos.",
+    "he": "מאטיקה ועד האיים: מפלצות, מערות הבוסים (האריה מקיתאירון, אסטריון, מלך הנחשים...) ואיך מנצחים אותם."
+   },
+   "section": "game",
+   "admin_only": false
+  },
+  {
+   "id": "trading",
+   "icon": "gold",
+   "name": {
+    "en": "Trading & Market",
+    "es": "Comercio y mercado",
+    "he": "מסחר ושוק"
+   },
+   "sort": 80,
+   "blurb": {
+    "en": "Buy, sell and trade with other players for drachmas. Fair deals only.",
+    "es": "Compra, vende e intercambia con otros jugadores por dracmas. Solo tratos justos.",
+    "he": "קונים, מוכרים ומחליפים עם שחקנים אחרים, בדרכמות. רק עסקאות הוגנות."
+   },
+   "section": "community",
+   "admin_only": false
+  },
+  {
+   "id": "guilds",
+   "icon": "horse",
+   "name": {
+    "en": "Guilds & Parties",
+    "es": "Gremios y grupos",
+    "he": "גילדות ופארטי"
+   },
+   "sort": 90,
+   "blurb": {
+    "en": "Find a party, recruit for your guild, plan a boss run.",
+    "es": "Busca grupo, recluta para tu gremio, planea una incursión contra un jefe.",
+    "he": "מוצאים פארטי, מגייסים לגילדה ומתכננים ריצת בוס."
+   },
+   "section": "community",
+   "admin_only": false
+  },
+  {
+   "id": "online",
+   "icon": "emblem",
+   "name": {
+    "en": "Online Beta",
+    "es": "Beta en línea",
+    "he": "בטא אונליין"
+   },
+   "sort": 100,
+   "blurb": {
+    "en": "The online world: the server, chat, connection and the launcher.",
+    "es": "El mundo en línea: el servidor, el chat, la conexión y el lanzador.",
+    "he": "העולם המקוון: השרת, הצ'אט, החיבור והמשגר."
+   },
+   "section": "community",
+   "admin_only": false
+  },
+  {
+   "id": "lore",
+   "icon": "scroll",
+   "name": {
+    "en": "Lore & Story",
+    "es": "Historia y mitología",
+    "he": "עלילה ומיתולוגיה"
+   },
+   "sort": 110,
+   "blurb": {
+    "en": "Val's journey to bring Roye home, the gods, the monsters and the myths behind them.",
+    "es": "El viaje de Val para traer a Roye a casa, los dioses, los monstruos y los mitos que hay detrás.",
+    "he": "המסע של Val להחזיר את Roye הביתה, האלים, המפלצות והמיתוסים שמאחוריהם."
+   },
+   "section": "community",
+   "admin_only": false
+  },
+  {
+   "id": "fanart",
+   "icon": "gstar",
+   "name": {
+    "en": "Fan Art & Media",
+    "es": "Fan art y medios",
+    "he": "יצירות מעריצים ומדיה"
+   },
+   "sort": 120,
+   "blurb": {
+    "en": "Your drawings, screenshots, videos and stories (links).",
+    "es": "Tus dibujos, capturas, vídeos e historias (enlaces).",
+    "he": "ציורים, צילומי מסך, סרטונים וסיפורים שלכם (קישורים)."
+   },
+   "section": "community",
+   "admin_only": false
+  },
+  {
+   "id": "offtopic",
+   "icon": "compass",
+   "name": {
+    "en": "Off-topic",
+    "es": "Fuera de tema",
+    "he": "שונות"
+   },
+   "sort": 130,
+   "blurb": {
+    "en": "Everything else, politely.",
+    "es": "Todo lo demás, con educación.",
+    "he": "כל השאר, בנימוס."
+   },
+   "section": "community",
+   "admin_only": false
+  },
+  {
+   "id": "help",
+   "icon": "scroll",
+   "name": {
+    "en": "Help & Questions",
+    "es": "Ayuda y preguntas",
+    "he": "עזרה ושאלות"
+   },
+   "sort": 140,
+   "blurb": {
+    "en": "Installing, the launcher, your account and how to do things in the game.",
+    "es": "Instalación, el lanzador, tu cuenta y cómo hacer cosas en el juego.",
+    "he": "התקנה, המשגר, החשבון ואיך עושים משהו במשחק."
+   },
+   "section": "support",
+   "admin_only": false
+  },
+  {
+   "id": "bugs",
+   "icon": "axe",
+   "name": {
+    "en": "Bug Reports",
+    "es": "Errores",
+    "he": "דיווח על באגים"
+   },
+   "sort": 150,
+   "blurb": {
+    "en": "Something broken? What happened, where, and in which version.",
+    "es": "¿Algo falla? Qué pasó, dónde y en qué versión.",
+    "he": "משהו לא עובד? מה קרה, איפה, ובאיזו גרסה."
+   },
+   "section": "support",
+   "admin_only": false
+  },
+  {
+   "id": "ideas",
+   "icon": "medal",
+   "name": {
+    "en": "Suggestions",
+    "es": "Sugerencias",
+    "he": "הצעות"
+   },
+   "sort": 160,
+   "blurb": {
+    "en": "Ideas to make the game better.",
+    "es": "Ideas para mejorar el juego.",
+    "he": "רעיונות לשיפור המשחק."
+   },
+   "section": "support",
+   "admin_only": false
+  }
+ ],
+ "words": [
+  {
+   "k": "w",
+   "w": "arse"
+  },
+  {
+   "k": "w",
+   "w": "arsehole"
+  },
+  {
+   "k": "w",
+   "w": "ass"
+  },
+  {
+   "k": "w",
+   "w": "asshole"
+  },
+  {
+   "k": "w",
+   "w": "assholes"
+  },
+  {
+   "k": "w",
+   "w": "bastard"
+  },
+  {
+   "k": "w",
+   "w": "bastards"
+  },
+  {
+   "k": "w",
+   "w": "biatch"
+  },
+  {
+   "k": "w",
+   "w": "bitch"
+  },
+  {
+   "k": "w",
+   "w": "bitches"
+  },
+  {
+   "k": "w",
+   "w": "bitchy"
+  },
+  {
+   "k": "w",
+   "w": "bullshit"
+  },
+  {
+   "k": "w",
+   "w": "cabron"
+  },
+  {
+   "k": "w",
+   "w": "cabrona"
+  },
+  {
+   "k": "w",
+   "w": "cabrones"
+  },
+  {
+   "k": "w",
+   "w": "chinga"
+  },
+  {
+   "k": "w",
+   "w": "chingada"
+  },
+  {
+   "k": "w",
+   "w": "chingadera"
+  },
+  {
+   "k": "w",
+   "w": "chingado"
+  },
+  {
+   "k": "w",
+   "w": "chingar"
+  },
+  {
+   "k": "w",
+   "w": "cocksucker"
+  },
+  {
+   "k": "w",
+   "w": "cojones"
+  },
+  {
+   "k": "w",
+   "w": "conchatumadre"
+  },
+  {
+   "k": "w",
+   "w": "conchetumare"
+  },
+  {
+   "k": "w",
+   "w": "coño"
+  },
+  {
+   "k": "w",
+   "w": "culera"
+  },
+  {
+   "k": "w",
+   "w": "culero"
+  },
+  {
+   "k": "w",
+   "w": "culiado"
+  },
+  {
+   "k": "w",
+   "w": "culiao"
+  },
+  {
+   "k": "w",
+   "w": "cunt"
+  },
+  {
+   "k": "w",
+   "w": "cunts"
+  },
+  {
+   "k": "w",
+   "w": "dick"
+  },
+  {
+   "k": "w",
+   "w": "dickhead"
+  },
+  {
+   "k": "w",
+   "w": "dicks"
+  },
+  {
+   "k": "w",
+   "w": "dildo"
+  },
+  {
+   "k": "w",
+   "w": "douchebag"
+  },
+  {
+   "k": "w",
+   "w": "dumbass"
+  },
+  {
+   "k": "w",
+   "w": "fag"
+  },
+  {
+   "k": "w",
+   "w": "faggot"
+  },
+  {
+   "k": "w",
+   "w": "faggots"
+  },
+  {
+   "k": "w",
+   "w": "fags"
+  },
+  {
+   "k": "w",
+   "w": "fck"
+  },
+  {
+   "k": "w",
+   "w": "fcking"
+  },
+  {
+   "k": "w",
+   "w": "fcuk"
+  },
+  {
+   "k": "w",
+   "w": "follar"
+  },
+  {
+   "k": "s",
+   "w": "fuck"
+  },
+  {
+   "k": "w",
+   "w": "fuk"
+  },
+  {
+   "k": "w",
+   "w": "fukin"
+  },
+  {
+   "k": "w",
+   "w": "fuking"
+  },
+  {
+   "k": "w",
+   "w": "fuks"
+  },
+  {
+   "k": "w",
+   "w": "fuq"
+  },
+  {
+   "k": "s",
+   "w": "fvck"
+  },
+  {
+   "k": "w",
+   "w": "gilipolla"
+  },
+  {
+   "k": "w",
+   "w": "gilipollas"
+  },
+  {
+   "k": "w",
+   "w": "hijoputa"
+  },
+  {
+   "k": "w",
+   "w": "hijueputa"
+  },
+  {
+   "k": "w",
+   "w": "horseshit"
+  },
+  {
+   "k": "w",
+   "w": "jackass"
+  },
+  {
+   "k": "w",
+   "w": "joder"
+  },
+  {
+   "k": "w",
+   "w": "jodete"
+  },
+  {
+   "k": "w",
+   "w": "jodida"
+  },
+  {
+   "k": "w",
+   "w": "jodido"
+  },
+  {
+   "k": "w",
+   "w": "malparida"
+  },
+  {
+   "k": "w",
+   "w": "malparido"
+  },
+  {
+   "k": "w",
+   "w": "mamada"
+  },
+  {
+   "k": "w",
+   "w": "mamon"
+  },
+  {
+   "k": "w",
+   "w": "marica"
+  },
+  {
+   "k": "w",
+   "w": "maricon"
+  },
+  {
+   "k": "w",
+   "w": "maricones"
+  },
+  {
+   "k": "w",
+   "w": "mierda"
+  },
+  {
+   "k": "w",
+   "w": "mierdas"
+  },
+  {
+   "k": "w",
+   "w": "motherfucker"
+  },
+  {
+   "k": "w",
+   "w": "nigga"
+  },
+  {
+   "k": "w",
+   "w": "niggas"
+  },
+  {
+   "k": "w",
+   "w": "nigger"
+  },
+  {
+   "k": "w",
+   "w": "niggers"
+  },
+  {
+   "k": "w",
+   "w": "pajero"
+  },
+  {
+   "k": "w",
+   "w": "pendeja"
+  },
+  {
+   "k": "w",
+   "w": "pendejo"
+  },
+  {
+   "k": "w",
+   "w": "pendejos"
+  },
+  {
+   "k": "s",
+   "w": "phuck"
+  },
+  {
+   "k": "w",
+   "w": "pussies"
+  },
+  {
+   "k": "w",
+   "w": "pussy"
+  },
+  {
+   "k": "w",
+   "w": "puta"
+  },
+  {
+   "k": "w",
+   "w": "putada"
+  },
+  {
+   "k": "w",
+   "w": "putas"
+  },
+  {
+   "k": "w",
+   "w": "puto"
+  },
+  {
+   "k": "w",
+   "w": "putos"
+  },
+  {
+   "k": "w",
+   "w": "retard"
+  },
+  {
+   "k": "w",
+   "w": "retarded"
+  },
+  {
+   "k": "w",
+   "w": "shit"
+  },
+  {
+   "k": "w",
+   "w": "shithead"
+  },
+  {
+   "k": "w",
+   "w": "shithole"
+  },
+  {
+   "k": "w",
+   "w": "shits"
+  },
+  {
+   "k": "w",
+   "w": "shitty"
+  },
+  {
+   "k": "w",
+   "w": "slut"
+  },
+  {
+   "k": "w",
+   "w": "sluts"
+  },
+  {
+   "k": "w",
+   "w": "stfu"
+  },
+  {
+   "k": "w",
+   "w": "twat"
+  },
+  {
+   "k": "w",
+   "w": "verga"
+  },
+  {
+   "k": "w",
+   "w": "vergas"
+  },
+  {
+   "k": "w",
+   "w": "wanker"
+  },
+  {
+   "k": "w",
+   "w": "wankers"
+  },
+  {
+   "k": "w",
+   "w": "whore"
+  },
+  {
+   "k": "w",
+   "w": "whores"
+  },
+  {
+   "k": "w",
+   "w": "ביצ"
+  },
+  {
+   "k": "w",
+   "w": "בנזונה"
+  },
+  {
+   "k": "w",
+   "w": "זונה"
+  },
+  {
+   "k": "w",
+   "w": "זונות"
+  },
+  {
+   "k": "w",
+   "w": "חרא"
+  },
+  {
+   "k": "w",
+   "w": "יזדיינ"
+  },
+  {
+   "k": "p",
+   "w": "כוס אוחתק"
+  },
+  {
+   "k": "p",
+   "w": "כוס אחותכ"
+  },
+  {
+   "k": "p",
+   "w": "כוס אמא"
+  },
+  {
+   "k": "p",
+   "w": "כוס אמאשכ"
+  },
+  {
+   "k": "p",
+   "w": "כוס אמכ"
+  },
+  {
+   "k": "p",
+   "w": "כוס אמק"
+  },
+  {
+   "k": "p",
+   "w": "כוס עמק"
+  },
+  {
+   "k": "w",
+   "w": "כוסאומו"
+  },
+  {
+   "k": "s",
+   "w": "כוסאמ"
+  },
+  {
+   "k": "w",
+   "w": "כוסומו"
+  },
+  {
+   "k": "w",
+   "w": "כוסיות"
+  },
+  {
+   "k": "w",
+   "w": "כוסית"
+  },
+  {
+   "k": "s",
+   "w": "כוסעמ"
+  },
+  {
+   "k": "w",
+   "w": "כושי"
+  },
+  {
+   "k": "w",
+   "w": "להזדיינ"
+  },
+  {
+   "k": "w",
+   "w": "מזדיינ"
+  },
+  {
+   "k": "w",
+   "w": "מזדיינימ"
+  },
+  {
+   "k": "w",
+   "w": "מזדיינת"
+  },
+  {
+   "k": "w",
+   "w": "מניאק"
+  },
+  {
+   "k": "w",
+   "w": "מניאקימ"
+  },
+  {
+   "k": "w",
+   "w": "מניאקית"
+  },
+  {
+   "k": "w",
+   "w": "ערבוש"
+  },
+  {
+   "k": "w",
+   "w": "ערבושימ"
+  },
+  {
+   "k": "w",
+   "w": "פאק"
+  },
+  {
+   "k": "w",
+   "w": "פאקינג"
+  },
+  {
+   "k": "w",
+   "w": "קוקסינל"
+  },
+  {
+   "k": "s",
+   "w": "שרמוט"
+  },
+  {
+   "k": "w",
+   "w": "תזדיינ"
+  },
+  {
+   "k": "w",
+   "w": "תזדיינו"
+  },
+  {
+   "k": "w",
+   "w": "תזדייני"
+  }
+ ],
+ "ranks": {
+  "ranks": [
+   {
+    "lv": 1,
+    "god": "hestia",
+    "min": 0
+   },
+   {
+    "lv": 2,
+    "god": "demeter",
+    "min": 5
+   },
+   {
+    "lv": 3,
+    "god": "hephaestus",
+    "min": 15
+   },
+   {
+    "lv": 4,
+    "god": "hermes",
+    "min": 30
+   },
+   {
+    "lv": 5,
+    "god": "artemis",
+    "min": 60
+   },
+   {
+    "lv": 6,
+    "god": "aphrodite",
+    "min": 100
+   },
+   {
+    "lv": 7,
+    "god": "ares",
+    "min": 160
+   },
+   {
+    "lv": 8,
+    "god": "apollo",
+    "min": 250
+   },
+   {
+    "lv": 9,
+    "god": "athena",
+    "min": 400
+   },
+   {
+    "lv": 10,
+    "god": "poseidon",
+    "min": 600
+   },
+   {
+    "lv": 11,
+    "god": "hera",
+    "min": 900
+   },
+   {
+    "lv": 12,
+    "god": "zeus",
+    "min": 1300
+   }
+  ],
+  "points_reply": 1,
+  "points_topic": 3
+ }
+}

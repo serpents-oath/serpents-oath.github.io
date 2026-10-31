@@ -221,7 +221,7 @@ html[lang="he"] .upd .v .ltr { font: 400 11px/1 var(--font-num); }
 .cta h2 { margin: 0; font: 700 clamp(26px, 4vw, 38px)/1.15 var(--font-title); color: var(--gold); letter-spacing: .03em; text-shadow: 0 3px 0 #000; }
 html[lang="he"] .cta h2 { letter-spacing: 0; }
 
-@media (max-width: 960px) { .bar nav a.lblink { display: none; } } /* (no room in the bar for a fifth link) */
+@media (max-width: 1060px) { .bar nav a.lblink { display: none; } } /* (no room in the bar for every link; site.css drops About and Updates under 880px) */
 @media (max-width: 900px) {
   /* rank 1 alone on top, the others in a row under it (.n2-.n5: how many there are) */
   .lb { display: grid; justify-content: center; grid-template-columns: repeat(4, minmax(0, 200px)); }
@@ -337,6 +337,8 @@ html[lang="he"] .cta h2 { letter-spacing: 0; }
     <a href="#about" data-t="nav_about"></a>
     <a href="#updates" data-t="nav_upd"></a>
     <a href="wiki.html" class="wikilink" data-t="nav_wiki"></a>
+    <a href="forum.html" class="forumlink" data-nav="forum">Forum</a>
+    <a href="account.html" class="acctlink" data-nav="acct">Sign in</a>
   </nav>
   <div class="langw">
     <button class="chip globe-btn" id="lang" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu"><svg viewBox="0 0 13 13" aria-hidden="true"><path d="M4 0h5v1h-5zM2 1h2v1h-2zM6 1h1v1h-1zM9 1h2v1h-2zM1 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM0 4h1v1h-1zM3 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM12 5h1v1h-1zM0 6h13v1h-13zM0 7h1v1h-1zM3 7h1v1h-1zM6 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM0 8h1v1h-1zM3 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM12 8h1v1h-1zM1 9h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM1 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM11 10h1v1h-1zM2 11h2v1h-2zM6 11h1v1h-1zM9 11h2v1h-2zM4 12h5v1h-5z"/></svg></button>
@@ -451,6 +453,7 @@ html[lang="he"] .cta h2 { letter-spacing: 0; }
 
 <script src="updates.js"></script>
 <script src="lang.js"></script>
+<script src="nav-auth.js"></script>
 <script>
 // texts in Hebrew, English and Spanish. data-t fills textContent, data-h fills markup (only these fixed strings, never data).
 const SETUPF = `<span class="file">SerpentsOath-Setup.exe</span>`;
