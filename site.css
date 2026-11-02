@@ -180,3 +180,15 @@ html[lang="he"] .legal section[lang="he"], html[lang="en"] .legal section[lang="
 html[lang] .legal .jump a[href^="#"] { display: none; }
 html[lang] .legal .jump a span[lang] { display: none; }
 html[lang="he"] .legal .jump a span[lang="he"], html[lang="en"] .legal .jump a span[lang="en"], html[lang="es"] .legal .jump a span[lang="es"] { display: inline; }
+
+/* ---------- social links (footer) ---------- */
+.social { display: flex; justify-content: center; gap: 12px; margin: 2px 0 0; }
+.social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-md); color: var(--gold); background: rgba(255, 255, 255, .04);
+  box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--line); transition: color .14s, box-shadow .14s, background .14s, transform .14s; }
+.social a:hover, .social a:focus-visible { color: var(--gold-hi); background: rgba(255, 255, 255, .08); box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--gold), 0 0 18px rgba(246, 214, 122, .18); transform: translateY(-2px); }
+.social svg { width: 20px; height: 20px; fill: currentColor; }
+.social rect, .social circle { fill: none; stroke: currentColor; stroke-width: 2; }
+.social circle.dot { fill: currentColor; stroke: none; }
+.social a.off { color: var(--tx-3); opacity: .55; cursor: default; transform: none; background: transparent; }
+.social a.off:hover { box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--line); }
+

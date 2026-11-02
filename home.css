@@ -143,17 +143,6 @@ html[lang="he"] .upd li { padding-inline-start: 0; padding-inline-end: 18px; }
 html[lang="he"] .upd li::before { inset-inline-start: auto; inset-inline-end: 2px; }
 html[lang="he"] .btn .lbl { text-align: end; }
 
-/* ---------- social links (footer) ---------- */
-.social { display: flex; justify-content: center; gap: 12px; margin: 2px 0 0; }
-.social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-md); color: var(--gold); background: rgba(255, 255, 255, .04);
-  box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--line); transition: color .14s, box-shadow .14s, background .14s, transform .14s; }
-.social a:hover, .social a:focus-visible { color: var(--gold-hi); background: rgba(255, 255, 255, .08); box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--gold), 0 0 18px rgba(246, 214, 122, .18); transform: translateY(-2px); }
-.social svg { width: 20px; height: 20px; fill: currentColor; }
-.social rect, .social circle { fill: none; stroke: currentColor; stroke-width: 2; }
-.social circle.dot { fill: currentColor; stroke: none; }
-.social a.off { color: var(--tx-3); opacity: .55; cursor: default; transform: none; background: transparent; }
-.social a.off:hover { box-shadow: 0 0 0 1px var(--edge), inset 0 0 0 1px var(--line); }
-
 /* ---------- the top bar: black at 80%, the video runs up under it (Roy 1.11) ---------- */
 .hero { margin-top: calc(-1 * var(--bar-h)); padding-top: calc(56px + var(--bar-h)); }
 @media (max-width: 1180px) { .bar nav { background: rgba(0, 0, 0, .94); } }

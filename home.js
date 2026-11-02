@@ -127,12 +127,6 @@ let L = SoLang.pick();
 const R = (s) => (L === 'he' ? '\u200f' : '') + s; // Hebrew text under unicode-bidi: plaintext starts with an RLM
 const latest = UPDATES.find((u) => !u.upcoming && u.v);
 
-// ---------- the social links in the footer: the URL from SITE.SOCIAL; an empty one shows the icon as not linked yet ----------
-document.querySelectorAll('.social a[data-social]').forEach((a) => {
-  const url = (SITE.SOCIAL || {})[a.dataset.social];
-  if (url) { a.href = url; a.target = '_blank'; } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); a.classList.add('off'); }
-});
-
 // ---------- download buttons ----------
 document.querySelectorAll('.dlbtn').forEach((a) => { a.href = SITE.LAUNCHER_URL || '#'; });
 document.querySelectorAll('.macbtn').forEach((a) => { if (SITE.MAC_URL) a.href = SITE.MAC_URL; else a.hidden = true; });
