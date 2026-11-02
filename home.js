@@ -200,7 +200,7 @@ const viewer = $('#viewer'), vbody = $('#vbody');
 function view(kind, src) {
   vbody.textContent = '';
   if (kind === 'video') {
-    const v = el('video'); v.controls = true; v.autoplay = true; v.playsInline = true; v.poster = 'assets/hero.jpg';
+    const v = el('video'); v.controls = true; v.autoplay = true; v.playsInline = true; v.poster = src === SITE.TRAILER ? src + '.jpg' : 'assets/hero.jpg';
     for (const [ext, type] of [['webm', 'video/webm'], ['mp4', 'video/mp4']]) { const s = el('source'); s.src = `${src}.${ext}`; s.type = type; v.append(s); }
     vbody.append(v);
   } else { const im = el('img'); im.src = src; im.alt = ''; vbody.append(im); }

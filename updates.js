@@ -21,7 +21,7 @@ window.SITE = {
   MAC_MB: 162,
   // the launcher's cinematic for the 'Watch the trailer' button, without its extension (assets/trailer.webm + .mp4);
   // '' plays the hero clip instead. Set it when the 1080p cinematic (cinematic-v4) is dropped into assets/.
-  TRAILER: '',
+  TRAILER: 'assets/trailer',
   // the game's pages on social networks: full URLs, e.g. 'https://x.com/serpentsoath'. Empty = the icon shows as not linked yet.
   SOCIAL: { x: '', instagram: '', facebook: '' },
   SUPABASE_URL: 'https://exyixhjorhrzunnrxqjs.supabase.co',
