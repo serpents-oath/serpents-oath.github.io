@@ -140,7 +140,7 @@
   }
   function oauthButtons() {
     const box = el('div', 'oauth');
-    for (const p of ['google', 'facebook']) {
+    for (const p of ['google']) {
       const b = el('button', 'btn oa ' + p); b.type = 'button';
       const ic = el('span', 'oi ' + p); ic.setAttribute('aria-hidden', 'true'); ic.textContent = p === 'google' ? 'G' : 'f';
       b.append(ic, el('span', '', t('g_' + p)));
