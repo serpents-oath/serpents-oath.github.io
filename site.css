@@ -172,3 +172,11 @@ footer .brandline { font: 700 18px/1 var(--font-title); color: var(--gold); lett
 .rights span { display: none; }
 html[lang="he"] .rights span[lang="he"], html[lang="en"] .rights span[lang="en"], html[lang="es"] .rights span[lang="es"] { display: inline; }
 .wikifoot { padding: 20px var(--gut) 40px; }
+/* (Roy 2.11) the footer's logo as far from the gold line above it as from the icons below */
+footer .fline + .in { margin-top: 22px; }
+/* (Roy 2.11) a legal page shows only the site's language (the globe switches it) */
+html[lang] .legal section[lang] { display: none; }
+html[lang="he"] .legal section[lang="he"], html[lang="en"] .legal section[lang="en"], html[lang="es"] .legal section[lang="es"] { display: block; }
+html[lang] .legal .jump a[href^="#"] { display: none; }
+html[lang] .legal .jump a span[lang] { display: none; }
+html[lang="he"] .legal .jump a span[lang="he"], html[lang="en"] .legal .jump a span[lang="en"], html[lang="es"] .legal .jump a span[lang="es"] { display: inline; }
