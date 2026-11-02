@@ -72,8 +72,10 @@ h1, h2, h3, h4, p, li, dd, dt, figcaption, label, summary, td, th, blockquote { 
   box-shadow: inset 0 -1px 0 var(--line-lo); }
 .bar .in { display: flex; align-items: center; gap: 10px; min-height: var(--bar-h); width: min(var(--wrap), 100% - 2 * var(--gut)); margin-inline: auto; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--gold); direction: ltr; white-space: nowrap; margin-inline-end: 8px; }
-.brand img { height: 52px; width: auto; image-rendering: auto; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
-.brand .lt { height: 26px; width: auto; image-rendering: auto; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
+.brand { --emb: 52px; flex: none; }
+@media (max-width: 1300px) { .brand { --emb: 38px; } }
+.brand img { flex: none; height: var(--emb); width: auto; image-rendering: auto; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
+.brand .lt { height: calc(var(--emb) * .9); width: auto; image-rendering: auto; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
 .brand span { font: 700 18px/1 var(--font-title); letter-spacing: .04em; text-shadow: 0 2px 0 #000; }
 .bar nav { display: flex; align-items: center; gap: 2px; margin-inline-start: auto; }
 .bar nav a, .bar nav button.navb { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 12px; border: 0; border-radius: var(--r-sm); background: none; color: var(--tx-2); text-decoration: none; font: 500 14.5px/1 var(--font-body); white-space: nowrap; transition: color .12s, background .12s; }
@@ -85,7 +87,7 @@ h1, h2, h3, h4, p, li, dd, dt, figcaption, label, summary, td, th, blockquote { 
 .bar .tools { display: flex; align-items: center; gap: 6px; margin-inline-start: 6px; }
 .navtg { display: none; margin-inline-start: auto; width: 40px; height: 40px; padding: 0; border: 0; border-radius: var(--r-sm); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px var(--line); place-items: center; }
 .navtg i { width: 18px; height: 2px; background: var(--gold); box-shadow: 0 -6px 0 var(--gold), 0 6px 0 var(--gold); }
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
   .brand span, .brand .lt { display: none; }
   .navtg { display: grid; }
   .bar nav { position: absolute; top: calc(100% + 1px); inset-inline: 0; flex-direction: column; align-items: stretch; gap: 2px; padding: 10px var(--gut) 14px; background: rgba(20, 11, 17, .97); box-shadow: 0 20px 40px rgba(0, 0, 0, .5), inset 0 -1px 0 var(--line-lo); }
@@ -94,7 +96,7 @@ h1, h2, h3, h4, p, li, dd, dt, figcaption, label, summary, td, th, blockquote { 
   .bar nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--gold); border-radius: var(--r-sm); }
   .bar nav a.navdl { margin: 6px 0 0; justify-content: center; }
 }
-@media (min-width: 901px) { .bar nav { display: flex !important; } }
+@media (min-width: 1181px) { .bar nav { display: flex !important; } }
 
 /* the language globe */
 .langw { position: relative; display: flex; }

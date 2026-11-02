@@ -156,4 +156,4 @@ html[lang="he"] .btn .lbl { text-align: end; }
 
 /* ---------- the top bar: black at 80%, the video runs up under it (Roy 1.11) ---------- */
 .hero { margin-top: calc(-1 * var(--bar-h)); padding-top: calc(56px + var(--bar-h)); }
-@media (max-width: 900px) { .bar nav { background: rgba(0, 0, 0, .94); } }
+@media (max-width: 1180px) { .bar nav { background: rgba(0, 0, 0, .94); } }
