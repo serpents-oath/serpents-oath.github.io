@@ -15,10 +15,10 @@
 // (es: the site's Spanish; the game and the launcher are Hebrew and English, and the launcher reads he/en only.)
 window.SITE = {
   LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Setup.exe',
-  LAUNCHER_MB: 151,
+  LAUNCHER_MB: 162,
   MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
   MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
-  MAC_MB: 162,
+  MAC_MB: 172,
   // the launcher's cinematic for the 'Watch the trailer' button, without its extension (assets/trailer.webm + .mp4);
   // '' plays the hero clip instead. Set it when the 1080p cinematic (cinematic-v4) is dropped into assets/.
   TRAILER: 'assets/trailer',
@@ -29,6 +29,48 @@ window.SITE = {
 };
 
 window.UPDATES = [
+  {
+    v: '36', date: '2026-11-02',
+    he: { title: 'גרסה 36: לאנצר חדש, הגדרות חדשות ו-Companion 2', items: [
+      'הלאנצר: מסך ראשי חדש עם אריח עדכונים ומתחתיו ארבעה אריחים: פורום, ויקי, "מהמשחק" ו-HERCULES Anti-Cheat',
+      'ברקע של הלאנצר סרטון נוף איטי מתוך הסינמטיק החדש',
+      'מסך הכניסה חזר כמו שהיה, עם הלוגוטייפ בגדול בתוך הכרטיס',
+      'הכניסה עם Facebook הוסרה (Google ומייל נשארים)',
+      'הגדרות חדשות: אריחי שליטה (עכבר, מקלדת, שלט), מהירות מצלמה ועכבר, נעילת מצלמה על הדמות או הזזה בקצה המסך, ותרשים של השלט',
+      'בחירת דמות בעיצוב חדש: מקדש גדול יותר, מדוזה חרוטה לאורך הכרכוב, כפתור יצירת דמות וחלונות מעל הגיבורים',
+      'כנפי Seraph חדשות ל-ADMIN עם עיניים, וכנפיים שמנפנפות ומתקפלות כשהדמות נשענת',
+      'יצירת דמות באותו מקדש, באותו קנה מידה של מסך הבחירה',
+      'אפליקציית Companion 2: כפר יווני, ג\'ויסטיק צף, ארבע משימות AFK (דייג, חטיבת עצים, תיקון ספינות ושמירה), סוחרת וכספת מטבעות',
+      'הבנקאי במשחק מראה את הדרכמות שהופקדו מהאפליקציה, ואפשר לקחת אותן',
+      'האתר: סרגל עליון חדש, טריילר, דף מחיקת נתונים, פוטר בכל עמוד ודפים משפטיים בשפת האתר'
+    ] },
+    en: { title: 'Version 36: a new launcher, new settings and Companion 2', items: [
+      'The launcher: a new main screen with an Updates tile and four tiles under it: Forum, Wiki, From the game and HERCULES Anti-Cheat',
+      'Behind the launcher, a slow landscape film from the new cinematic',
+      'The sign-in screen is back as it was, with the logotype, large, inside the card',
+      'Facebook sign-in is gone (Google and email stay)',
+      'New settings: control tiles (mouse, keyboard, controller), camera and mouse speed, camera locked on your hero or edge pan, and a controller diagram',
+      'Character select redesigned: a bigger temple, Medusa carved along the frieze, a Create character button and windows above the heroes',
+      'New Seraph wings for ADMIN, with eyes, and wings that flap and fold when the hero leans',
+      'Character creation in the same temple, at the select screen\'s scale',
+      'Companion app 2: a Greek village, a floating joystick, four AFK tasks (fishing, woodcutting, ship repair and the watch), a trader and a coin vault',
+      'The Banker in the game shows the drachmas deposited from the app, and you can take them',
+      'The site: a new top bar, the trailer, a data deletion page, a footer on every page and legal pages in the site\'s language'
+    ] },
+    es: { title: 'Versión 36: un launcher nuevo, ajustes nuevos y Companion 2', items: [
+      'El launcher: una pantalla principal nueva con un mosaico de Novedades y cuatro debajo: Foro, Wiki, Desde el juego y HERCULES Anti-Cheat',
+      'Detrás del launcher, una película lenta de paisaje sacada de la nueva cinemática',
+      'La pantalla de acceso vuelve a ser como antes, con el logotipo, grande, dentro de la tarjeta',
+      'Se quitó el acceso con Facebook (Google y el correo siguen)',
+      'Ajustes nuevos: mosaicos de control (ratón, teclado, mando), velocidad de cámara y ratón, cámara fija en tu héroe o desplazamiento por el borde, y un diagrama del mando',
+      'Selección de personaje rediseñada: un templo más grande, Medusa tallada en el friso, un botón Crear personaje y ventanas sobre los héroes',
+      'Alas Seraph nuevas para ADMIN, con ojos, y alas que aletean y se pliegan cuando el héroe se apoya',
+      'La creación de personaje en el mismo templo, a la escala de la selección',
+      'App Companion 2: una aldea griega, un joystick flotante, cuatro tareas AFK (pesca, tala, reparación de barcos y la guardia), una comerciante y una cámara de monedas',
+      'El Banquero del juego muestra los dracmas depositados desde la app, y puedes llevártelos',
+      'La web: una barra superior nueva, el tráiler, una página de borrado de datos, un pie en cada página y páginas legales en el idioma de la web'
+    ] }
+  },
   {
     v: '35', date: '2026-11-01',
     he: { title: 'גרסה 35: בנק משותף, קוד הזמנה ואפליקציית Companion', items: [

@@ -14,41 +14,62 @@
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<canvas id="cv" aria-hidden="true"></canvas>
+<canvas id="cv-village" class="stage" aria-hidden="true"></canvas>
+<canvas id="cv-task" class="stage" aria-hidden="true" hidden></canvas>
 <main id="ui">
   <section id="s-login" class="screen" hidden>
     <img class="emblem" src="icons/emblem.png" alt="" width="120" height="108">
     <h1 data-t="title"></h1>
-    <form id="f-login" autocomplete="on">
+    <form id="f-login" class="panel pad" autocomplete="on">
       <label><span data-t="username"></span><input id="in-user" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required minlength="3" maxlength="64"></label>
       <label><span data-t="password"></span><input id="in-pass" name="password" type="password" autocomplete="current-password" required></label>
       <p class="err" id="login-err" role="alert"></p>
       <button class="btn gold" type="submit" data-t="sign_in"></button>
       <p class="note" data-t="sign_in_help"></p>
     </form>
-    <p class="note install" id="install"></p>
+    <div class="seg lang" role="group" aria-label="Language"><button type="button" data-lang="he">עברית</button><button type="button" data-lang="en">English</button></div>
+    <p class="note" data-t="install"></p>
   </section>
   <section id="s-chars" class="screen" hidden>
     <h1 data-t="pick"></h1>
     <ul id="chars" class="chars"></ul>
     <p class="note" id="chars-empty" hidden data-t="no_chars"></p>
     <p class="err" id="chars-err" role="alert"></p>
-    <div class="row"><button class="btn quiet" id="b-out" data-t="sign_out"></button></div>
+    <div class="row"><button class="btn" id="b-out" data-t="sign_out"></button></div>
   </section>
   <section id="s-blocked" class="screen" hidden>
-    <h1 id="blk-name"></h1><p id="blk-msg" class="note big"></p>
-    <div class="row"><button class="btn gold" id="blk-retry" data-t="retry"></button><button class="btn quiet" id="blk-back" data-t="switch"></button></div>
+    <div class="panel pad center"><h2 id="blk-name"></h2><p id="blk-msg" class="note big"></p>
+    <div class="row"><button class="btn gold" id="blk-retry" data-t="retry"></button><button class="btn" id="blk-back" data-t="switch"></button></div></div>
   </section>
   <section id="s-load" class="screen" hidden><p class="note big" data-t="loading"></p></section>
-  <section id="s-game" hidden>
-    <header class="hud"><div class="who"><b id="h-name"></b><span id="h-lv"></span></div><div class="tok" id="h-tok" title=""></div><div class="chip" id="h-afk" hidden></div></header>
-    <div class="joy" id="joy" aria-hidden="true"><i id="joy-k"></i></div>
-    <p class="hint" id="hint" data-t="controls"></p>
-    <button class="btn gold talk" id="b-talk" hidden></button>
-    <nav class="dock"><button class="btn" id="b-bag" data-t="bag"></button><button class="btn" id="b-set" data-t="settings"></button></nav>
+
+  <section id="s-village" class="layer" hidden>
+    <header class="hud">
+      <div class="who panel"><img id="h-face" alt="" width="34" height="34"><div><b id="h-name"></b><span id="h-lv"></span></div></div>
+      <div class="coin panel" id="h-coins"><img alt="" id="h-coin-ic" width="18" height="18"><b id="h-coin-n">0</b></div>
+    </header>
+    <button class="taskchip panel" id="h-task" type="button" hidden><img alt="" id="h-task-ic" width="22" height="22"><span id="h-task-t"></span></button>
+    <p class="hint" id="hint" data-t="hint"></p>
+    <nav class="dock"><button class="btn icon" id="b-bag" type="button"><img alt="" id="b-bag-ic" width="27" height="27"><span data-t="bag"></span></button><button class="btn icon sq" id="b-set" type="button" aria-label="Settings"><span aria-hidden="true">⚙</span></button></nav>
   </section>
-  <div id="sheet" class="sheet" hidden role="dialog" aria-modal="true"><div class="card"><button class="x" id="sheet-x" aria-label="close">×</button><div id="sheet-body"></div></div></div>
-  <div id="toast" class="toast" hidden role="status"></div>
+
+  <section id="s-task" class="layer" hidden>
+    <header class="thead panel">
+      <img alt="" id="t-ic" width="27" height="27">
+      <div class="tt"><b id="t-title"></b><span id="t-sub"></span></div>
+      <div class="timer"><small data-t="time"></small><b id="t-timer" dir="ltr">00:00:00</b></div>
+    </header>
+    <div class="tbar"><i id="t-bar"></i></div>
+    <div class="tpanel panel">
+      <h3 data-t="loot_so_far"></h3>
+      <div class="grid loot" id="t-loot"></div>
+      <p class="note" id="t-empty" data-t="nothing_yet"></p>
+      <div class="row2"><button class="btn" id="t-village" type="button" data-t="to_village"></button><button class="btn gold" id="t-finish" type="button" data-t="finish"></button></div>
+    </div>
+  </section>
+
+  <div id="sheet" class="sheet" hidden role="dialog" aria-modal="true"><div class="card panel"><button class="x" id="sheet-x" type="button" aria-label="close">✕</button><div id="sheet-body"></div></div></div>
+  <div id="toast" class="toast panel" hidden role="status"></div>
 </main>
 <script type="module" src="main.js"></script>
 </body>

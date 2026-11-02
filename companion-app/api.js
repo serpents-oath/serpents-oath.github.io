@@ -1,7 +1,7 @@
 // The Companion's only talk to the server: sign in (the game's own accounts) and the companion_* functions.
 // No game table is read or written from here; the server functions are the only doors.
 import { SUPABASE_URL, SUPABASE_KEY, EMAIL_DOMAIN } from './config.js';
-import { usernameEmail } from './game/js/online/names.js';
+import { usernameEmail } from './names.js';
 const KEY = 'so-companion-session', base = SUPABASE_URL.replace(/\/+$/, '');
 let session = null; try { session = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { /* storage blocked */ }
 const keep = (s) => { session = s; try { s ? localStorage.setItem(KEY, JSON.stringify(s)) : localStorage.removeItem(KEY); } catch { /* the session lives for this page */ } };

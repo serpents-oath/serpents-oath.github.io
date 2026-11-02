@@ -1,196 +1,352 @@
-// The Companion: sign in with the game's account, pick one of its characters, walk the village, fish, sell, use the bank.
-// Everything that counts (time, fish, tokens, the bank, the character lock) is decided by the server.
-import { rpc, signIn, signOut, signedIn, ApiError } from './api.js';
-import { T, FISH_NAMES, RARITY, pickLang, fmt } from './i18n.js';
+// The Companion v2: sign in with the game's account, pick a character, walk the pixel village, take a task from a villager
+// (fishing, woodcutting, ship repair: each on its own side-view screen), trade the goods at Melitta's, deposit game items and
+// drachmas at Chrysa's bank. Everything that counts (time, rolls, drachmas, the bank, the character lock) is the server's.
+import { rpc, signIn, signOut, signedIn } from './api.js';
+import { T, itemName, RARITY, pickLang, fmt } from './i18n.js';
 import { createVillage } from './village.js';
+import { createScene } from './scenes.js';
+import { icon } from './icons.js';
+import { heroLook, NPC_LOOKS, portrait } from './chars.js';
+import { dataUrl } from './px.js';
 
 let L = pickLang(); const t = (k, v) => fmt((T[L] || T.en)[k] ?? T.en[k] ?? k, v);
 const $ = (id) => document.getElementById(id);
-const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? '' : v); } for (const c of kids.flat()) if (c != null) e.append(c.nodeType ? c : document.createTextNode(String(c))); return e; };
+const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? '' : v); } for (const c of kids.flat()) if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(String(c))); return e; };
+const img = (canvasEl, k = 3, attrs = {}) => el('img', { src: dataUrl(canvasEl, k), alt: '', ...attrs });
 const SESSION = (() => { let s = ''; try { s = sessionStorage.getItem('so-companion-sid') || ''; } catch { /* */ } if (!s) { const b = crypto.getRandomValues(new Uint8Array(12)); s = [...b].map((x) => x.toString(36).padStart(2, '0')).join('').slice(0, 24); try { sessionStorage.setItem('so-companion-sid', s); } catch { /* */ } } return s; })();
 const uuid = () => crypto.randomUUID();
+const TASK_OF = { fisher: 'fishing', woodcutter: 'woodcutting', shipwright: 'shipwright', guard: 'guard' };
+const NPC_OF = { fishing: 'fisher', woodcutting: 'woodcutter', shipwright: 'shipwright', guard: 'guard' };
+const TOOL = { fishing: 'rod', woodcutting: 'axe', shipwright: 'hammer', guard: 'lantern' };
 
-let village = null, me = null, st = null, bank = null, hb = 0, tick = 0, chars = [];
-const fishName = (id) => FISH_NAMES[L]?.[id] || FISH_NAMES.en[id] || id.replace(/_/g, ' ');
-const rarityOf = (id) => st?.fish?.find((f) => f.id === id)?.rarity || 'common';
-const errText = (e) => { const c = (e.code || '').toLowerCase(); return (T[L] || T.en)[c] || (T[L] || T.en)[c + '_err'] || t('unexpected'); };
+let village = null, scene = null, me = null, look = null, st = null, bank = null, hb = 0, tick = 0, chars = [], fetchedAt = 0, view = 'none', sheetView = null, pollT = 0;
+const items = () => st?.items || [];
+const meta = (id) => items().find((x) => x.id === id) || { id, cat: 'game', rarity: 'common', price: 0 };
+const sortIds = (ids) => ids.slice().sort((a, b) => items().findIndex((x) => x.id === a) - items().findIndex((x) => x.id === b));
+const errText = (e) => { const c = (e?.code || '').toLowerCase(); return (T[L] || T.en)[c + '_err'] || (T[L] || T.en)[c] || t('unexpected'); };
+const hms = (s) => { s = Math.max(0, Math.floor(s)); return [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60].map((v) => String(v).padStart(2, '0')).join(':'); };
+const ms = (s) => { s = Math.max(0, Math.ceil(s)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+const human = (s) => { const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60; return L === 'he' ? (h ? `${h} ש' ${m} דק'` : `${m} דק'`) : (h ? `${h}h ${m}m` : `${m}m`); };
 
-function applyLang() { document.documentElement.lang = L; try { localStorage.setItem('so-lang', L); } catch { /* */ } for (const n of document.querySelectorAll('[data-t]')) n.textContent = t(n.dataset.t); if (village) village.setNames({ banker: t('banker').split(',')[0], fisher: t('fisher').split(',')[0] }); $('install').textContent = t('install') + '. ' + t('install_help'); }
-const show = (id) => { for (const s of ['s-login', 's-chars', 's-blocked', 's-load', 's-game']) $(s).hidden = s !== id; };
-function toast(msg) { const x = $('toast'); x.textContent = msg; x.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { x.hidden = true; }, 3200); }
-
-// ---- a pixel icon per fish, drawn here (a body, a tail and an eye in the rarity's colour)
-const iconCache = new Map();
-function fishIcon(id, kind = 'f') {
-  const key = kind + id; if (iconCache.has(key)) return iconCache.get(key).cloneNode(true);
-  const c = document.createElement('canvas'); c.width = c.height = 16; const x = c.getContext('2d'); const col = kind === 'f' ? RARITY[rarityOf(id)] : '#8d8266';
-  x.fillStyle = col; for (const [px, py, w, h] of [[3, 6, 9, 5], [4, 5, 6, 1], [4, 11, 6, 1], [12, 5, 2, 7], [14, 4, 1, 2], [14, 10, 1, 2]]) x.fillRect(px, py, w, h);
-  x.fillStyle = 'rgba(0,0,0,.35)'; x.fillRect(3, 10, 9, 1); x.fillStyle = '#fff'; x.fillRect(5, 7, 2, 2); x.fillStyle = '#140b11'; x.fillRect(6, 8, 1, 1);
-  if (kind !== 'f') { x.fillStyle = '#140b11'; x.fillRect(4, 5, 8, 6); x.fillStyle = col; x.fillRect(5, 6, 6, 4); }
-  iconCache.set(key, c); return c.cloneNode(true);
+function applyLang() {
+  document.documentElement.lang = L; try { localStorage.setItem('so-lang', L); } catch { /* */ }
+  for (const n of document.querySelectorAll('[data-t]')) n.textContent = t(n.dataset.t);
+  for (const b of document.querySelectorAll('.seg.lang button')) b.setAttribute('aria-pressed', String(b.dataset.lang === L));
+  if (st) { renderHud(); if (view === 'task') renderTask(true); }
 }
-const prettyId = (id) => id.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
+for (const b of document.querySelectorAll('.seg.lang button')) b.addEventListener('click', () => { L = b.dataset.lang; applyLang(); });
+const SCREENS = ['s-login', 's-chars', 's-blocked', 's-load', 's-village', 's-task'];
+const show = (id) => { for (const s of SCREENS) $(s).hidden = s !== id; $('cv-village').hidden = id !== 's-village' && id !== 's-load'; $('cv-task').hidden = id !== 's-task'; };
+function toast(msg, ms2 = 2800) { const x = $('toast'); x.textContent = msg; x.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { x.hidden = true; }, ms2); }
 
-// ---- the sheet (dialogues, bag, bank)
-const sheet = { open(node) { $('sheet-body').replaceChildren(node); $('sheet').hidden = false; }, close() { $('sheet').hidden = true; $('sheet-body').replaceChildren(); view = null; }, get isOpen() { return !$('sheet').hidden; } };
-let view = null;
-$('sheet-x').addEventListener('click', sheet.close); $('sheet').addEventListener('pointerdown', (e) => { if (e.target === $('sheet')) sheet.close(); });
+// ---- the sheet
+const sheet = {
+  open(node, name = '') { $('sheet-body').replaceChildren(node); $('sheet').hidden = false; sheetView = name; $('sheet').dataset.view = name; },
+  close() { $('sheet').hidden = true; $('sheet-body').replaceChildren(); sheetView = null; $('sheet').dataset.view = ''; },
+  get isOpen() { return !$('sheet').hidden; },
+};
+$('sheet-x').addEventListener('click', () => sheet.close());
+$('sheet').addEventListener('pointerdown', (e) => { if (e.target === $('sheet')) sheet.close(); });
 addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheet.isOpen) sheet.close(); });
 
-// ---- the server calls; each change is retried safely with its key
-async function act(name, body, { keyed = false } = {}) {
-  try { return await rpc(name, keyed ? { ...body, p_key: uuid() } : body); }
+// ---- server calls (each change keyed, so a retry never doubles it)
+async function act(name, body, { keyed = false, quiet = false } = {}) {
+  const b = keyed ? { ...body, p_key: uuid() } : body;
+  try { return await rpc(name, b); }
   catch (e) {
-    if (e.code === 'NO_LEASE') { try { await enter(); return await rpc(name, body); } catch { /* fall through */ } }
+    if (e.code === 'NO_LEASE') { try { await enter(); return await rpc(name, b); } catch { /* fall through */ } }
     if (e.code === 'SESSION_EXPIRED' || e.code === 'SIGNED_OUT') { await toLogin(t('session_expired')); throw e; }
-    toast(errText(e)); throw e;
+    if (e.code === 'CHARACTER_IN_GAME' || e.code === 'CHARACTER_IN_USE') { blocked(e.code); throw e; }
+    if (!quiet) toast(errText(e)); throw e;
   }
 }
-const setState = (s) => { st = s; renderHud(); if (view) view.refresh?.(); };
+function setState(s) {
+  const before = st?.task?.bag || {}, beforeKind = st?.task?.kind;
+  st = s; fetchedAt = Date.now();
+  // what the server has rolled since the last look: each new thing plays its catch
+  if (scene && st.task && st.task.kind === beforeKind) for (const [id, n] of Object.entries(st.task.bag || {})) for (let i = 0; i < Math.min(3, n - (before[id] || 0)); i++) { scene.event(id); newLoot.add(id); }
+  renderHud(); if (view === 'task') renderTask(); if (sheetView && sheetRefresh[sheetView]) sheetRefresh[sheetView]();
+}
+const newLoot = new Set();
+const sheetRefresh = {};
 async function enter() { setState(await rpc('companion_enter', { p_char: me.id, p_session: SESSION })); }
 
-function renderHud() {
-  $('h-name').textContent = me.name; $('h-lv').textContent = t('level', { n: me.level });
-  $('h-tok').textContent = `${st?.tokens ?? 0} ◈`; $('h-tok').title = t('tokens');
-  const a = st?.afk, chip = $('h-afk'); chip.hidden = !a;
-  if (a) { const ready = readyNow(); chip.textContent = a.full ? t('fishing_full') : `${t('fishing_badge')} · ${ready}`; }
-}
-// the attempts waiting, as the server counts them (its own clock, carried by 'now'): the page only displays
-const clockSkew = () => (st?.afk ? Date.parse(st.afk.now) - Date.now() : 0);
-function readyNow() { const a = st?.afk; if (!a) return 0; const el = Math.min(a.cap_s, Math.max(0, (Date.now() + clockSkew() - Date.parse(a.last_at)) / 1000)); return Math.floor(el / a.interval_s); }
-
-// ---- screens
-async function toLogin(msg = '') { stopBeat(); village?.stop(); sheet.close(); show('s-login'); $('login-err').textContent = msg; }
+// ---- sign in, characters, the lock
+async function toLogin(msg = '') { stopBeat(); village?.stop(); scene?.stop(); sheet.close(); view = 'none'; show('s-login'); $('login-err').textContent = msg; }
 $('f-login').addEventListener('submit', async (e) => {
-  e.preventDefault(); const b = e.submitter; b.disabled = true; $('login-err').textContent = '';
+  e.preventDefault(); const b = e.submitter || $('f-login').querySelector('button'); b.disabled = true; $('login-err').textContent = '';
   try { await signIn($('in-user').value, $('in-pass').value); $('in-pass').value = ''; await toChars(); }
   catch (err) { $('login-err').textContent = errText(err); } finally { b.disabled = false; }
 });
 $('b-out').addEventListener('click', async () => { await signOut(); toLogin(); });
-
 async function toChars() {
-  stopBeat(); village?.stop(); sheet.close(); show('s-chars'); $('chars-err').textContent = '';
+  stopBeat(); village?.stop(); scene?.stop(); sheet.close(); view = 'none'; show('s-chars'); $('chars-err').textContent = '';
   try { chars = await rpc('companion_characters'); }
   catch (e) { if (e.code === 'SESSION_EXPIRED' || e.code === 'SIGNED_OUT') return toLogin(t('session_expired')); $('chars-err').textContent = errText(e); chars = []; }
   const ul = $('chars'); ul.replaceChildren(); $('chars-empty').hidden = chars.length > 0;
   for (const c of chars) ul.append(el('li', {}, el('button', { type: 'button', onclick: () => pick(c) },
+    img(portrait(heroLook(c.appearance || {})), 3),
     el('b', {}, c.name, el('small', {}, `${t('level', { n: c.level })} · ${c.job || t('job_none')}`)),
-    c.in_game ? el('span', { class: 'badge warn' }, t('in_game')) : c.fishing ? el('span', { class: 'badge' }, t('fishing_badge')) : null)));
+    c.in_game ? el('span', { class: 'badge warn' }, t('in_game')) : c.task ? el('span', { class: 'badge' }, t('task_' + c.task)) : null)));
 }
+function blocked(code) { stopBeat(); village?.stop(); scene?.stop(); sheet.close(); view = 'none'; $('blk-name').textContent = me?.name || ''; $('blk-msg').textContent = code === 'CHARACTER_IN_GAME' ? t('blocked_game') : t('blocked_use'); show('s-blocked'); }
 async function pick(c) {
   me = c; show('s-load');
   try { await enter(); }
   catch (e) {
-    if (e.code === 'CHARACTER_IN_GAME' || e.code === 'CHARACTER_IN_USE') { $('blk-name').textContent = c.name; $('blk-msg').textContent = e.code === 'CHARACTER_IN_GAME' ? t('blocked_game') : t('blocked_use'); show('s-blocked'); return; }
+    if (e.code === 'CHARACTER_IN_GAME' || e.code === 'CHARACTER_IN_USE') return blocked(e.code);
     if (e.code === 'SESSION_EXPIRED') return toLogin(t('session_expired'));
     show('s-chars'); $('chars-err').textContent = errText(e); return;
   }
-  if (!village) { village = createVillage($('cv'), { onNear: (id) => { nearNpc = id; const b = $('b-talk'); b.hidden = !id || sheet.isOpen; if (id) b.textContent = `${t('talk')}: ${t(id).split(',')[0]}`; }, onTap: (id) => talk(id) }); village.setNames({ banker: t('banker').split(',')[0], fisher: t('fisher').split(',')[0] }); bindJoy(); }
-  village.setHero({ appearance: c.appearance, gear: c.gear, weapon: c.weapon }); village.size();
-  show('s-game'); $('hint').style.opacity = 1; setTimeout(() => { $('hint').style.opacity = 0; }, 6000);
-  village.start(); startBeat(); renderHud();
-  if (st.afk) village.startFishing();
-  if (st.afk && readyNow() > 0 && !st.afk.full) { /* the fisher's welcome-back summary is shown when the player talks to him */ }
+  look = heroLook(c.appearance || {});
+  if (!village) village = createVillage($('cv-village'), { onArrive: (id) => talk(id), onTapEmpty: () => { if (sheet.isOpen) sheet.close(); } });
+  village.setHero(look, 'hero-' + c.id);
+  $('h-face').src = dataUrl(portrait(look), 2); $('h-coin-ic').src = dataUrl(icon('drachma'), 2); $('b-bag-ic').src = dataUrl(icon('bag'), 2);
+  startBeat();
+  if (st.task) openTask(); else toVillage();
 }
 $('blk-retry').addEventListener('click', () => pick(me)); $('blk-back').addEventListener('click', toChars);
-let nearNpc = null;
-$('b-talk').addEventListener('click', () => nearNpc && talk(nearNpc));
-$('b-bag').addEventListener('click', () => openBag()); $('b-set').addEventListener('click', () => openSettings());
 
-// the lock is kept with a heartbeat; leaving tells the server at once, a crash lets it run out by itself
-function startBeat() { stopBeat(); hb = setInterval(() => { rpc('companion_enter', { p_char: me.id, p_session: SESSION }).then(setState).catch((e) => { if (e.code === 'CHARACTER_IN_GAME' || e.code === 'CHARACTER_IN_USE') { stopBeat(); village.stop(); sheet.close(); $('blk-name').textContent = me.name; $('blk-msg').textContent = e.code === 'CHARACTER_IN_GAME' ? t('blocked_game') : t('blocked_use'); show('s-blocked'); } }); }, 30000); tick = setInterval(() => st && renderHud(), 10000); }
-function stopBeat() { clearInterval(hb); clearInterval(tick); }
+// the lock is kept with a heartbeat (it also brings the task's new rolls); leaving tells the server, a crash lets it run out
+function startBeat() { stopBeat(); hb = setInterval(beat, 30000); tick = setInterval(() => { if (view === 'task') renderClock(); else renderHud(); }, 1000); }
+function stopBeat() { clearInterval(hb); clearInterval(tick); clearTimeout(pollT); }
+async function beat() { if (!me) return; try { setState(await rpc('companion_enter', { p_char: me.id, p_session: SESSION })); } catch (e) { if (e.code === 'CHARACTER_IN_GAME' || e.code === 'CHARACTER_IN_USE') blocked(e.code); } }
 function leave() { if (me && signedIn()) rpc('companion_leave', { p_char: me.id, p_session: SESSION }, { keepalive: true }).catch(() => {}); }
 addEventListener('pagehide', leave);
-document.addEventListener('visibilitychange', () => { if (!village) return; if (document.hidden) village.stop(); else if (!$('s-game').hidden) { village.start(); rpc('companion_enter', { p_char: me.id, p_session: SESSION }).then(setState).catch(() => {}); } });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { village?.stop(); scene?.stop(); return; }
+  if (view === 'village') village?.start(); else if (view === 'task') scene?.start();
+  if (me && view !== 'none') beat();
+});
 
-// ---- the joystick
-function bindJoy() {
-  const j = $('joy'), k = $('joy-k'); let id = null;
-  const move = (e) => { const r = j.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; let dx = (e.clientX - cx) / (r.width / 2), dy = (e.clientY - cy) / (r.height / 2); const m = Math.hypot(dx, dy); if (m > 1) { dx /= m; dy /= m; } village.joy.x = dx; village.joy.y = dy; k.style.transform = `translate(${dx * 38}px, ${dy * 38}px)`; };
-  j.addEventListener('pointerdown', (e) => { id = e.pointerId; j.setPointerCapture(id); move(e); e.preventDefault(); });
-  j.addEventListener('pointermove', (e) => { if (e.pointerId === id) move(e); });
-  const up = (e) => { if (e.pointerId !== id) return; id = null; village.joy.x = village.joy.y = 0; k.style.transform = ''; };
-  j.addEventListener('pointerup', up); j.addEventListener('pointercancel', up);
+// ---- the village
+function toVillage(nearNpc = null) {
+  scene?.stop(); view = 'village'; show('s-village');
+  if (nearNpc) village.placeNear(nearNpc);
+  village.start(); renderHud();
+  $('hint').style.opacity = 1; clearTimeout(toVillage.h); toVillage.h = setTimeout(() => { $('hint').style.opacity = 0; }, 5000);
+}
+function renderHud() {
+  if (!me || !st) return;
+  $('h-name').textContent = me.name; $('h-lv').textContent = t('level', { n: st.level ?? me.level }); $('h-coin-n').textContent = (st.coins || 0).toLocaleString('en');
+  const k = st.task, chip = $('h-task'); chip.hidden = !k || view !== 'village';
+  if (k) { $('h-task-ic').src = dataUrl(icon(TOOL[k.kind]), 2); $('h-task-t').textContent = `${t('task_' + k.kind)} · ${hms(workedNow())}`; }
+}
+$('h-task').addEventListener('click', () => openTask());
+$('b-bag').addEventListener('click', () => openBag());
+$('b-set').addEventListener('click', () => openSettings());
+// the time worked, as the server counts it (its 'worked_s' plus the seconds since that answer, while it runs)
+function workedNow() { const k = st?.task; if (!k) return 0; const run = !k.paused && !k.full; return Math.min(k.cap_s, k.worked_s + (run ? (Date.now() - fetchedAt) / 1000 : 0)); }
+
+// ---- the villagers
+function npcHead(id) {
+  return el('div', { class: 'talk' }, img(portrait(NPC_LOOKS[id]), 2, { class: 'face' }),
+    el('div', {}, el('h2', {}, t(id)), el('span', { class: 'role' }, t(id + '_role')), el('p', { class: 'say' }, t(id + '_hi'))));
+}
+function talk(id) {
+  if (view !== 'village') return;
+  const body = el('div', {}, npcHead(id));
+  const task = TASK_OF[id];
+  if (task) {
+    const loot = sortIds(items().filter((x) => x.activity === task).map((x) => x.id));
+    const iv = st.rules?.[task] || 300;
+    body.append(el('div', { class: 'box' }, el('h3', {}, t('you_get')), el('div', { class: 'icons' }, loot.map((x) => img(icon(x), 2, { title: itemName(x, L), style: `box-shadow: inset 0 0 0 1px ${RARITY[meta(x).rarity] || '#888'}` })), task === 'shipwright' ? img(icon('coins'), 2, { title: t('wage', { n: st.rules?.ship_wage ?? 3 }) }) : null),
+      el('p', { class: 'note', style: 'text-align:start;margin:6px 0 0' }, t('every', { m: Math.round(iv / 60), h: Math.round((st.rules?.cap_s || 28800) / 3600) }) + (task === 'shipwright' ? ' ' + t('wage', { n: st.rules?.ship_wage ?? 3 }) + '.' : ''))));
+    const cur = st.task?.kind;
+    if (cur && cur !== task) body.append(el('p', { class: 'note', style: 'color:#ffb340;margin:6px 0' }, t('busy_other', { task: t('task_' + cur) })), el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('not_now')), el('button', { class: 'btn gold', type: 'button', onclick: () => { sheet.close(); openTask(); } }, t('go_task', { task: t('task_' + cur) }))));
+    else if (cur === task) body.append(el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('not_now')), el('button', { class: 'btn gold', type: 'button', onclick: () => { sheet.close(); openTask(); } }, t('back_to_work'))));
+    else body.append(el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('not_now')), el('button', { class: 'btn gold', type: 'button', id: 'b-accept', onclick: async (e) => { e.currentTarget.disabled = true; try { setState(await act('companion_task_start', { p_char: me.id, p_kind: task })); sheet.close(); openTask(); } catch { e.currentTarget && (e.currentTarget.disabled = false); } } }, t('accept'))));
+  } else if (id === 'trader') body.append(el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('not_now')), el('button', { class: 'btn gold', type: 'button', onclick: () => openTrader() }, t('open_trade'))));
+  else if (id === 'banker') body.append(el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('not_now')), el('button', { class: 'btn gold', type: 'button', onclick: () => openBank() }, t('open_bank'))));
+  sheet.open(body, 'talk-' + id);
 }
 
-// ---- dialogues
-function talk(id) { if (sheet.isOpen) return; $('b-talk').hidden = true; if (id === 'fisher') openFisher(); else if (id === 'banker') openBank(); }
-const slot = (id, n, { kind = 'f', sel = false, dim = false, onclick } = {}) => { const b = el('button', { type: 'button', class: 'slot' + (sel ? ' sel' : '') + (dim ? ' dim' : ''), style: `--rc:${kind === 'f' ? RARITY[rarityOf(id)] : '#6b6050'}`, 'aria-label': `${kind === 'f' ? fishName(id) : prettyId(id)} ${n}`, onclick }, fishIcon(id, kind), el('small', {}, n > 1 ? n : '')); return b; };
+// ---- a task's own screen (side view): the timer, the loot so far, Finish
+function openTask() {
+  if (!st?.task) return toVillage();
+  sheet.close(); village?.stop(); view = 'task'; show('s-task');
+  const kind = st.task.kind;
+  if (!scene || scene.kind !== kind) { scene?.stop(); scene = createScene($('cv-task'), kind, look, 'hero-' + me.id); scene.kind = kind; }
+  scene.set(st.task); scene.start(); newLoot.clear();
+  $('t-ic').src = dataUrl(icon(TOOL[kind]), 2);
+  renderTask(true); schedulePoll();
+  // a quick look now: the attempts due since the last heartbeat
+  beat();
+}
+function renderTask(full = false) {
+  const k = st?.task; if (!k) return;
+  scene?.set(k);
+  if (full) { $('t-title').textContent = t('task_' + k.kind); }
+  const grid = $('t-loot'), ids = sortIds(Object.keys(k.bag || {}));
+  const rows = ids.map((id) => slot(id, k.bag[id], { cls: newLoot.has(id) ? 'new' : '' }));
+  if (k.coins > 0) rows.push(slot('coins', k.coins, { title: t('coins') }));
+  grid.replaceChildren(...rows); newLoot.clear();
+  $('t-empty').hidden = rows.length > 0;
+  renderClock();
+}
+function renderClock() {
+  const k = st?.task; if (!k) return;
+  $('t-timer').textContent = hms(workedNow());
+  const since = (Date.now() - fetchedAt) / 1000;
+  $('t-sub').textContent = k.paused ? t('paused') : k.full ? t('full') : `${t('attempts', { n: k.attempts, m: k.max })} · ${t('next_in', { t: ms((k.next_s ?? 0) - since) })}`;
+  $('t-bar').style.width = `${Math.min(100, (workedNow() / k.cap_s) * 100)}%`;
+}
+// when the next roll is due, ask the server a moment later (the heartbeat would bring it anyway, within 30 s)
+function schedulePoll() {
+  clearTimeout(pollT);
+  if (view !== 'task' || !st?.task || st.task.full || st.task.paused) return;
+  const wait = Math.max(2, (st.task.next_s ?? 30) + 1.5) * 1000;
+  pollT = setTimeout(async () => { await beat(); schedulePoll(); }, Math.min(wait, 30000));
+}
+$('t-village').addEventListener('click', () => { clearTimeout(pollT); toVillage(NPC_OF[st?.task?.kind]); });
+$('t-finish').addEventListener('click', async (e) => {
+  const b = e.currentTarget; b.disabled = true;
+  try {
+    const kind = st.task.kind;
+    const r = await act('companion_task_finish', { p_char: me.id }, { keyed: true });
+    setState(r.state); clearTimeout(pollT);
+    const ids = sortIds(Object.keys(r.got || {}));
+    const body = el('div', { class: 'reveal' }, el('h2', {}, t('done_title')), el('p', { class: 'note' }, t('done_sub', { time: human(r.worked_s || 0), n: r.attempts })),
+      ids.length || r.coins ? el('div', { class: 'grid', style: 'width:100%' }, ids.map((id) => slot(id, r.got[id])), r.coins ? slot('coins', r.coins) : null) : el('p', {}, t('done_none')),
+      el('div', { class: 'acts one', style: 'width:100%' }, el('button', { class: 'btn gold', type: 'button', id: 'b-done', onclick: () => { sheet.close(); toVillage(NPC_OF[kind]); } }, t('collect_ok'))));
+    sheet.open(body, 'done');
+  } catch { /* shown */ } finally { b.disabled = false; }
+});
 
+// ---- an item slot
+function slot(id, n, { cls = '', onclick, title, attrs = {} } = {}) {
+  const m = meta(id), rc = RARITY[m.rarity] || 'rgba(246,214,122,.25)';
+  return el('button', { type: 'button', class: `slot ${cls}`, style: `--rc:${rc}`, 'data-id': id, 'aria-label': `${title || itemName(id, L)} ${n ?? ''}`, title: title || itemName(id, L), onclick, ...attrs },
+    img(icon(id), 2), n > 1 || id === 'coins' ? el('small', { dir: 'ltr' }, n >= 10000 ? Math.floor(n / 1000) + 'k' : n) : null);
+}
+const infoLine = (id) => { const m = meta(id); return [el('b', { style: `color:${RARITY[m.rarity] || '#fff'}` }, itemName(id, L)), ' · ', m.cat === 'loot' ? `${m.price} ${t('coins')} · ${t('sell_at')}` : t('bank_it')]; };
+
+// ---- the bag
 function openBag() {
-  const inv = st.inv, ids = Object.keys(inv);
-  const body = el('div', {}, el('h2', {}, t('bag')), el('p', {}, `${st.tokens} ◈ ${t('tokens')}`));
-  if (!ids.length) body.append(el('p', {}, t('empty_bag')));
-  else { const g = el('div', { class: 'grid' }); for (const id of ids) g.append(slot(id, inv[id])); body.append(g); for (const id of ids) body.append(el('div', { class: 'line' }, el('b', {}, fishName(id)), el('span', {}, `${inv[id]} · ${t('price', { n: st.fish.find((f) => f.id === id).price })}`))); }
-  view = { refresh: openBagIfOpen }; sheet.open(body);
-  function openBagIfOpen() { if (sheet.isOpen && view?.refresh === openBagIfOpen) openBag(); }
-}
-
-function openSettings() {
-  const lang = el('div', { class: 'seg', role: 'group', 'aria-label': t('language') }, ['he', 'en', 'es'].map((c) => el('button', { type: 'button', 'aria-pressed': String(c === L), onclick: () => { L = c; applyLang(); openSettings(); renderHud(); } }, { he: 'עברית', en: 'English', es: 'Español' }[c])));
-  const q = Number(localStorage.getItem('so-companion-quality') || .5);
-  const qual = el('div', { class: 'seg', role: 'group' }, [[.35, 'Low'], [.5, 'Normal'], [.8, 'High']].map(([v, n]) => el('button', { type: 'button', 'aria-pressed': String(Math.abs(q - v) < .01), onclick: () => { try { localStorage.setItem('so-companion-quality', String(v)); } catch { /* */ } village.size(); openSettings(); } }, n)));
-  sheet.open(el('div', {}, el('h2', {}, t('settings')), el('p', {}, t('language')), lang, el('p', {}, 'Graphics'), qual, el('p', {}, t('leave_note')),
-    el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: async () => { sheet.close(); await rpc('companion_leave', { p_char: me.id, p_session: SESSION }).catch(() => {}); toChars(); } }, t('switch')), el('button', { class: 'btn quiet', type: 'button', onclick: async () => { sheet.close(); await rpc('companion_leave', { p_char: me.id, p_session: SESSION }).catch(() => {}); await signOut(); toLogin(); } }, t('sign_out')))));
-}
-
-// ---- the fisherman
-function openFisher(summary = null, tab = 'main') {
-  const body = el('div', {}); const a = st.afk;
-  body.append(el('h2', {}, t('fisher').split(',')[0]));
   const render = () => {
-    const A = st.afk, ready = readyNow(); body.replaceChildren(el('h2', {}, t('fisher').split(',')[0]));
-    if (tab === 'main') {
-      body.append(el('p', {}, summary ? '' : t('fisher_hi')));
-      if (summary) { body.append(el('p', {}, el('b', {}, t('away')), ` · ${t('attempts', { n: summary.attempts })}`)); const ids = Object.keys(summary.caught); if (!ids.length) body.append(el('p', {}, t('away_none'))); else { const g = el('div', { class: 'grid' }); for (const id of ids) g.append(slot(id, summary.caught[id])); body.append(g); } }
-      body.append(el('p', {}, A ? (A.full ? t('fishing_full') : t('fishing_now', { m: Math.round(A.interval_s / 60), h: Math.round(A.cap_s / 3600) })) : t('not_fishing')));
-      const acts = el('div', { class: 'acts' });
-      if (!A) acts.append(el('button', { class: 'btn gold', type: 'button', onclick: async () => { try { setState(await act('companion_fish_start', { p_char: me.id })); summary = null; village.startFishing(); sheet.close(); toast(t('leave_note')); } catch { /* shown */ } } }, t('start_fishing')));
-      else { acts.append(el('button', { class: 'btn gold', type: 'button', onclick: async () => collect(false) }, ready ? t('collect', { n: ready }) : t('collect0'))); acts.append(el('button', { class: 'btn', type: 'button', onclick: async () => collect(true) }, t('stop_fishing'))); }
-      acts.append(el('button', { class: 'btn', type: 'button', onclick: () => { tab = 'sell'; render(); } }, t('sell_fish')), el('button', { class: 'btn', type: 'button', onclick: () => { tab = 'book'; render(); } }, t('fish_book')));
-      body.append(acts);
-    } else if (tab === 'sell') {
-      body.append(el('p', {}, `${st.tokens} ◈`)); const inv = st.inv; const ids = Object.keys(inv);
-      if (!ids.length) body.append(el('p', {}, t('empty_bag')));
-      for (const id of ids) { const f = st.fish.find((x) => x.id === id); body.append(el('div', { class: 'line' }, el('span', {}, el('b', {}, fishName(id)), ` ×${inv[id]} · ${t('price', { n: f.price })}`), el('span', { class: 'row' }, el('button', { class: 'btn', type: 'button', onclick: async () => { setState(await act('companion_sell', { p_char: me.id, p_item: id, p_n: 1 }, { keyed: true })); render(); } }, `${t('sell')} 1`), inv[id] > 1 ? el('button', { class: 'btn', type: 'button', onclick: async () => { setState(await act('companion_sell', { p_char: me.id, p_item: id, p_n: inv[id] }, { keyed: true })); render(); } }, t('sell_all')) : null))); }
-      body.append(el('div', { class: 'acts' }, el('button', { class: 'btn quiet', type: 'button', onclick: () => { tab = 'main'; render(); } }, '←')));
-    } else {
-      for (const f of st.fish) { const n = st.book[f.id] || 0; body.append(el('div', { class: 'line' }, el('span', { style: `color:${RARITY[f.rarity]}` }, el('b', {}, n ? fishName(f.id) : '???'), ` · ${t('rarity_' + f.rarity)} · ${t('chance', { n: f.chance })}`), el('span', {}, n ? t('book_caught', { n }) : t('book_unknown')))); }
-      body.append(el('div', { class: 'acts' }, el('button', { class: 'btn quiet', type: 'button', onclick: () => { tab = 'main'; render(); } }, '←')));
-    }
+    const inv = st.inv || {}, ids = sortIds(Object.keys(inv)), goods = ids.filter((i) => meta(i).cat === 'loot'), game = ids.filter((i) => meta(i).cat !== 'loot');
+    const info = el('p', { class: 'info' }, ' ');
+    const pickI = (id) => () => { info.replaceChildren(...infoLine(id)); for (const s of body.querySelectorAll('.slot')) s.classList.toggle('sel', s.dataset.id === id); };
+    body.replaceChildren(el('h2', {}, t('bag')), el('div', { class: 'coinline' }, img(icon('coins'), 2), (st.coins || 0).toLocaleString('en'), el('span', { class: 'note' }, ' ' + t('coins'))));
+    if (!ids.length) body.append(el('p', { class: 'note', style: 'margin:14px auto' }, t('bag_empty')));
+    if (goods.length) body.append(el('div', { class: 'sec' }, el('h3', {}, t('goods'))), el('div', { class: 'grid' }, goods.map((id) => slot(id, inv[id], { onclick: pickI(id) }))));
+    if (game.length) body.append(el('div', { class: 'sec' }, el('h3', {}, t('game_items'))), el('div', { class: 'grid' }, game.map((id) => slot(id, inv[id], { onclick: pickI(id) }))));
+    if (ids.length) body.append(info);
   };
-  async function collect(stop) { try { const r = await act('companion_fish_claim', { p_char: me.id, p_stop: stop }, { keyed: true }); setState(r.state); summary = { attempts: r.attempts, caught: r.caught }; if (stop) village.stopFishing(); tab = 'main'; render(); } catch { /* shown */ } }
-  view = { refresh: render }; sheet.open(body); render();
-  if (a && readyNow() > 0 && !summary) { /* shown on demand: Collect */ }
+  const body = el('div', {}); sheetRefresh.bag = render; render(); sheet.open(body, 'bag');
 }
 
-// ---- the banker: two clear sections (bag, bank) behind a switch, tap an item, choose how many
+// ---- the trader: put goods on the counter, see what they bring, trade
+function openTrader() {
+  let offer = {}, result = null;
+  const body = el('div', {});
+  const render = () => {
+    const inv = st.inv || {}, goods = sortIds(Object.keys(inv).filter((i) => meta(i).cat === 'loot'));
+    const value = Object.entries(offer).reduce((a, [id, n]) => a + meta(id).price * n, 0), rolls = Math.min(60, Math.floor(value / (st.rules?.trade_roll_value || 40)));
+    body.replaceChildren(npcHead('trader'));
+    if (result) {
+      const ids = sortIds(Object.keys(result.got || {}));
+      body.append(el('div', { class: 'reveal' }, el('h2', {}, t('trade_done')), el('div', { class: 'coinline' }, img(icon('coins'), 2), `+${result.coins}`),
+        el('h3', {}, t('bonus')), ids.length ? el('div', { class: 'icons' }, ids.map((id) => slot(id, result.got[id], { onclick: () => { info.replaceChildren(...infoLine(id)); } }))) : el('p', { class: 'note' }, t('no_bonus'))));
+      const info = el('p', { class: 'info' }, ids.length ? infoLine(ids[0]) : ' '); body.append(info);
+      body.append(el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('close')), el('button', { class: 'btn gold', type: 'button', onclick: () => { result = null; render(); } }, t('trade_title'))));
+      return;
+    }
+    const left = goods.filter((id) => (inv[id] || 0) - (offer[id] || 0) > 0);
+    body.append(el('div', { class: 'sec' }, el('h3', {}, t('goods')), el('span', {}, t('offer_hint'))));
+    body.append(left.length ? el('div', { class: 'grid', id: 'tr-goods' }, left.map((id) => slot(id, inv[id] - (offer[id] || 0), { onclick: () => { offer[id] = inv[id]; render(); } }))) : el('p', { class: 'note', style: 'margin:6px auto' }, goods.length ? ' ' : t('no_goods')));
+    const oids = sortIds(Object.keys(offer));
+    body.append(el('div', { class: 'sec' }, el('h3', {}, t('offer')), el('span', { class: 'row' }, left.length ? el('button', { class: 'btn', type: 'button', style: 'min-height:34px;font-size:14px', onclick: () => { for (const id of goods) offer[id] = inv[id]; render(); } }, t('offer_all')) : null, oids.length ? el('button', { class: 'btn', type: 'button', style: 'min-height:34px;font-size:14px', onclick: () => { offer = {}; render(); } }, t('clear')) : null)));
+    body.append(el('div', { class: 'grid bank10', id: 'tr-offer', style: 'min-height:64px' }, oids.map((id) => slot(id, offer[id], { onclick: () => { delete offer[id]; render(); } }))));
+    body.append(el('p', { class: 'info' }, oids.length ? t('you_receive', { n: value, r: rolls }) : t('offer_hint')));
+    body.append(el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: () => sheet.close() }, t('close')), el('button', { class: 'btn gold', type: 'button', id: 'b-trade', disabled: !oids.length, onclick: async (e) => {
+      e.currentTarget.disabled = true;
+      try { const r = await act('companion_trade', { p_char: me.id, p_offer: offer }, { keyed: true }); offer = {}; result = r; setState(r.state); render(); } catch { render(); }
+    } }, t('trade_go'))));
+  };
+  sheetRefresh.trader = () => { const inv = st.inv || {}; for (const id of Object.keys(offer)) if (!(inv[id] >= offer[id])) delete offer[id]; render(); };
+  render(); sheet.open(body, 'trader');
+}
+
+// ---- the banker: the 10 slots (read-only here), the coin vault, and the bag: tap or drag a game item to deposit it
 async function openBank() {
   try { bank = await act('companion_bank', {}); } catch { return; }
-  let side = 'bag', sel = null, qty = 1; const body = el('div', {});
-  const used = () => bank.items.length;
+  let sel = null, qty = 1, coinQty = 0, note = '';
+  const body = el('div', {});
   const render = () => {
-    body.replaceChildren(el('h2', {}, t('banker').split(',')[0]), el('p', {}, t('banker_hi')));
-    body.append(el('div', { class: 'seg' }, ['bag', 'bank'].map((s) => el('button', { type: 'button', 'aria-pressed': String(side === s), onclick: () => { side = s; sel = null; qty = 1; render(); } }, s === 'bag' ? t('in_bag') : `${t('bank')} · ${used()} / 10`))));
-    if (side === 'bank') body.append(el('p', {}, t('in_bank')));
-    const g = el('div', { class: 'grid' });
-    if (side === 'bag') { for (const id of Object.keys(st.inv)) g.append(slot(id, st.inv[id], { sel: sel?.id === id, onclick: () => { sel = { id, kind: 'f', max: st.inv[id] }; qty = 1; render(); } })); if (!Object.keys(st.inv).length) body.append(el('p', {}, t('empty_bag'))); }
-    else { for (let i = 0; i < 10; i++) { const it = bank.items.find((x) => x.slot === i); if (!it) g.append(el('div', { class: 'slot empty', 'aria-hidden': 'true' })); else { const mine = it.kind === 'f'; g.append(slot(it.id, it.n, { kind: it.kind, dim: !mine, sel: sel?.slot === i, onclick: () => { if (!mine) { toast(t('game_item')); return; } sel = { id: it.id, kind: 'f', slot: i, max: it.n }; qty = 1; render(); } })); } } }
+    const inv = st.inv || {}, ids = sortIds(Object.keys(inv)), used = bank.items.length;
+    body.replaceChildren(npcHead('banker'));
+    // the bank
+    body.append(el('div', { class: 'sec' }, el('h3', {}, t('bank_title')), el('span', { dir: 'ltr', id: 'bk-used' }, t('bank_slots', { n: used }))));
+    const g = el('div', { class: 'grid bank10', id: 'bk-grid' });
+    for (let i = 0; i < 10; i++) { const it = bank.items.find((x) => x.slot === i); g.append(it ? slot(it.kind === 'f' ? it.id : it.id, it.n, { cls: 'ro', onclick: () => { note = `${itemName(it.id, L)}: ${t('readonly')}`; render(); } }) : el('div', { class: 'slot empty', 'aria-hidden': 'true' })); }
     body.append(g);
-    if (sel) {
-      const name = sel.kind === 'f' ? fishName(sel.id) : prettyId(sel.id);
-      const inp = el('input', { type: 'number', inputmode: 'numeric', min: 1, max: sel.max, value: qty, 'aria-label': t('amount'), oninput: (e) => { qty = Math.max(1, Math.min(sel.max, parseInt(e.target.value || '1', 10) || 1)); } });
-      body.append(el('div', { class: 'line' }, el('b', {}, name), el('span', {}, `×${sel.max}`)), el('div', { class: 'qty' }, el('button', { class: 'btn', type: 'button', onclick: () => { qty = Math.max(1, qty - 1); inp.value = qty; } }, '−'), inp, el('button', { class: 'btn', type: 'button', onclick: () => { qty = Math.min(sel.max, qty + 1); inp.value = qty; } }, '+'), el('button', { class: 'btn quiet', type: 'button', onclick: () => { qty = sel.max; inp.value = qty; } }, t('max'))));
-      body.append(el('div', { class: 'acts' }, el('button', { class: 'btn gold', type: 'button', onclick: async () => {
-        try { const r = await act(side === 'bag' ? 'companion_bank_deposit' : 'companion_bank_withdraw', { p_char: me.id, p_item: sel.id, p_n: qty }, { keyed: true }); bank = r.bank; setState(r.state); sel = null; qty = 1; render(); } catch { /* shown */ } } }, side === 'bag' ? t('deposit') : t('withdraw'))));
-    } else body.append(el('p', {}, t('select_item')));
+    body.append(el('div', { class: 'line' }, el('span', { class: 'coinline' }, img(icon('drachma'), 2), el('span', { id: 'bk-vault' }, (bank.drachma || 0).toLocaleString('en'))), el('span', { class: 'note' }, t('vault'))));
+    body.append(el('p', { class: 'note', style: 'text-align:start;margin:2px 0 8px' }, t('bank_rules')));
+    // the bag
+    body.append(el('div', { class: 'sec' }, el('h3', {}, t('bag')), el('span', {}, t('drag_hint'))));
+    if (!ids.length) body.append(el('p', { class: 'note', style: 'margin:6px auto' }, t('bag_empty')));
+    else body.append(el('div', { class: 'grid', id: 'bk-bag' }, ids.map((id) => { const ok = meta(id).cat !== 'loot'; return slot(id, inv[id], { cls: (ok ? '' : 'dim') + (sel === id ? ' sel' : ''), attrs: { 'data-bankable': ok ? '1' : '0' } }); })));
+    if (sel && inv[sel]) {
+      qty = Math.max(1, Math.min(inv[sel], qty));
+      const inp = el('input', { type: 'number', inputmode: 'numeric', min: 1, max: inv[sel], value: qty, 'aria-label': t('amount'), oninput: (e) => { qty = Math.max(1, Math.min(inv[sel], parseInt(e.target.value || '1', 10) || 1)); } });
+      body.append(el('p', { class: 'info' }, infoLine(sel)), el('div', { class: 'qty' }, el('button', { class: 'btn', type: 'button', onclick: () => { qty = Math.max(1, qty - 1); inp.value = qty; } }, '−'), inp, el('button', { class: 'btn', type: 'button', onclick: () => { qty = Math.min(inv[sel], qty + 1); inp.value = qty; } }, '+'), el('button', { class: 'btn', type: 'button', onclick: () => { qty = inv[sel]; inp.value = qty; } }, t('max'))),
+        el('div', { class: 'acts one' }, el('button', { class: 'btn gold', type: 'button', id: 'b-deposit', onclick: () => deposit(sel, qty) }, `${t('deposit')} · ${itemName(sel, L)}`)));
+    } else if (note) body.append(el('p', { class: 'info' }, note));
+    // drachmas
+    const purse = st.coins || 0; coinQty = Math.max(0, Math.min(purse, coinQty || purse));
+    const cin = el('input', { type: 'number', inputmode: 'numeric', min: 0, max: purse, value: coinQty, id: 'bk-coins', 'aria-label': t('amount'), oninput: (e) => { coinQty = Math.max(0, Math.min(purse, parseInt(e.target.value || '0', 10) || 0)); } });
+    body.append(el('div', { class: 'sec' }, el('h3', {}, t('deposit_coins')), el('span', { class: 'coinline', style: 'font-size:15px' }, img(icon('drachma'), 1), purse.toLocaleString('en'))),
+      el('div', { class: 'qty' }, el('button', { class: 'btn', type: 'button', onclick: () => { coinQty = Math.max(0, coinQty - 10); cin.value = coinQty; } }, '−'), cin, el('button', { class: 'btn', type: 'button', onclick: () => { coinQty = Math.min(purse, coinQty + 10); cin.value = coinQty; } }, '+'), el('button', { class: 'btn gold', type: 'button', id: 'b-dep-coins', disabled: !purse, onclick: depositCoins }, t('deposit'))));
+    bindDrag();
   };
-  view = { refresh: () => { if (sheet.isOpen) render(); } }; sheet.open(body); render();
+  async function deposit(id, n) {
+    if (meta(id).cat === 'loot') { note = t('not_bankable'); sel = null; render(); return; }
+    try { const r = await act('companion_bank_deposit', { p_char: me.id, p_item: id, p_n: n }, { keyed: true }); bank = r.bank; sel = null; qty = 1; note = `${itemName(id, L)} ×${n}: ${t('deposited')}`; setState(r.state); flashBank(); }
+    catch { /* shown */ }
+  }
+  async function depositCoins() {
+    if (!(coinQty > 0)) return;
+    try { const n = coinQty; const r = await act('companion_bank_deposit_coins', { p_char: me.id, p_n: n }, { keyed: true }); bank = r.bank; coinQty = 0; note = `${n} ${t('coins')}: ${t('deposited')}`; setState(r.state); }
+    catch { /* shown */ }
+  }
+  const flashBank = () => { const g = $('bk-grid'); g?.classList.add('over'); setTimeout(() => g?.classList.remove('over'), 400); };
+  // tap selects; dragging a bankable item onto the bank deposits the whole stack
+  function bindDrag() {
+    for (const s of body.querySelectorAll('#bk-bag .slot')) {
+      let start = null, ghost = null;
+      s.addEventListener('pointerdown', (e) => { start = { x: e.clientX, y: e.clientY, id: e.pointerId }; s.setPointerCapture(e.pointerId); });
+      s.addEventListener('pointermove', (e) => {
+        if (!start || e.pointerId !== start.id) return;
+        if (!ghost && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 8) { if (s.dataset.bankable !== '1') return; ghost = el('img', { class: 'ghost', src: dataUrl(icon(s.dataset.id), 3), alt: '' }); document.body.append(ghost); }
+        if (ghost) { ghost.style.left = e.clientX + 'px'; ghost.style.top = e.clientY + 'px'; const g = $('bk-grid'), r = g.getBoundingClientRect(); g.classList.toggle('over', e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom); }
+      });
+      const end = (e) => {
+        if (!start || e.pointerId !== start.id) return;
+        const id = s.dataset.id, was = ghost; start = null;
+        if (was) { was.remove(); ghost = null; const g = $('bk-grid'), r = g.getBoundingClientRect(); g.classList.remove('over'); if (e.type === 'pointerup' && e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom) deposit(id, st.inv[id] || 0); return; }
+        if (e.type !== 'pointerup') return;
+        if (s.dataset.bankable !== '1') { note = `${itemName(id, L)}: ${t('not_bankable')}`; sel = null; render(); return; }
+        sel = sel === id ? null : id; qty = st.inv[id] || 1; note = ''; render();
+      };
+      s.addEventListener('pointerup', end); s.addEventListener('pointercancel', end);
+    }
+  }
+  sheetRefresh.bank = () => { if (sel && !st.inv?.[sel]) sel = null; render(); };
+  render(); sheet.open(body, 'bank');
+}
+
+// ---- settings
+function openSettings() {
+  const body = el('div', {}, el('h2', {}, t('settings')), el('p', {}, t('language')),
+    el('div', { class: 'seg', role: 'group', 'aria-label': t('language') }, ['he', 'en'].map((c) => el('button', { type: 'button', 'aria-pressed': String(c === L), onclick: () => { L = c; applyLang(); openSettings(); } }, { he: 'עברית', en: 'English' }[c]))),
+    el('div', { class: 'acts' }, el('button', { class: 'btn', type: 'button', onclick: async () => { sheet.close(); await rpc('companion_leave', { p_char: me.id, p_session: SESSION }).catch(() => {}); me = null; toChars(); } }, t('switch')),
+      el('button', { class: 'btn', type: 'button', onclick: async () => { sheet.close(); await rpc('companion_leave', { p_char: me.id, p_session: SESSION }).catch(() => {}); me = null; await signOut(); toLogin(); } }, t('sign_out'))));
+  sheet.open(body, 'settings');
 }
 
 // ---- start
 applyLang();
-if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !/[?&]nosw\b/.test(location.search)) navigator.serviceWorker.register('sw.js').catch(() => {});
 (async () => { if (signedIn()) { try { await toChars(); } catch { toLogin(); } } else toLogin(); })();
-window.__companion = { get st() { return st; }, get me() { return me; }, village: () => village, talk };
+window.__companion = { beat, get st() { return st; }, get me() { return me; }, get bank() { return bank; }, get view() { return view; }, village: () => village, scene: () => scene, talk, openTask, openBag, openTrader, openBank };
