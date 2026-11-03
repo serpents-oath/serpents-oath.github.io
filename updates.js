@@ -30,6 +30,54 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '37', date: '2026-11-03',
+    he: { title: 'גרסה 37: מפה ומשימות חדשות, חנות נוחה, ביצועים ומקדש ארבעת הדרכים', items: [
+      'מפה: האייקונים בעיר לא עולים אחד על השני, טלפורט נוחת בכיכר העיר, וסימני המשימות כמו ב-MapleStory: "!" משימה שאפשר לקחת, "?" משימה שהושלמה',
+      'במשימת הריגה של מפלצת מסוימת (עד רמה 20) מופיע חץ אדום מעל המפלצת עצמה',
+      'בר החיים מעל המפלצות גדול ב-50% והשמות ברורים יותר',
+      'עצים, בניינים וקירות כבר לא מסתירים את הדמות ואת שלטי המערות',
+      'חנות: במצב מכירה לחיצה כפולה מוכרת מיד, ורשימת המכירה גדולה ונוחה יותר',
+      'אפשר לקנות גם סקילים של מקצוע אחר, אחרי אזהרה, ועל כל סקיל כתוב לאיזה מקצוע הוא שייך',
+      'פריטי Epic, Legendary ופריטים מחושלים אפשר עכשיו לסחור ולהפקיד בבנק',
+      'נקודות STATS כבר לא מתחלקות לבד, ולנשק של העבודה יש דרישות STATS כמו ב-MapleStory Classic',
+      'משימות הצד באונליין נותנות EXP לפי רמת האזור, ועד רמה 10 מקבלים ×1.5 EXP',
+      'פי 2 מפלצות באונליין, והחזירים באלאיה כבר לא נוצרים בלי סוף',
+      'חלון פארטי בשמאל למעלה, וכל החלונות נצמדים אחד לשני',
+      'ביצועים: חלון מדידה ב-F3, שימוש בכרטיס המסך החזק, אפשרות Unlimited (no V-Sync) בהגדרות, ופחות ציורים בכל פריים',
+      'מקדש ארבעת הדרכים ליד אלאיה: כבר מרמה 1 ארבעת מורי העבודות עומדים יחד ומראים את הסקילים שלהם. הבחירה נשארה ברמה 10'
+    ] },
+    en: { title: 'Version 37: new map and quest signs, an easier shop, performance and the Temple of the Four Paths', items: [
+      'Map: icons in towns no longer pile up, teleports land in the town square, and quest signs follow MapleStory: "!" a quest you can take, "?" a quest you completed',
+      'When a quest asks you to kill a specific monster (up to level 20), a red arrow marks the monster itself',
+      'The HP bar over monsters is 50% bigger and names are easier to read',
+      'Trees, buildings and walls no longer hide your hero or the cave signs',
+      'Shop: in sell mode a double-click sells at once, and the sell list is bigger and easier to use',
+      'You can buy skills of another profession, after a warning, and every skill says which profession it belongs to',
+      'Epic, Legendary and forged items can now be traded and banked',
+      'STATS points are no longer spent for you, and your job\'s weapons have STATS requirements like MapleStory Classic',
+      'Online side quests give EXP at their area\'s level, and up to level 10 you get ×1.5 EXP',
+      'Twice as many monsters online, and the boars in Elaia no longer spawn without end',
+      'A party window at the top left, and every window snaps to the others',
+      'Performance: an F3 measuring window, the strong graphics card is used, an Unlimited (no V-Sync) option in Settings, and fewer draws every frame',
+      'The Temple of the Four Paths near Elaia: from level 1 the four job masters stand together and show their skills. The choice stays at level 10'
+    ] },
+    es: { title: 'Versión 37: mapa y señales de misión nuevos, tienda más cómoda, rendimiento y el Templo de los Cuatro Caminos', items: [
+      'Mapa: los iconos en las ciudades ya no se amontonan, el teletransporte llega a la plaza del pueblo y las señales de misión son como en MapleStory: "!" misión que puedes tomar, "?" misión completada',
+      'Cuando una misión pide matar a un monstruo concreto (hasta el nivel 20), una flecha roja marca al propio monstruo',
+      'La barra de vida sobre los monstruos es un 50% mayor y los nombres se leen mejor',
+      'Árboles, edificios y muros ya no esconden a tu héroe ni los carteles de las cuevas',
+      'Tienda: en modo venta, un doble clic vende al instante, y la lista de venta es más grande y cómoda',
+      'Puedes comprar habilidades de otra clase, tras un aviso, y cada habilidad dice a qué clase pertenece',
+      'Los objetos Épicos, Legendarios y forjados ahora se pueden comerciar y guardar en el banco',
+      'Los puntos de STATS ya no se gastan solos, y las armas de tu clase piden STATS como en MapleStory Classic',
+      'Las misiones secundarias en línea dan EXP según el nivel de su zona, y hasta el nivel 10 recibes ×1,5 de EXP',
+      'El doble de monstruos en línea, y los jabalíes de Elaia ya no aparecen sin fin',
+      'Una ventana de grupo arriba a la izquierda, y todas las ventanas se pegan entre sí',
+      'Rendimiento: una ventana de medición con F3, se usa la tarjeta gráfica potente, una opción Unlimited (no V-Sync) en Ajustes y menos dibujados por fotograma',
+      'El Templo de los Cuatro Caminos junto a Elaia: desde el nivel 1 los cuatro maestros de clase están juntos y muestran sus habilidades. La elección sigue en el nivel 10'
+    ] }
+  },
+  {
     v: '36', date: '2026-11-02',
     he: { title: 'גרסה 36: לאנצר חדש, הגדרות חדשות ו-Companion 2', items: [
       'הלאנצר: מסך ראשי חדש עם אריח עדכונים ומתחתיו ארבעה אריחים: פורום, ויקי, "מהמשחק" ו-HERCULES Anti-Cheat',
