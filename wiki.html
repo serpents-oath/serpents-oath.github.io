@@ -200,6 +200,10 @@ html[lang="he"] .dsec h4 { letter-spacing: 0; font-size: 13px; }
 .dsec h4::after { content: ""; flex: 1; height: 1px; background: var(--line-lo); }
 .dsec p { margin: 0; color: var(--tx); }
 .dsec p b { color: var(--gold); }
+.kindh { margin: 10px 0 0; display: flex; align-items: baseline; gap: 8px; font: 700 15px/1.2 var(--font-title); color: var(--parch-hi); }
+.kindh small { font: 400 10px/1 var(--font-num); color: var(--tx-3); }
+.kindp { margin: 0; color: var(--tx-2); font-size: 13px; max-width: 75ch; }
+.recipes td.mats { min-width: 180px; }
 .quote { margin: 0; padding: 10px 14px; border-radius: 8px; font-style: italic; color: var(--tx-2); background: rgba(255, 255, 255, .04); box-shadow: inset 2px 0 0 var(--bronze-hi); }
 [dir="rtl"] .quote { font-style: normal; box-shadow: inset -2px 0 0 var(--bronze-hi); }
 .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
@@ -304,6 +308,16 @@ const T = {
     overview: 'הכל', monsters: 'מפלצות', gear: 'נשקים ושריונות', skills: 'כישורים', mounts: 'רכובים', people: 'אנשים וערים', places: 'מקומות ומבוכים', quests: 'משימות',
     d_monsters: 'כל היצורים בעולם: איפה הם חיים, כמה הם חזקים בכל רמה ומה הם משאירים.',
     d_gear: 'סטים, נשקים ושריונות, רמות, נדירות ובונוסים של סטים.',
+    items: 'פריטים', d_items: 'שיקויים, חפצי משימה, מפתחות, שלל מפלצות, חומרי יצירה ומתכוני היצירה.',
+    jump_sets: 'סטים', jump_single: 'פריטים בודדים', jump_arms: 'נשקי המקצועות', jump_jsets: 'סטי המקצועות', jump_types: 'סוגי נשק', jump_fam: 'משפחות',
+    job_arms: 'נשקי המקצועות: קשתות, חיצים, פגיונות, שרביטים ועוד', d_job_arms: 'כל נשק ויד שנייה של כל מקצוע: חרבות וגרזנים של הלוחם, קשתות וחיצים של הקשת, פגיונות וקמעות של הנוכל, שרביטים, מטות ומוקדים של הקוסם. בלחיצה: סטטיסטיקה לפי רמה ונדירות, איך משיגים.',
+    main_of: 'נשק ראשי', off_of: 'יד שנייה', takes_off: 'היד השנייה שלו', worn_with: 'נלבש עם', special: 'יכולת מיוחדת', obtain: 'איך משיגים', ob_starter: 'פריט ההתחלה של המקצוע', ob_reward: 'פרס, לא נמכר ולא נושר', ob_craft: 'טויצר מכין אותו מחומרים אחרי המשימה שלו', ob_hall: 'נמכר אצל מוכר הציוד בהיכל המקצוע, ברמות {lv}', ob_drop: 'נושר מיצורים ומתיבות אוצר בטווח הרמות שלו',
+    recipe: 'מתכון', recipe_quest: 'המשימה שמלמדת אותו', recipe_mats: 'חומרים לקשת אחת', recipe_fee: 'שכר',
+    i_all: 'הכל', i_potion: 'שיקויים', i_quest: 'חפצי משימה', i_key: 'מפתחות', i_trophy: 'שלל וחומרים', i_other: 'שונות', i_craft: 'חומרי יצירה',
+    kind_potion: 'שיקוי', kind_quest: 'חפץ משימה', kind_key: 'מפתח', kind_trophy: 'שלל', kind_coin: 'מטבע', kind_map: 'מפה', kind_scroll: 'מגילה', kind_relic: 'שריד', kind_craft: 'חומר יצירה',
+    restores: 'משקם', of_max: 'מהמקסימום', at_least: 'לפחות', from_lvl: 'מתאים מרמה', sells_for: 'נמכר ב', stacks: 'נערם בתיק', dropped_by: 'נושר מ', craft_sec: 'יצירה', d_craft: 'חומרים נושרים רק מיצורים חזקים, והאומן שבכל עיר הופך אותם לסטים שלמים. פריטי רמה 200 ומעלה נוצרים רק במקומות סודיים.',
+    craft_mats: 'חומרי יצירה', craft_recipes: 'מתכונים', craft_forges: 'הכבשנים הסודיים', mat_core: 'ליבה נדירה', mat_common: 'חומר רגיל', from_mon: 'ממפלצות מרמה {lv}', craft_at_town: 'האומן בכל עיר', craft_at_forge: 'בכבשן סודי: {f}', craft_pieces: 'כל חלקי הסט', craft_fee: 'שכר', craft_grade: 'נדירות',
+    forge_hint: 'מקומם לא מופיע במפה: קרעי מפה מיצורים מרמה {lv} מובילים אליהם.', online_items: 'רק באונליין', recipe_for: 'מתכון ליצירה', lesson_item: 'חפץ שיעור (משימה)',
     d_skills: 'כל כישור: מה הוא עושה, כמה מאנה, זמן המתנה ואיך משיגים אותו.',
     d_mounts: 'סוסים, תרנגולים ודרקונים: מהירות, רמה ואיך משיגים.',
     d_people: 'מי גר בכל עיר, מה הם מוכרים ואילו משימות הם נותנים. וגם דמויות הסיפור.',
@@ -350,6 +364,16 @@ const T = {
     overview: 'Everything', monsters: 'Monsters', gear: 'Weapons & armour', skills: 'Skills', mounts: 'Mounts', people: 'People & towns', places: 'Places & dungeons', quests: 'Quests',
     d_monsters: 'Every creature in the world: where it lives, how strong it is at each level and what it leaves behind.',
     d_gear: 'Sets, weapons and armour, levels, rarities and set bonuses.',
+    items: 'Items', d_items: 'Potions, quest items, keys, monster loot, crafting materials and the crafting recipes.',
+    jump_sets: 'Sets', jump_single: 'Standalone items', jump_arms: 'Job weapons', jump_jsets: 'Job sets', jump_types: 'Weapon types', jump_fam: 'Families',
+    job_arms: 'Job weapons: bows, arrows, daggers, wands and more', d_job_arms: 'Every weapon and off hand of every job: the warrior’s swords and axes, the archer’s bows and arrows, the rogue’s daggers and charms, the mage’s wands, staffs and foci. Click one for its stats by level and rarity, and how to get it.',
+    main_of: 'Main hand', off_of: 'Off hand', takes_off: 'Its off hand', worn_with: 'Worn with', special: 'Special', obtain: 'How to get it', ob_starter: 'The job’s starter item', ob_reward: 'A reward: never sold, never dropped', ob_craft: 'Teucer makes it from materials once its quest is done', ob_hall: 'Sold by the hall’s outfitter, at levels {lv}', ob_drop: 'Dropped by creatures and chests within its level window',
+    recipe: 'Recipe', recipe_quest: 'The quest that teaches it', recipe_mats: 'Materials per quiver', recipe_fee: 'Fee',
+    i_all: 'All', i_potion: 'Potions', i_quest: 'Quest items', i_key: 'Keys', i_trophy: 'Loot and materials', i_other: 'Other', i_craft: 'Crafting materials',
+    kind_potion: 'Potion', kind_quest: 'Quest item', kind_key: 'Key', kind_trophy: 'Loot', kind_coin: 'Coin', kind_map: 'Map', kind_scroll: 'Scroll', kind_relic: 'Relic', kind_craft: 'Crafting material',
+    restores: 'Restores', of_max: 'of the maximum', at_least: 'at least', from_lvl: 'Meant for level', sells_for: 'Sells for', stacks: 'Stacks in the bag', dropped_by: 'Dropped by', craft_sec: 'Crafting', d_craft: 'Materials drop only from strong creatures, and the artificer in every city turns them into whole sets. Items of level 200 and up are made only in secret places.',
+    craft_mats: 'Crafting materials', craft_recipes: 'Recipes', craft_forges: 'The secret forges', mat_core: 'Rare core', mat_common: 'Common material', from_mon: 'From monsters of level {lv}', craft_at_town: 'The artificer in any city', craft_at_forge: 'At a secret forge: {f}', craft_pieces: 'Every piece of the set', craft_fee: 'Fee', craft_grade: 'Rarity',
+    forge_hint: 'They are not on the map: torn chart pieces from monsters of level {lv} and up lead to them.', online_items: 'Online only', recipe_for: 'Crafting recipe', lesson_item: 'Lesson item (quest)',
     d_skills: 'Every skill: what it does, its mana, cooldown and how to learn it.',
     d_mounts: 'Horses, roosters and dragons: speed, level and how to get them.',
     d_people: 'Who lives in each town, what they sell and the quests they give. And the story’s cast.',
@@ -396,6 +420,16 @@ const T = {
     overview: 'Todo', monsters: 'Monstruos', gear: 'Armas y armaduras', skills: 'Habilidades', mounts: 'Monturas', people: 'Gente y ciudades', places: 'Lugares y mazmorras', quests: 'Misiones',
     d_monsters: 'Todas las criaturas del mundo: dónde viven, cuánta fuerza tienen en cada nivel y qué dejan.',
     d_gear: 'Conjuntos, armas y armaduras, niveles, rarezas y bonificaciones de conjunto.',
+    items: 'Objetos', d_items: 'Pociones, objetos de misión, llaves, botín de monstruos, materiales de creación y recetas.',
+    jump_sets: 'Conjuntos', jump_single: 'Objetos sueltos', jump_arms: 'Armas de clase', jump_jsets: 'Conjuntos de clase', jump_types: 'Tipos de arma', jump_fam: 'Familias',
+    job_arms: 'Armas de clase: arcos, flechas, dagas, varitas y más', d_job_arms: 'Cada arma y mano secundaria de cada clase: las espadas y hachas del guerrero, los arcos y flechas del arquero, las dagas y amuletos del pícaro, las varitas, bastones y focos del mago. Pulsa una para ver sus estadísticas por nivel y rareza, y cómo conseguirla.',
+    main_of: 'Mano principal', off_of: 'Mano secundaria', takes_off: 'Su mano secundaria', worn_with: 'Se lleva con', special: 'Especial', obtain: 'Cómo conseguirla', ob_starter: 'El objeto inicial de la clase', ob_reward: 'Un premio: ni se vende ni se encuentra', ob_craft: 'Teucro la hace con materiales al completar su misión', ob_hall: 'La vende el proveedor del salón, en los niveles {lv}', ob_drop: 'La sueltan criaturas y cofres dentro de su rango de niveles',
+    recipe: 'Receta', recipe_quest: 'La misión que la enseña', recipe_mats: 'Materiales por carcaj', recipe_fee: 'Tarifa',
+    i_all: 'Todo', i_potion: 'Pociones', i_quest: 'Objetos de misión', i_key: 'Llaves', i_trophy: 'Botín y materiales', i_other: 'Otros', i_craft: 'Materiales de creación',
+    kind_potion: 'Poción', kind_quest: 'Objeto de misión', kind_key: 'Llave', kind_trophy: 'Botín', kind_coin: 'Moneda', kind_map: 'Mapa', kind_scroll: 'Pergamino', kind_relic: 'Reliquia', kind_craft: 'Material de creación',
+    restores: 'Restaura', of_max: 'del máximo', at_least: 'al menos', from_lvl: 'Pensada para el nivel', sells_for: 'Se vende por', stacks: 'Se apila en la bolsa', dropped_by: 'Lo sueltan', craft_sec: 'Creación', d_craft: 'Los materiales solo caen de criaturas fuertes, y el artífice de cada ciudad los convierte en conjuntos completos. Los objetos de nivel 200 o más solo se crean en lugares secretos.',
+    craft_mats: 'Materiales de creación', craft_recipes: 'Recetas', craft_forges: 'Las forjas secretas', mat_core: 'Núcleo raro', mat_common: 'Material común', from_mon: 'De monstruos de nivel {lv}', craft_at_town: 'El artífice de cualquier ciudad', craft_at_forge: 'En una forja secreta: {f}', craft_pieces: 'Cada pieza del conjunto', craft_fee: 'Tarifa', craft_grade: 'Rareza',
+    forge_hint: 'No aparecen en el mapa: trozos de mapa rotos de monstruos de nivel {lv} o más llevan a ellas.', online_items: 'Solo online', recipe_for: 'Receta de creación', lesson_item: 'Objeto de lección (misión)',
     d_skills: 'Cada habilidad: qué hace, su maná, su tiempo de recarga y cómo aprenderla.',
     d_mounts: 'Caballos, gallos y dragones: velocidad, nivel y cómo conseguirlos.',
     d_people: 'Quién vive en cada ciudad, qué vende y qué misiones da. Y los personajes de la historia.',
@@ -440,6 +474,7 @@ const CATS = [
   ['overview', 'M3 3h7v7H3zm9 0h7v7h-7zM3 12h7v7H3zm9 0h7v7h-7z'],
   ['monsters', 'M5 2h10v2h2v6h-2v2h-2v2h-2v-2H9v2H7v-2H5v-2H3V4h2zm2 4v2h2V6zm4 0v2h2V6zM7 16h2v2H7zm4 0h2v2h-2z'],
   ['gear', 'M14 1h4v4h-2v2h-2v2h-2v2h-2v2H8v2l2 2-2 2-2-2-2 2-2-2 2-2-2-2 2-2 2 2h2v-2h2V9h2V7h2V5h2z'],
+  ['items', 'M9 2h6v2h-1v4l5 9v4H5v-4l5-9V4H9zm2 6v2h2V8z'],
   ['skills', 'M11 1h2v6h6l-8 14v-8H5z'],
   ['mounts', 'M6 4h8v2h2v2h2v4h-2v8h-2v-6H8v6H6v-6H4V8h2zm4 2v2h2V6z'],
   ['people', 'M8 2h6v6H8zM5 10h12v2h2v8H3v-8h2z'],
@@ -447,7 +482,7 @@ const CATS = [
   ['quests', 'M5 2h11l3 3v15H5zm3 5v2h8V7zm0 4v2h8v-2zm0 4v2h5v-2z'],
   ['jobs', 'M10 1h2v2h2v2h-2v3h5v2h2v2h-2v2h-2v-2h-3v9h-2v-9H7v2H5v-2H3v-2h2V8h5V5H8V3h2z'], // BETA ONLINE: the jobs (data.online)
 ];
-let L = 'en', D = null, IDX = null, route = { cat: 'overview' }, mFilter = 'all', gRar = 'normal', mMode = 'campaign';
+let L = 'en', D = null, IDX = null, route = { cat: 'overview' }, mFilter = 'all', iFilter = 'all', gRar = 'normal', mMode = 'campaign';
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const t = (k, o) => { let s = T[L][k] ?? T.en[k] ?? k; if (o) for (const [a, b] of Object.entries(o)) s = s.replace('{' + a + '}', b); return s; };
@@ -479,7 +514,8 @@ function chrome() {
   document.title = t('nav_wiki') + " · The Serpent's Oath";
 }
 function rail() {
-  const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0), skills: D?.skills?.length, mounts: D?.mounts?.length,
+  const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0) + (D?.online?.weapons?.length || 0) + (D?.online?.sets || []).reduce((s, x) => s + x.pieces.length, 0),
+    items: (D?.items?.length || 0) + (D?.online?.items?.length || 0) + (D?.online?.craft?.materials?.length || 0) + (D?.online?.questItems?.length || 0), skills: D?.skills?.length, mounts: D?.mounts?.length,
     people: (D?.towns || []).reduce((s, x) => s + x.people.length, 0) + (D?.characters?.length || 0), places: (D?.places?.length || 0) + (D?.dungeons?.length || 0), quests: D?.quests?.length, jobs: D?.online?.jobs?.length };
   $('#rail').innerHTML = CATS.filter(([c]) => c === 'overview' || n[c]).map(([c, p]) => `<a href="#${c}"${route.cat === c && !route.q ? ' aria-current="page"' : ''}>${icon(p)}<span>${esc(t(c))}</span>${n[c] ? `<b>${n[c]}</b>` : ''}</a>`).join('');
 }
@@ -498,13 +534,16 @@ function render() {
   rail();
   const v = $('#view');
   if (route.cat === 'search') { v.innerHTML = searchView(route.q); bindCards(v); return; }
-  v.innerHTML = ({ overview, monsters, gear, skills, mounts, people, places, quests, jobs })[route.cat]();
+  v.innerHTML = ({ overview, monsters, gear, items, skills, mounts, people, places, quests, jobs })[route.cat]();
   bindCards(v);
   if (route.id) openItem(route.cat, route.id);
 }
 function bindCards(root) {
   $$('[data-open]', root).forEach((e) => e.addEventListener('click', (ev) => { ev.preventDefault(); const [c, id] = e.dataset.open.split('|'); go(c, id); }));
   $$('[data-filter]', root).forEach((b) => b.addEventListener('click', () => { mFilter = b.dataset.filter; render(); }));
+  $$('[data-jump]', root).forEach((b) => b.addEventListener('click', () => { document.getElementById(b.dataset.jump)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+  $$('[data-ifilter]', root).forEach((b) => b.addEventListener('click', () => { iFilter = b.dataset.ifilter; render(); }));
+  $$('[data-jumpto]', root).forEach((a) => a.addEventListener('click', (ev) => { ev.preventDefault(); const id = a.dataset.jumpto; if (route.cat !== 'gear') { location.hash = '#gear'; } setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }), 60); }));
   $$('[data-mmode]', root).forEach((b) => b.addEventListener('click', () => { mMode = b.dataset.mmode; render(); }));
   $$('[data-mk]', root).forEach((b) => b.addEventListener('change', () => { $('#wmap')?.classList.toggle('no-' + b.dataset.mk, !b.checked); $$(`#wmap .mk.${b.dataset.mk}, #wmap .lb.${b.dataset.mk}`).forEach((e) => { e.hidden = !b.checked; }); }));
 }
@@ -520,10 +559,10 @@ const subh = (title, n) => `<h3>${esc(title)}${n != null ? ` <small>${n}</small>
 function overview() {
   const pick = (list, f) => (list || []).find(f) || (list || [])[0];
   const pic = {
-    monsters: pick(D.monsters, (m) => m.id === 'cyclops')?.img, gear: pick(D.sets?.[2]?.pieces, (p) => p.cat === 'sword1')?.img, skills: pick(D.skills, (s) => s.id === 'thunder')?.img,
+    monsters: pick(D.monsters, (m) => m.id === 'cyclops')?.img, gear: pick(D.sets?.[2]?.pieces, (p) => p.cat === 'sword1')?.img, items: pick(D.items, (x) => x.id === 'potion_hp3')?.img, skills: pick(D.skills, (s) => s.id === 'thunder')?.img,
     jobs: D.online?.jobs?.find((j) => j.img)?.img, mounts: pick(D.mounts, (m) => m.species === 'dragon')?.img, people: D.characters?.find((c) => c.img)?.img || D.rolePics?.priest, places: null, quests: null,
   };
-  const tiles = CATS.slice(1).filter(([c]) => (c !== 'places' || D.places) && (c !== 'jobs' || D.online?.jobs)).map(([c, p]) => `<a class="cat parch" href="#${c}"><span class="pics">${pic[c] ? `<img src="${img(pic[c])}" alt="">` : `<span style="color:var(--gold);width:48px;height:48px">${icon(p)}</span>`}</span>
+  const tiles = CATS.slice(1).filter(([c]) => (c !== 'places' || D.places) && (c !== 'jobs' || D.online?.jobs) && (c !== 'items' || D.items?.length)).map(([c, p]) => `<a class="cat parch" href="#${c}"><span class="pics">${pic[c] ? `<img src="${img(pic[c])}" alt="">` : `<span style="color:var(--gold);width:48px;height:48px">${icon(p)}</span>`}</span>
     <span><h3>${esc(t(c))}${c === 'jobs' ? ` <span class="pill online">${esc(t('online_tag'))}</span>` : ''}</h3><p>${esc(t('d_' + c))}</p></span></a>`).join('');
   const feat = (D.monsters || []).filter((m) => m.img && !m.boss).slice(0, 12);
   return sec(t('overview'), `<div class="cats">${tiles}</div>`) +
@@ -625,14 +664,33 @@ function gear() {
   const rar = (D.rarities || []).map((r) => `<div class="row"><span class="dot" style="background:var(--r-${r.id});width:28px;height:28px"></span><div><div class="nm rar ${r.id}">${esc(tx(r.name))}</div><div class="mt">${r.mult ? `${esc(t('power'))} ×${r.mult.power} · ${esc(t('atkSpeed'))} ×${r.mult.atkSpeed} · ${esc(t('crit'))} ×${r.mult.crit}` : ''}</div></div></div>`).join('');
   const wts = (D.weaponTypes || []).map((w) => `<tr><td><b>${esc(tx(w.name))}</b></td><td class="n">${w.unlock ?? ''}</td><td class="n">${w.hands === 'pair' ? '2×' : w.hands === 'off' ? '½' : w.hands ?? ''}</td><td class="n">${w.tempo ?? ''}</td><td class="n">${w.reach ? w.reach + ' m' : ''}</td><td>${esc(tx(w.handling))}</td></tr>`).join('');
   const fams = (D.families || []).map((f) => `<div class="row"><span class="swatch" style="flex-direction:column;width:16px;height:40px">${(f.colors || []).map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span><div><div class="nm">${esc(tx(f.name))}${f.passive ? ` · <span style="color:var(--gold)">${esc(tx(f.passive.name))}</span>` : ''}</div><div class="mt">${esc(tx(f.passive?.desc))}</div></div></div>`).join('');
-  return sec(t('gear'), `<p class="lead">${esc(t('d_gear'))}</p>`) +
-    (D.sets ? `<section class="sub">${subh(t('sets'), D.sets.length)}<div class="grid wide">${D.sets.map(setCard).join('')}</div></section>` : '') +
-    (D.standalone ? `<section class="sub">${subh(t('standalone'), D.standalone.length)}<div class="grid">${D.standalone.map(itemCard).join('')}</div></section>` : '') +
+  const jumps = [['sets', 'jump_sets', D.sets], ['standalone', 'jump_single', D.standalone], ['jobarms', 'jump_arms', D.online?.weapons?.length], ['jobsets', 'jump_jsets', D.online?.sets?.length], ['wtypes', 'jump_types', wts], ['fams', 'jump_fam', fams]].filter((j) => j[2]);
+  return sec(t('gear'), `<p class="lead">${esc(t('d_gear'))}</p><div class="filters" role="group">${jumps.map(([id, k]) => `<button type="button" data-jump="${id}">${esc(t(k))}</button>`).join('')}</div>`) +
+    (D.sets ? `<section class="sub" id="sets">${subh(t('sets'), D.sets.length)}<div class="grid wide">${D.sets.map(setCard).join('')}</div></section>` : '') +
+    (D.standalone ? `<section class="sub" id="standalone">${subh(t('standalone'), D.standalone.length)}<div class="grid">${D.standalone.map(itemCard).join('')}</div></section>` : '') +
     (D.heirlooms?.length ? `<section class="sub">${subh(t('heirlooms'), D.heirlooms.length)}<div class="grid small">${D.heirlooms.map((p) => card({ cat: 'gear', id: 'heir:' + p.id, img: p.img, ico: true, name: tx(p.name), meta: esc(catName(p.cat)) })).join('')}</div></section>` : '') +
+    jobArms() + jobSetsSec() +
     (rar ? `<section class="sub">${subh(t('rarities'))}<div class="rows">${rar}</div></section>` : '') +
-    (wts ? `<section class="sub">${subh(t('weapon_types'))}<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('tempo'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${wts}</table></div></section>` : '') +
-    (fams ? `<section class="sub">${subh(t('families'), D.families.length)}<div class="rows">${fams}</div></section>` : '');
+    (wts ? `<section class="sub" id="wtypes">${subh(t('weapon_types'))}<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('tempo'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${wts}</table></div></section>` : '') +
+    (fams ? `<section class="sub" id="fams">${subh(t('families'), D.families.length)}<div class="rows">${fams}</div></section>` : '');
 }
+// the jobs' weapons and off hands (data.online.weapons, written by the game's catalog: js/online/jobarms.js), by job and by kind
+function kindsTable(list) {
+  const rows = list.map((w) => `<tr><td><b>${esc(tx(w.name))}</b></td><td>${esc(jobName(w.job))}</td><td class="n">${w.unlock ?? ''}</td><td class="n">${w.hands === 'pair' ? '2×' : w.hands === 'off' ? '½' : w.hands ?? ''}</td><td class="n">${w.reach ? w.reach + ' m' : ''}</td><td>${esc(tx(w.handling))}</td></tr>`).join('');
+  return `<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th>${esc(t('job_of'))}</th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${rows}</table></div>`;
+}
+function jobArms() {
+  const O = D.online || {}, W = O.weapons || []; if (!W.length) return '';
+  const JO = (O.jobs || []).map((j) => j.id), K = JOB_I().kinds;
+  const body = JO.map((j) => {
+    const mine = W.filter((w) => w.job === j); if (!mine.length) return '';
+    const cats = [...new Set([...(O.weaponKinds || []).filter((k) => k.job === j).map((k) => k.id), ...mine.map((w) => w.cat)])].filter((c) => mine.some((w) => w.cat === c));
+    return `<div class="dsec"><h4>${esc(jobName(j))} (${mine.length})</h4>${cats.map((c) => { const l = mine.filter((w) => w.cat === c), H = tx(K[c]?.handling || WT[c]?.handling);
+      return `<h5 class="kindh">${esc(catName(c))} <small>${l.length}</small></h5>${H ? `<p class="kindp">${esc(H)}</p>` : ''}<div class="grid small">${l.map((w) => jwCard(w, 'gear')).join('')}</div>`; }).join('')}</div>`;
+  }).join('');
+  return `<section class="sub" id="jobarms">${subh(t('job_arms'), W.length)}${oband()}<p class="lead">${esc(t('d_job_arms'))}</p>${body}${O.weaponKinds?.length ? `<h5 class="kindh">${esc(t('weapon_kinds'))}</h5>${kindsTable(O.weaponKinds)}` : ''}</section>`;
+}
+function jobSetsSec() { const S = D.online?.sets || []; return S.length ? `<section class="sub" id="jobsets">${subh(t('job_sets'), S.length)}${oband()}<div class="grid wide">${S.map((x) => jsetCard(x, 'gear')).join('')}</div></section>` : ''; }
 const STAT_KEYS = ['power', 'atkSpeed', 'crit', 'defense', 'hp', 'move', 'block', 'dps'];
 const statVal = (k, v, weapon) => (v == null ? null : k === 'power' ? (weapon ? num(v) : pct(v)) : k === 'hp' || k === 'dps' ? num(v) : '+' + pct(v));
 function statTable(p) {
@@ -662,8 +720,66 @@ function itemDetail(p, heir) {
     <p class="sub2">${esc(catName(p.cat))}${F ? ' · ' + esc(tx(F.name)) : ''}${p.lvl ? ` · ${esc(t('lv'))} <span class="ltr">${p.max && p.max !== p.lvl ? lvr([p.lvl, p.max]) : p.lvl}</span>` : ''}</p><div class="tags">${perk}</div></div></div>
     ${p.desc ? `<div class="dsec"><p>${esc(tx(p.desc))}</p></div>` : ''}
     ${heir ? hs : `<div class="dsec"><h4>${esc(t('level_window'))}</h4><div>${rarSeg()}</div>${statTable(p)}</div>`}
-    ${WT[p.cat]?.handling ? `<div class="dsec"><h4>${esc(t('handling'))}</h4><p>${esc(tx(WT[p.cat].handling))}</p></div>` : ''}
+    ${(WT[p.cat] || JOB_I().kinds[p.cat])?.handling ? `<div class="dsec"><h4>${esc(t('handling'))}</h4><p>${esc(tx((WT[p.cat] || JOB_I().kinds[p.cat]).handling))}</p></div>` : ''}
     ${F?.passive ? `<div class="dsec"><h4>${esc(t('family'))}: ${esc(tx(F.name))}</h4><p><b>${esc(tx(F.passive.name))}</b>: ${esc(tx(F.passive.desc))}</p></div>` : ''}`;
+}
+
+// ------------------------------------------------------------------------------------------------ items: potions, quest items, keys, loot (data.items), the online extras and crafting (data.online.craft)
+const ikind = (x) => (x.kind === 'potion' ? 'potion' : x.kind === 'quest' ? 'quest' : x.kind === 'key' ? 'key' : x.kind === 'trophy' ? 'trophy' : 'other');
+const kindLabel = (x) => t('kind_' + x.kind);
+const itemCardI = (x, pre = 'i:') => card({ cat: 'items', id: pre + x.id, img: x.img, ico: true, name: tx(x.name), lv: x.from ? `${t('lv')} ${x.from}` : '', tag: pre === 'i:' && x.online ? t('online_tag') : '', tagc: 'online', meta: esc(kindLabel(x)) });
+const ITEMS_ALL = () => [...(D.items || []), ...(D.online?.items || []).map((x) => ({ ...x, online: true }))];
+const MATS = () => D.online?.craft?.materials || [];
+const QITEMS = () => (D.online?.questItems || []);
+const itemFind = (id) => ITEMS_ALL().find((x) => x.id === id);
+const droppedBy = (id) => (D.monsters || []).filter((m) => (m.drops || []).some((d) => d.id === id));
+function items() {
+  const all = ITEMS_ALL(), cnt = { all: all.length + MATS().length + QITEMS().length };
+  for (const x of all) cnt[ikind(x)] = (cnt[ikind(x)] || 0) + 1;
+  cnt.craft = MATS().length; cnt.quest = (cnt.quest || 0) + QITEMS().length;
+  const chips = `<div class="filters" role="group">${['all', 'potion', 'quest', 'key', 'trophy', 'other', 'craft'].filter((k) => cnt[k]).map((k) => `<button type="button" data-ifilter="${k}" aria-pressed="${iFilter === k}">${esc(t('i_' + k))} <b>${cnt[k]}</b></button>`).join('')}</div>`;
+  const show = (k) => iFilter === 'all' || iFilter === k;
+  const grp = (k, list, extra = '') => (show(k) && list.length ? `<section class="sub">${subh(t('i_' + k), list.length)}${extra}<div class="grid small">${list.join('')}</div></section>` : '');
+  const by = (k) => all.filter((x) => ikind(x) === k);
+  const quest = [...by('quest').map((x) => itemCardI(x)), ...QITEMS().map((q) => card({ cat: 'items', id: 'qi:' + q.id, name: tx(q.name), tag: t('online_tag'), tagc: 'online', meta: esc(t('lesson_item')) }))];
+  return sec(t('items'), `<p class="lead">${esc(t('d_items'))}</p>${chips}`) +
+    grp('potion', by('potion').map((x) => itemCardI(x))) + grp('quest', quest) + grp('key', by('key').map((x) => itemCardI(x))) +
+    grp('trophy', by('trophy').map((x) => itemCardI(x))) + grp('other', by('other').map((x) => itemCardI(x))) +
+    (show('craft') && D.online?.craft ? craftSec() : '');
+}
+function craftSec() {
+  const C = D.online.craft, MT = Object.fromEntries(C.materials.map((m) => [m.id, m])), F = Object.fromEntries((C.forges || []).map((f) => [f.id, f]));
+  const mats = C.materials.map((m) => card({ cat: 'items', id: 'm:' + m.id, img: m.img, ico: true, name: tx(m.name), lv: `${t('lv')} ${m.min}+`, tag: m.core ? t('mat_core') : '', meta: esc(t('from_mon', { lv: m.min })) })).join('');
+  const rows = C.recipes.map((r) => `<tr><td><a href="#items/r:${r.id}" data-open="items|r:${r.id}"><b>${esc(tx(r.name))}</b></a></td><td class="n">${r.lvl}</td><td><span class="rar ${r.grade}">${esc(tx((D.rarities || []).find((x) => x.id === r.grade)?.name) || r.grade)}</span></td><td>${esc(r.at === 'town' ? t('craft_at_town') : t('craft_at_forge', { f: tx(F[r.at]?.name) || r.at }))}</td><td class="n">${r.drachma.toLocaleString('en-US')} ₯</td><td class="mats">${r.mats.map((m) => `${esc(tx(m.name))} ×${m.n}`).join(', ')}</td></tr>`).join('');
+  const forges = (C.forges || []).map((f) => `<div class="row"><div><div class="nm">${esc(tx(f.name))}</div><div class="mt">${esc(t('forge_hint', { lv: f.hintLvl }))}</div></div></div>`).join('');
+  return `<section class="sub" id="craft">${subh(t('craft_sec'))}${oband()}<p class="lead">${esc(t('d_craft'))}</p></section>
+    <section class="sub">${subh(t('craft_mats'), C.materials.length)}<div class="grid small">${mats}</div></section>
+    <section class="sub">${subh(t('craft_recipes'), C.recipes.length)}<div class="tblwrap tblbox"><table class="tbl recipes"><tr><th></th><th class="n">${esc(t('lv'))}</th><th>${esc(t('craft_grade'))}</th><th></th><th class="n">${esc(t('craft_fee'))}</th><th></th></tr>${rows}</table></div></section>
+    ${forges ? `<section class="sub">${subh(t('craft_forges'), C.forges.length)}<div class="rows">${forges}</div></section>` : ''}`;
+}
+function itemInfoDetail(x) {
+  const R = x.restore, bits = [];
+  if (R?.hp != null) bits.push(`${esc(t('restores'))} ${esc(t('hp'))}: <b class="ltr">${pct(R.hp, 0)}</b> ${esc(t('of_max'))}${R.hpMin ? `, ${esc(t('at_least'))} <span class="ltr">${num(R.hpMin)}</span>` : ''}`);
+  if (R?.mp != null) bits.push(`${esc(t('restores'))} ${esc(t('mana'))}: <b class="ltr">${pct(R.mp, 0)}</b> ${esc(t('of_max'))}${R.mpMin ? `, ${esc(t('at_least'))} <span class="ltr">${num(R.mpMin)}</span>` : ''}`);
+  if (x.from) bits.push(`${esc(t('from_lvl'))} <span class="ltr">${x.from}</span>`);
+  if (x.sell) bits.push(`${esc(t('sells_for'))} <span class="ltr">${x.sell} ₯</span>`);
+  if (x.stack) bits.push(esc(t('stacks')));
+  const dr = droppedBy(x.id), mon = dr.length ? `<div class="dsec"><h4>${esc(t('dropped_by'))} (${dr.length})</h4><div class="rows">${dr.slice(0, 40).map((m) => { const d = m.drops.find((q) => q.id === x.id); return `<a class="row face" href="#monsters/${m.id}" data-open="monsters|${m.id}">${m.img ? `<img src="${img(m.img)}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm">${esc(tx(m.name))}</div><div class="mt">${esc(t('lv'))} <span class="ltr">${lvr(m.levelRange)}</span></div></div><span class="end">${d?.chance != null ? pct(d.chance, d.chance < .01 ? 1 : 0) : ''}</span></a>`; }).join('')}</div></div>` : '';
+  return `<div class="dhead"><span class="big">${x.img ? `<img class="ico" src="${img(x.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(x.name))}</h2><p class="sub2">${esc(kindLabel(x))}</p><div class="tags">${x.online ? opill() : ''}${x.rarity ? `<span class="pill">${esc(x.rarity)}</span>` : ''}</div></div></div>
+    ${x.desc ? `<div class="dsec"><p>${esc(tx(x.desc))}</p></div>` : ''}${bits.length ? `<div class="dsec">${bits.map((b) => `<p>${b}</p>`).join('')}</div>` : ''}${mon}`;
+}
+function matDetail(m) {
+  const dr = droppedBy(m.id);
+  return `<div class="dhead"><span class="big">${m.img ? `<img class="ico" src="${img(m.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(m.name))}</h2><p class="sub2">${esc(t(m.core ? 'mat_core' : 'mat_common'))} · ${esc(t('from_mon', { lv: m.min }))}</p><div class="tags">${opill()}</div></div></div>
+    <div class="dsec"><p>${esc(tx(m.desc))}</p></div>
+    <div class="dsec"><h4>${esc(t('craft_recipes'))}</h4><div class="rows">${D.online.craft.recipes.filter((r) => r.mats.some((q) => q.id === m.id)).map((r) => `<a class="row" href="#items/r:${r.id}" data-open="items|r:${r.id}"><span class="pill" style="min-width:52px;text-align:center">${esc(t('lv'))} ${r.lvl}</span><div><div class="nm">${esc(tx(r.name))}</div></div></a>`).join('')}</div></div>`;
+}
+function recipeDetail(r) {
+  const C = D.online.craft, F = (C.forges || []).find((f) => f.id === r.at), S = (D.online.sets || []).find((x) => x.id === r.set) || (D.sets || []).find((x) => x.id === r.set), cats = S ? S.pieces : [];
+  return `<div class="dhead"><span class="big">${S ? `<img class="ico" src="${img((S.pieces.find((p) => p.cat === 'sword1') || S.pieces[0])?.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(r.name))}</h2><p class="sub2">${esc(t('recipe_for'))} · ${esc(t('lv'))} ${r.lvl} · ${esc(tx((D.rarities || []).find((x) => x.id === r.grade)?.name) || r.grade)}</p><div class="tags">${opill()}</div></div></div>
+    <div class="dsec"><p>${esc(r.at === 'town' ? t('craft_at_town') : t('craft_at_forge', { f: tx(F?.name) || r.at }))}. ${esc(t('craft_pieces'))}: ${cats.length}. ${esc(t('craft_fee'))}: <span class="ltr">${r.drachma.toLocaleString('en-US')} ₯</span></p></div>
+    <div class="dsec"><h4>${esc(t('craft_mats'))}</h4><div class="rows">${r.mats.map((m) => { const M = (C.materials || []).find((q) => q.id === m.id); return `<a class="row face" href="#items/m:${m.id}" data-open="items|m:${m.id}">${M?.img ? `<img src="${img(M.img)}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm">${esc(tx(m.name))}</div></div><span class="end">×${m.n}</span></a>`; }).join('')}</div></div>
+    ${S ? `<div class="dsec"><h4>${esc(tx(S.name))}</h4><p><a href="#${(D.sets || []).some((x) => x.id === S.id) ? 'gear/set:' : 'gear/jset:'}${S.id}" data-open="gear|${(D.sets || []).some((x) => x.id === S.id) ? 'set:' : 'jset:'}${S.id}">${esc(tx(S.name))}</a></p></div>` : ''}`;
 }
 
 // ------------------------------------------------------------------------------------------------ skills
@@ -826,8 +942,8 @@ const personName = (key) => tx(JOB_I().people[key]?.name) || key;
 const placeOf = (id) => tx(JOB_I().halls[id]?.name) || tx(PL[id]?.name) || tx(TOWN[id]?.name) || id;
 const jobCard = (j) => card({ cat: 'jobs', id: 'job:' + j.id, img: j.img, name: mfName(j.name), tag: t('online_tag'), tagc: 'online', meta: `${esc(t('primary'))} ${STAT(j.primary)} · ${esc(t('secondary'))} ${STAT(j.secondary)}` });
 const jskCard = (s) => card({ cat: 'jobs', id: 'sk:' + s.id, img: s.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: s.ult ? t('ult') : '', meta: s.mana != null ? `${esc(t('mana'))} ${s.mana} · ${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}` : '' });
-const jwCard = (p) => card({ cat: 'jobs', id: 'w:' + p.id, img: p.img, ico: true, r: p.rar === 'legendary' ? 'legendary' : p.rar === 'epic' ? 'epic' : '', name: tx(p.name), lv: `${t('lv')} ${p.lvl}`, meta: esc(catName(p.cat)) + (p.starter ? ' · ' + esc(t('starter')) : p.reward ? ' · ' + esc(t('oath_reward')) : '') });
-const jsetCard = (s) => card({ cat: 'jobs', id: 'set:' + s.id, img: (s.pieces.find((p) => p.cat === 'body') || s.pieces[0])?.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: t('online_tag'), tagc: 'online',
+const jwCard = (p, cat = 'jobs') => card({ cat, id: 'w:' + p.id, img: p.img, ico: true, r: p.rar === 'legendary' ? 'legendary' : p.rar === 'epic' ? 'epic' : '', name: tx(p.name), lv: `${t('lv')} ${p.lvl}`, meta: esc(catName(p.cat)) + (p.starter ? ' · ' + esc(t('starter')) : p.reward ? ' · ' + esc(t('oath_reward')) : '') });
+const jsetCard = (s, cat = 'jobs') => card({ cat, id: (cat === 'gear' ? 'jset:' : 'set:') + s.id, img: (s.pieces.find((p) => p.cat === 'body') || s.pieces[0])?.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: t('online_tag'), tagc: 'online',
   meta: esc(jobName(s.job)) + (s.path ? ' · ' + esc(pathName(s.path)) : ''), extra: `${s.colors ? `<span class="swatch">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}<span class="icons">${s.pieces.map((p) => p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" title="${esc(tx(p.name))}">` : '').join('')}</span>` });
 const personRow = (p) => `<a class="row face" href="#jobs/npc:${p.key}" data-open="jobs|npc:${p.key}">${p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm" style="color:${esc(p.color || 'inherit')}">${esc(tx(p.name))}</div><div class="mt">${esc(tx(JOB_I().roles[p.role]?.name) || p.role)}${p.path ? ' · ' + esc(pathName(p.path)) : ''}</div>${p.shopTitle ? `<div class="mt">${esc(t('shop'))}: ${esc(tx(p.shopTitle))}</div>` : ''}</div><span class="end">${p.x != null ? `${p.x}, ${p.z}` : ''}</span></a>`;
 const qkName = (q) => (q.kind === 'job' ? `${t('qk_job')} · ${t('tier_n', { n: q.tier })}` : q.kind === 'lesson' ? `${t('qk_lesson')} · ${t('tier_n', { n: q.tier })}` : q.kind === 'ult' ? `${t('qk_ult')} · ${t('tier_n', { n: q.tier })}` : t('qk_' + q.kind));
@@ -836,12 +952,11 @@ function jobs() {
   const { O } = JOB_I(); if (!O.jobs) return sec(t('jobs'), `<p class="empty">${esc(t('none'))}</p>`);
   const halls = (O.halls || []).map((h) => `<section class="sub">${subh(`${tx(h.name)} · ${tx(h.sub)}`)}<p class="lead"><a href="#jobs/hall:${h.id}" data-open="jobs|hall:${h.id}">${esc(t('coords'))}</a> <span class="ltr">${h.x}, ${h.z}</span>${h.near ? ` · ${esc(t('near'))} ${esc(tx(h.near.name))}` : ''}${h.hidden ? ` · ${esc(t('hidden_hall'))}` : ''}</p><div class="rows">${(O.people || []).filter((p) => p.hall === h.id).map(personRow).join('')}</div></section>`).join('');
   const others = (O.people || []).filter((p) => !p.hall).map(personRow).join('');
-  const kinds = (O.weaponKinds || []).map((w) => `<tr><td><b>${esc(tx(w.name))}</b></td><td>${esc(jobName(w.job))}</td><td class="n">${w.unlock ?? ''}</td><td class="n">${w.hands === 'pair' ? '2×' : w.hands === 'off' ? '½' : w.hands ?? ''}</td><td class="n">${w.reach ? w.reach + ' m' : ''}</td><td>${esc(tx(w.handling))}</td></tr>`).join('');
   return sec(t('jobs'), `<p class="lead">${esc(t('d_jobs'))}</p>${oband()}<p class="lead">${esc(t('second_oath', { n: O.secondOathLevel, p: Math.round((O.share || 0) * 100) }))}</p><div class="grid">${O.jobs.map(jobCard).join('')}</div>`) +
     `<section class="sub">${subh(t('halls'), (O.halls || []).length)}</section>${halls}` +
     (others ? `<section class="sub">${subh(t('chiron'))}<div class="rows">${others}</div></section>` : '') +
     (O.sets?.length ? `<section class="sub">${subh(t('job_sets'), O.sets.length)}<div class="grid wide">${O.sets.map(jsetCard).join('')}</div></section>` : '') +
-    (kinds ? `<section class="sub">${subh(t('weapon_kinds'), O.weaponKinds.length)}<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th>${esc(t('job_of'))}</th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${kinds}</table></div></section>` : '') +
+    (O.weaponKinds?.length ? `<section class="sub">${subh(t('weapon_kinds'), O.weaponKinds.length)}${kindsTable(O.weaponKinds)}<p class="lead"><a href="#gear" data-jumpto="jobarms">${esc(t('job_arms'))}</a></p></section>` : '') +
     (O.quests?.length ? `<section class="sub">${subh(t('quests'), O.quests.length)}<div class="rows">${O.quests.map(jqRow).join('')}</div></section>` : '');
 }
 function jobDetail(j) {
@@ -903,6 +1018,17 @@ function hallDetail(h) {
     <div class="cols"><div class="dsec"><h4>${esc(t('coords'))}</h4>${miniMap(h.x, h.z, ppl.map((p) => ({ x: p.x, z: p.z, title: tx(p.name) })), 420)}${h.near ? `<p>${esc(t('near'))} ${esc(tx(h.near.name))} (${h.near.d} m)</p>` : ''}</div>
     <div class="dsec"><h4>${esc(t('people_n'))}</h4><div class="rows">${ppl.map(personRow).join('')}</div></div></div>`;
 }
+function jwDetail(p) {
+  const I = JOB_I(), K = I.kinds[p.cat], offs = K?.offs || [], mains = (I.O.weaponKinds || []).filter((k) => (k.offs || []).includes(p.cat));
+  const pills = `${opill()}<span class="pill">${esc(jobName(p.job))}</span>${p.starter ? `<span class="pill gold">${esc(t('starter'))}</span>` : ''}${p.reward ? `<span class="pill gold">${esc(t('oath_reward'))}</span>` : ''}${p.stub ? `<span class="pill">${esc(t('stub'))}</span>` : ''}`;
+  const lv = Math.max(1, (p.lvl || 1) - 10) + '–' + ((p.lvl || 1) + 5), ob = (p.obtain || []).map((k) => `<li>${esc(t('ob_' + k, { lv }))}</li>`).join('');
+  const R = p.recipe, rq = R && I.quests[R.quest];
+  const special = p.special ? `<div class="dsec"><h4>${esc(t('special'))}</h4><p>${esc(tx(p.special))}</p></div>` : '';
+  const obtain = ob ? `<div class="dsec"><h4>${esc(t('obtain'))}</h4><ul style="margin:0;padding-inline-start:20px">${ob}</ul></div>` : '';
+  const rec = R ? `<div class="dsec"><h4>${esc(t('recipe'))}</h4>${rq ? `<p>${esc(t('recipe_quest'))}:</p><div class="rows">${jqRow(rq, 'jobs')}</div>` : ''}<p>${esc(t('recipe_mats'))}: ${R.mats.map((m) => `${esc(tx(m.name))} ×${m.n}`).join(', ')}; ${esc(t('recipe_fee'))}: <span class="ltr">${R.drachma.toLocaleString('en-US')} ₯</span></p></div>` : '';
+  const rel = offs.length || mains.length ? `<div class="dsec"><h4>${esc(offs.length ? t('takes_off') : t('worn_with'))}</h4><p>${(offs.length ? offs : mains.map((k) => k.id)).map((c) => esc(catName(c))).join(', ')}</p></div>` : '';
+  return itemDetail(p).replace('<div class="tags">', `<div class="tags">${pills}`) + special + obtain + rec + rel;
+}
 function jobFind(id) {
   const I = JOB_I(), [k, ...r] = id.split(':'), v = r.join(':');
   if (k === 'job') return I.jobs[v] && jobDetail(I.jobs[v]);
@@ -910,7 +1036,7 @@ function jobFind(id) {
   if (k === 'q') return I.quests[v] && jqDetail(I.quests[v]);
   if (k === 'npc') return I.people[v] && npcDetail(I.people[v]);
   if (k === 'hall') return I.halls[v] && hallDetail(I.halls[v]);
-  if (k === 'w') { const p = I.weapons[v]; return p && itemDetail(p).replace('<div class="tags">', `<div class="tags">${opill()}<span class="pill">${esc(jobName(p.job))}</span>${p.starter ? `<span class="pill gold">${esc(t('starter'))}</span>` : ''}${p.reward ? `<span class="pill gold">${esc(t('oath_reward'))}</span>` : ''}${p.stub ? `<span class="pill">${esc(t('stub'))}</span>` : ''}`); }
+  if (k === 'w') { const p = I.weapons[v]; return p && jwDetail(p); }
   if (k === 'set') { const s = I.sets[v]; return s && setDetail(s).replace('</p>', ` · ${esc(jobName(s.job))}${s.path ? ' · ' + esc(pathName(s.path)) : ''}</p><div class="tags">${opill()}</div>`); }
   return null;
 }
@@ -918,6 +1044,14 @@ function jobFind(id) {
 // ------------------------------------------------------------------------------------------------ the detail dialog
 function find(cat, id) {
   if (cat === 'monsters') { if (id.startsWith('b:')) { const b = (D.online?.bosses || []).find((x) => x.id === id.slice(2)); return b && bossDetail(b); } if (id.startsWith('o:')) { const m = (D.onlineMonsters || []).find((x) => x.id === id.slice(2)); return m && omonDetail(m); } const m = MON()[id]; return m && monDetail(m); }
+  if (cat === 'items') {
+    const [k, ...r] = id.split(':'), v = r.join(':');
+    if (k === 'i') { const x = itemFind(v); return x && itemInfoDetail(x); }
+    if (k === 'm') { const m = MATS().find((x) => x.id === v); return m && matDetail(m); }
+    if (k === 'r') { const x = (D.online?.craft?.recipes || []).find((q) => q.id === v); return x && recipeDetail(x); }
+    if (k === 'qi') { const q = QITEMS().find((x) => x.id === v), Q = q && JOB_I().quests[q.quest]; return q && `<div class="dhead"><span class="big"></span><div><h2 id="dlgt">${esc(tx(q.name))}</h2><p class="sub2">${esc(t('lesson_item'))}</p><div class="tags">${opill()}</div></div></div><div class="dsec"><p>${esc(tx(q.desc))}</p></div>${Q ? `<div class="dsec"><h4>${esc(t('quests'))}</h4><div class="rows">${jqRow(Q)}</div></div>` : ''}`; }
+    return null;
+  }
   if (cat === 'skills') { const s = (D.skills || []).find((x) => x.id === id); return s && skDetail(s); }
   if (cat === 'mounts') { const s = (D.mounts || []).find((x) => x.id === id); return s && mtDetail(s); }
   if (cat === 'quests') { if (id.startsWith('q:')) return jobFind(id); const s = (D.quests || []).find((x) => x.id === id); return s && questDetail(s); } // (q:id: a job quest, Roy 29.10)
@@ -926,6 +1060,7 @@ function find(cat, id) {
   if (cat === 'gear') {
     if (k === 'set') { const s = (D.sets || []).find((x) => x.id === v); return s && setDetail(s); }
     if (k === 'item') { const p = (D.standalone || []).find((x) => x.id === v) || (D.sets || []).flatMap((s) => s.pieces).find((x) => x.id === v); return p && itemDetail(p); }
+    if (k === 'w' || k === 'jset') return jobFind((k === 'w' ? 'w:' : 'set:') + v);
     if (k === 'heir') { const p = (D.heirlooms || []).find((x) => x.id === v); return p && itemDetail(p, true); }
   }
   if (cat === 'people') { if (k === 'town') return TOWN[v] && townDetail(TOWN[v]); if (k === 'char') { const c = (D.characters || []).find((x) => x.key === v); return c && charDetail(c); } }
@@ -957,6 +1092,10 @@ function index() {
   for (const s of D.sets || []) { add('gear', 'set:' + s.id, s.name, [s.theme, FAM[s.family]?.name, s.passive?.name], () => setCard(s)); for (const p of s.pieces) add('gear', 'item:' + p.id, p.name, [WT[p.cat]?.name], () => itemCard(p)); }
   for (const p of D.standalone || []) add('gear', 'item:' + p.id, p.name, [p.desc, WT[p.cat]?.name, FAM[p.family]?.name], () => itemCard(p));
   for (const s of D.skills || []) add('skills', s.id, s.name, [s.desc, s.source], () => skCard(s));
+  for (const x of ITEMS_ALL()) add('items', 'i:' + x.id, x.name, [x.desc, x.id, kindLabel(x)], () => itemCardI(x));
+  for (const m of MATS()) add('items', 'm:' + m.id, m.name, [m.desc, 'online'], () => card({ cat: 'items', id: 'm:' + m.id, img: m.img, ico: true, name: tx(m.name), tag: m.core ? t('mat_core') : '', meta: esc(t('from_mon', { lv: m.min })) }));
+  for (const r of D.online?.craft?.recipes || []) add('items', 'r:' + r.id, r.name, [t('craft_recipes'), 'online'], () => card({ cat: 'items', id: 'r:' + r.id, name: tx(r.name), lv: `${t('lv')} ${r.lvl}`, meta: esc(t('recipe_for')) }));
+  for (const q of QITEMS()) add('items', 'qi:' + q.id, q.name, [q.desc, 'online'], () => card({ cat: 'items', id: 'qi:' + q.id, name: tx(q.name), meta: esc(t('lesson_item')) }));
   for (const m of D.mounts || []) add('mounts', m.id, m.name, [m.desc, SPN(m.species)], () => mtCard(m));
   for (const s of D.towns || []) { add('people', 'town:' + s.id, s.name, [s.sub, ...s.people.flatMap((p) => [p.name, ROLE[p.role]?.name])], () => townCard(s)); }
   for (const c of D.characters || []) add('people', 'char:' + c.key, c.name, [c.quote], () => charCard(c));
@@ -971,8 +1110,8 @@ function index() {
   for (const p of O.people || []) add('jobs', 'npc:' + p.key, p.name, [p.title, p.shopTitle, 'online'], () => card({ cat: 'jobs', id: 'npc:' + p.key, img: p.img, name: tx(p.name), tag: t('online_tag'), tagc: 'online', meta: esc(tx(JOB_I().roles[p.role]?.name) || '') }));
   for (const h of O.halls || []) add('jobs', 'hall:' + h.id, h.name, [h.sub, 'online'], () => card({ cat: 'jobs', id: 'hall:' + h.id, name: tx(h.name), tag: t('online_tag'), tagc: 'online', meta: esc(tx(h.sub)) }));
   for (const q of O.quests || []) add('jobs', 'q:' + q.id, q.title, [q.offer, ...(q.steps || []), 'online'], () => card({ cat: 'jobs', id: 'q:' + q.id, name: tx(q.title), tag: t('online_tag'), tagc: 'online', meta: esc(qkName(q)), lv: q.lvl ? `${t('lv')} ${q.lvl}` : '' }));
-  for (const p of O.weapons || []) add('jobs', 'w:' + p.id, p.name, [p.desc, p.special, 'online'], () => jwCard(p));
-  for (const s of O.sets || []) { add('jobs', 'set:' + s.id, s.name, [s.theme, 'online'], () => jsetCard(s)); }
+  for (const p of O.weapons || []) add('gear', 'w:' + p.id, p.name, [p.desc, p.special, catName(p.cat), jobName(p.job), 'online'], () => jwCard(p, 'gear'));
+  for (const s of O.sets || []) { add('gear', 'jset:' + s.id, s.name, [s.theme, jobName(s.job), 'online'], () => jsetCard(s, 'gear')); }
   return out;
 }
 function searchView(q) {
