@@ -95,7 +95,7 @@ export const SHOTS = {
     await page.evaluate(() => window.__vclock.start());
     await page.evaluate(`(async () => { ${PREP} const S = (G.poiTowns || []).find((q) => q.id === 'elaia'); const pl = S?.spots?.plaza?.[0] || S?.spots?.market?.[0];
       if (pl) await G.teleport(pl.x + 2, pl.z + 3); G.cam.zoom = .78; })()`);
-    await step(page, 90);
+    await step(page, 240); // (the town's name banner and its tip have gone by then)
   } },
   // 2. a fight in the fields: the fight director (clip-fight's scene), shot on a cast
   2: { q: `${BASE}&lvl=60&story=ch1&done=c1_card&place=athenai&hour=15.5`, run: async (page) => {
