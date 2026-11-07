@@ -119,7 +119,7 @@ try {
   {
     const { W } = world(); const ctx = await newContext(browser, W); const p = await page(ctx);
     await go(p, 'account.html?mode=register');
-    await p.fill('#a-username', 'Nikandros'); await p.fill('#a-email', 'nik@example.com');
+    await p.fill('#a-inviteCode', 'ABCD2345'); await p.fill('#a-username', 'Nikandros'); await p.fill('#a-email', 'nik@example.com'); // (the invitation code came with the new site, 11.2026)
     await p.fill('#a-password', 'Strong-pass-77'); await p.fill('#a-password2', 'Strong-pass-77');
     await p.selectOption('select[name=day]', '05'); await p.selectOption('select[name=month]', '03'); await p.selectOption('select[name=year]', '2000');
     await p.check('input[name=gender][value=male]'); await p.check('#a-acceptTerms');
@@ -229,7 +229,7 @@ try {
   if (SHOTS) {
     const { W } = world(); const ctx = await newContext(browser, W); const p = await page(ctx);
     await go(p, 'account.html?mode=register', 'he');
-    await p.fill('#a-username', 'Nikandros'); await p.fill('#a-email', 'nik@example.com');
+    await p.fill('#a-inviteCode', 'ABCD2345'); await p.fill('#a-username', 'Nikandros'); await p.fill('#a-email', 'nik@example.com'); // (the invitation code came with the new site, 11.2026)
     await p.fill('#a-password', 'Strong-pass-77'); await p.fill('#a-password2', 'Strong-pass-77');
     await p.selectOption('select[name=day]', '05'); await p.selectOption('select[name=month]', '03'); await p.selectOption('select[name=year]', '2000');
     await p.check('input[name=gender][value=male]'); await p.check('#a-acceptTerms');
