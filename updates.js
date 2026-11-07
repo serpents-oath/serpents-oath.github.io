@@ -30,6 +30,63 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '38', date: '2026-11-07',
+    he: { title: 'גרסה 38: סימני משימות, מפה נוחה, התקפה תוך כדי הליכה, קולות למפלצות, עצים חדשים, אפקטים מצוירים, שלט ומבוכים', items: [
+      'סימני המשימות כמו ב-MapleStory: "!" זהוב למשימה חדשה ברמה שלכם, "?" זהוב למשימה שהושלמה, "?" אפור למשימה בדרך. חפצים, מקומות ומפלצות מקבלים את החץ האדום שלנו, ובאי ההתחלה הסימנים גדולים יותר עד רמה 3',
+      'מפה: מעבר עם העכבר על כל אייקון מראה את שמו ("נפח · אלאיה", "משימה: ..."). אייקונים צפופים זזים הצידה עם קו דק, החנויות מתקפלות לשלט העיר עם "+N" עד שמתקרבים, וגודל האייקונים משתנה עם הזום',
+      'התקפות בסיסיות תוך כדי הליכה: עם נשק קרבי בקצב מלא, קשת וכישוף בסיסי מאטים קצת. אפשר לקשור כל פעולה גם לכפתורי העכבר (ימני, אמצעי, צדדיים)',
+      'לכל מפלצת יש עכשיו קול משלה: קול כשהיא נפגעת, כשהיא נזרקת אחורה וכשהיא נופלת. צליל המיתר הכללי בכל מוות הוסר',
+      'אפקטים מצוירים ביד על כל סקיל: שכבה דו-ממדית עדינה ב-12 פריימים לשנייה, עם כוכב פגיעה בכל מכה (גם על הסקילים של שחקנים אחרים). אפשר לכבות ב-הגדרות > תצוגה',
+      'עצים: שמונה מינים יווניים חדשים בשני גדלים (תאנה, דפנה, אלון, צפצפה, עץ מת ועוד), זית עתיק וברוש עתיק ענקיים, יערות צפופים יותר, שורות עצים לאורך הדרכים וטבעת עצים סביב כל כפר',
+      'שלט (Gamepad): כל המשחק משחיק עם שלט בלבד: שתי פריסות כפתורים, מקלדת על המסך, מפה עם הסטיק הימני, רטט במכות כבדות וסיוע כיוון (Off / Low / Standard) ב-הגדרות > שליטה > שלט',
+      'הגדרות > תצוגה: מגבלת FPS "Unlimited" או מספר שבוחרים (30 עד 360)',
+      'מסע חדש מתחיל בלי נשק: החרב של הבוקר באלאיה היא הנשק הראשון, והשמלה השחורה שקונים נלבשת מיד',
+      'חנות: לחיצה אחת על "מכירה" מוכרת מיד (Shift מוכר את כל הערימה), הרשימה לא זזה תוך כדי, ועל פריט Epic או Legendary נשאלים פעם אחת. על נשק של מקצוע אחר או פריט מעל ה-STATS שלכם מופיעה שורה אדומה',
+      'חוקי הסקילים: עד רמה 10 יש רק את Charge, לסקילי התקפה אין זמן המתנה (נזק ×0.8), לבאפים, ריפויים ואולטימייטים יש, וכל קאסט ממתין מכה בסיסית אחת. רק מכות בסיסיות מחזירות מאנה, ובאונליין יש רק סקילים של העבודה',
+      'ניצוצות, אבק וגחלים הם נקודות רכות ועגולות במקום קוביות מעופפות',
+      'ONLINE: דמות חדשה מתחילה על פרוטה, אי נסתר בצפון-מזרח עם הכפר הישן, נמל סקאלה, מעגל חמשת המורים עם הדגמות חיות, 7 משימות מודרכות עד רמה 9 וסירה לאלאיה',
+      'ONLINE: מבוכים לפארטי עד 6: Rootbound Delve (20-30, ליד סטימפאלוס), Kabeiroi Furnace (40-60, פילוס), Vault of the Anemoi (80-100, רודוס), Drowned Reliquary of Helike (120-150, קסטוריה) ו-Starfall Abyss (150-200, כיוס). בוסים בשלבים עם מכות מסומנות מראש, ושלל לכל חבר',
+      'ביצועים: פחות עבודה ב"ראייה דרך" עצים ובניינים, חלקיקים בציור אחד, צללים ממוזגים בערים, וספאון של מפלצות בלי תקיעה. באונליין פחות הודעות כשאין שחקנים קרובים',
+      'המשגר 1.7.0: החלון הקטן ביותר 1020×680, שבו כל מסך נכנס'
+    ] },
+    en: { title: 'Version 38: quest signs, an easier map, attacks on the move, monster voices, new trees, hand-drawn effects, controller and dungeons', items: [
+      'Quest signs the MapleStory way: a gold "!" for a new quest at your level, a gold "?" for a completed one, a grey "?" for one under way. Things, places and monsters get our red arrow, and on the starting island the signs are bigger up to level 3',
+      'Map: hover over any icon for its name ("Weaponsmith · Elaia", "Quest: ..."). Crowded icons step aside with a thin line, shops fold into the town sign with "+N" until you zoom in, and icon size follows the zoom',
+      'Basic attacks while walking: full pace with a melee weapon, a little slower while a bow draws or a basic spell is cast. Any action can also be bound to the mouse buttons (right, middle, side)',
+      'Every monster has a voice of its own: a cry when it is hit, when it is knocked back and when it falls. The generic string sound on every death is gone',
+      'Hand-drawn effects on every skill: a subtle 2D layer at 12 frames a second, with an impact star on every blow (other players\' casts too). Turn it off in Settings > Display',
+      'Trees: eight new Greek species in two sizes (fig, bay laurel, holm oak, poplar, dead trees and more), a giant ancient olive and ancient cypress, denser woods, rows of trees along the roads and a ring of trees round every village',
+      'Controller: the whole game plays on a pad alone: two button layouts, an on-screen keyboard, the map on the right stick, rumble on heavy blows and aim assist (Off / Low / Standard) in Settings > Controls > Controller',
+      'Settings > Display: the FPS limit is Unlimited or a number you choose (30 to 360)',
+      'A new journey starts with no weapon: the morning\'s sword in Elaia is your first, and the black dress you buy is worn at once',
+      'Shop: one click on Sell sells at once (Shift sells the whole stack), the list never moves while you sell, and an Epic or Legendary piece asks once. Another job\'s weapon, or a piece over your STATS, shows a red line',
+      'Skill rules: before level 10 there is only Charge, attack skills have no cooldown (damage ×0.8), buffs, heals and ultimates keep theirs, and every cast waits one basic blow. Only basic blows give mana back, and online has only job skills',
+      'Sparks, dust and embers are soft round dots instead of flying cubes',
+      'ONLINE: a new character starts on Prote, a hidden island in the north-east with the old village, the harbour of Skala, the Circle of the five masters with live demonstrations, 7 guided quests up to level 9 and a boat to Elaia',
+      'ONLINE: party dungeons for up to 6: the Rootbound Delve (20-30, by Stymphalos), the Kabeiroi Furnace (40-60, Pylos), the Vault of the Anemoi (80-100, Rhodos), the Drowned Reliquary of Helike (120-150, Kastoria) and the Starfall Abyss (150-200, Chios). Bosses in phases with telegraphed blows, and loot for every member',
+      'Performance: less work seeing through trees and buildings, particles in one draw, merged shadows in towns, and monster spawns without a hitch. Online, fewer messages when no player is near',
+      'Launcher 1.7.0: the smallest window is 1020×680, where every screen fits'
+    ] },
+    es: { title: 'Versión 38: señales de misión, mapa más cómodo, ataques en movimiento, voces de monstruos, árboles nuevos, efectos dibujados, mando y mazmorras', items: [
+      'Señales de misión como en MapleStory: "!" dorado para una misión nueva de tu nivel, "?" dorado para una completada, "?" gris para una en curso. Objetos, lugares y monstruos llevan nuestra flecha roja, y en la isla inicial las señales son más grandes hasta el nivel 3',
+      'Mapa: pasa el ratón por cualquier icono para ver su nombre ("Herrero · Elaia", "Misión: ..."). Los iconos apretados se apartan con una línea fina, las tiendas se pliegan en el cartel del pueblo con "+N" hasta que acercas, y el tamaño de los iconos sigue al zoom',
+      'Ataques básicos mientras caminas: a paso completo con un arma cuerpo a cuerpo, algo más lento mientras tensas el arco o lanzas un hechizo básico. Cualquier acción también se puede asignar a los botones del ratón (derecho, central, laterales)',
+      'Cada monstruo tiene su propia voz: un grito al recibir un golpe, al salir despedido y al caer. El sonido de cuerda genérico en cada muerte desaparece',
+      'Efectos dibujados a mano en cada habilidad: una capa 2D sutil a 12 fotogramas por segundo, con una estrella de impacto en cada golpe (también en los lanzamientos de otros jugadores). Se apaga en Ajustes > Pantalla',
+      'Árboles: ocho especies griegas nuevas en dos tamaños (higuera, laurel, encina, chopo, árboles muertos y más), un olivo y un ciprés milenarios gigantes, bosques más densos, hileras de árboles junto a los caminos y un anillo de árboles alrededor de cada aldea',
+      'Mando: todo el juego se juega solo con el mando: dos disposiciones de botones, un teclado en pantalla, el mapa en el stick derecho, vibración en los golpes fuertes y ayuda de apuntado (Off / Low / Standard) en Ajustes > Controles > Mando',
+      'Ajustes > Pantalla: el límite de FPS es Unlimited o un número que eliges (de 30 a 360)',
+      'Un viaje nuevo empieza sin arma: la espada de la mañana en Elaia es la primera, y el vestido negro que compras se viste al instante',
+      'Tienda: un clic en Vender vende al instante (Shift vende toda la pila), la lista no se mueve mientras vendes, y una pieza Épica o Legendaria pregunta una vez. Un arma de otra clase, o una pieza por encima de tus STATS, muestra una línea roja',
+      'Reglas de habilidades: antes del nivel 10 solo hay Charge, las habilidades de ataque no tienen tiempo de espera (daño ×0,8), los refuerzos, curas y definitivas lo conservan, y cada lanzamiento espera un golpe básico. Solo los golpes básicos devuelven maná, y en línea solo hay habilidades de la clase',
+      'Las chispas, el polvo y las ascuas son puntos suaves y redondos en vez de cubos voladores',
+      'ONLINE: un personaje nuevo empieza en Prote, una isla escondida en el noreste con la aldea antigua, el puerto de Skala, el Círculo de los cinco maestros con demostraciones en vivo, 7 misiones guiadas hasta el nivel 9 y un barco a Elaia',
+      'ONLINE: mazmorras de grupo para hasta 6: Rootbound Delve (20-30, junto a Estínfalo), Kabeiroi Furnace (40-60, Pilos), Vault of the Anemoi (80-100, Rodas), Drowned Reliquary of Helike (120-150, Kastoriá) y Starfall Abyss (150-200, Quíos). Jefes por fases con golpes anunciados, y botín para cada miembro',
+      'Rendimiento: menos trabajo al ver a través de árboles y edificios, partículas en un solo dibujado, sombras fusionadas en las ciudades y apariciones de monstruos sin tirones. En línea, menos mensajes cuando no hay jugadores cerca',
+      'Lanzador 1.7.0: la ventana más pequeña es 1020×680, donde cabe cada pantalla'
+    ] }
+  },
+  {
     v: '37', date: '2026-11-03',
     he: { title: 'גרסה 37: מפה ומשימות חדשות, חנות נוחה, ביצועים ומקדש ארבעת הדרכים', items: [
       'מפה: האייקונים בעיר לא עולים אחד על השני, טלפורט נוחת בכיכר העיר, וסימני המשימות כמו ב-MapleStory: "!" משימה שאפשר לקחת, "?" משימה שהושלמה',

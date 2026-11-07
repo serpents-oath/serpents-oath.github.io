@@ -146,3 +146,12 @@ html[lang="he"] .btn .lbl { text-align: end; }
 /* ---------- the top bar: black at 80%, the video runs up under it (Roy 1.11) ---------- */
 .hero { margin-top: calc(-1 * var(--bar-h)); padding-top: calc(56px + var(--bar-h)); }
 @media (max-width: 1180px) { .bar nav { background: rgba(0, 0, 0, .94); } }
+
+/* ---------- the trailer music toggle on the banner (hidden until assets/trailer.ogg exists; muted by default) ---------- */
+.snd-btn { position: absolute; right: 18px; bottom: 18px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: rgba(20, 11, 17, .55); color: var(--parch-hi); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.snd-btn:hover { background: rgba(20, 11, 17, .8); box-shadow: inset 0 0 0 1px var(--gold); color: var(--gold); }
+.snd-btn svg { width: 20px; height: 20px; }
+.snd-btn .on { display: none; }
+.snd-btn[aria-pressed="true"] .on { display: block; }
+.snd-btn[aria-pressed="true"] .off { display: none; }
+.snd-btn[hidden] { display: none; }

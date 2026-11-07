@@ -12,7 +12,7 @@ const T = {
     nav_menu: 'תפריט', nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה',
     tagline: 'המסע של Val להחזיר את Roye הביתה. הרפתקה בעולם פתוח ביוון העתיקה, חינם.',
     dl_btn: 'הורדה עבור Windows', dl_sub: 'חינם · ', mac_btn: 'הורדה עבור Mac', mac_sub: 'בטא · ',
-    trailer: 'לצפות בטריילר', ver: 'גרסה', mb: 'MB',
+    trailer: 'לצפות בטריילר', ver: 'גרסה', mb: 'MB', snd_on: 'להשמיע את מוזיקת הטריילר', snd_off: 'להשתיק את המוזיקה',
     req: 'Windows 10 או 11, 64 ביט. Mac בבטא. המשגר מתקין ומעדכן את המשחק לבד. <a href="#run">איך זה עובד?</a>',
     run_h: 'הורדה והפעלה', run_sub: 'שלושה צעדים. את ההתקנה והעדכונים עושה המשגר.',
     s1_h: 'מורידים את המשגר', s1_p: `לוחצים על כפתור ההורדה ושומרים את ${SETUPF} (בערך <span class="ltr">{mb}MB</span>). זו ההורדה היחידה: את המשחק עצמו מוריד המשגר.`,
@@ -49,7 +49,7 @@ const T = {
     nav_menu: 'Menu', nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download',
     tagline: "Val's journey to bring Roye home. A free open-world adventure through ancient Greece.",
     dl_btn: 'Download for Windows', dl_sub: 'Free · ', mac_btn: 'Download for Mac', mac_sub: 'Beta · ',
-    trailer: 'Watch the trailer', ver: 'Version', mb: 'MB',
+    trailer: 'Watch the trailer', ver: 'Version', mb: 'MB', snd_on: 'Play the trailer music', snd_off: 'Mute the music',
     req: 'Windows 10 or 11, 64-bit. Mac in beta. The launcher installs and updates the game by itself. <a href="#run">How does it work?</a>',
     run_h: 'Download and play', run_sub: 'Three steps. The launcher does the installing and the updating.',
     s1_h: 'Download the launcher', s1_p: `Click the download button and save ${SETUPF} (about {mb} MB). It is the only download: the launcher fetches the game itself.`,
@@ -86,7 +86,7 @@ const T = {
     nav_menu: 'Menú', nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar',
     tagline: 'El viaje de Val para traer a Roye a casa. Una aventura gratuita de mundo abierto por la antigua Grecia.',
     dl_btn: 'Descargar para Windows', dl_sub: 'Gratis · ', mac_btn: 'Descargar para Mac', mac_sub: 'Beta · ',
-    trailer: 'Ver el tráiler', ver: 'Versión', mb: 'MB',
+    trailer: 'Ver el tráiler', ver: 'Versión', mb: 'MB', snd_on: 'Reproducir la música del tráiler', snd_off: 'Silenciar la música',
     req: 'Windows 10 u 11, 64 bits. Mac en beta. El launcher instala y actualiza el juego solo. <a href="#run">¿Cómo funciona?</a>',
     run_h: 'Descargar y jugar', run_sub: 'Tres pasos. El launcher se encarga de instalar y actualizar.',
     s1_h: 'Descarga el launcher', s1_p: `Pulsa el botón de descarga y guarda ${SETUPF} (unos {mb} MB). Es la única descarga: el juego lo descarga el propio launcher.`,
@@ -152,6 +152,21 @@ document.querySelectorAll('.macsz').forEach((s) => { s.textContent = SITE.MAC_MB
   const hero = $('.hero'), v = $('#bgv');
   const slow = navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || ''));
   if (slow || matchMedia('(prefers-reduced-motion: reduce)').matches) { hero.classList.add('lite'); v.removeAttribute('autoplay'); v.pause(); }
+})();
+
+// ---------- the trailer music over the banner: a muted-by-default toggle, shown only when assets/trailer.ogg exists ----------
+(() => {
+  const btn = $('#hero-snd'), au = $('#hero-audio');
+  if (!btn || !au) return;
+  const label = () => { const t = T[L] || T.en; btn.dataset.ta = au.paused ? 'snd_on' : 'snd_off'; btn.setAttribute('aria-label', t[btn.dataset.ta]); btn.setAttribute('aria-pressed', String(!au.paused)); };
+  const stop = () => { if (!au.paused) { au.pause(); label(); } };
+  btn.addEventListener('click', () => { if (au.paused) { au.volume = .7; au.play().then(label).catch(label); } else stop(); });
+  au.addEventListener('pause', label); au.addEventListener('play', label);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  document.addEventListener('so-lang', label);
+  $('#trailer-btn')?.addEventListener('click', stop); // the cinematic has its own sound
+  // is the file there? (a HEAD request; on file:// or a missing file the button stays hidden)
+  fetch(au.getAttribute('src'), { method: 'HEAD' }).then((r) => { if (r.ok && !/text\/html/.test(r.headers.get('content-type') || '')) { btn.hidden = false; label(); } }).catch(() => {});
 })();
 
 // ---------- the feature strips ----------
