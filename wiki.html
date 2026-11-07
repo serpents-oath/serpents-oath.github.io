@@ -171,6 +171,14 @@ html[lang="he"] .cat h3 { letter-spacing: 0; }
 .minimap { position: relative; width: 100%; aspect-ratio: 4 / 3; image-rendering: pixelated; border-radius: var(--rad-slot); box-shadow: 0 0 0 2px var(--edge), inset 0 0 0 1px var(--line-hi); background-color: #cdbb8e; background-repeat: no-repeat; overflow: hidden; }
 .minimap .pin { position: absolute; left: 50%; top: 50%; width: 16px; height: 22px; transform: translate(-50%, -100%); background: #e04848; clip-path: polygon(50% 100%, 0 40%, 0 15%, 15% 0, 85% 0, 100% 15%, 100% 40%); }
 .minimap .d { position: absolute; width: 8px; height: 8px; transform: translate(-50%, -50%); border-radius: 2px; background: var(--gold); box-shadow: 0 0 0 2px var(--night); }
+.minimap[data-zoomable] { touch-action: none; cursor: grab; } .minimap[data-zoomable].drag { cursor: grabbing; }
+.minimap:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.minimap .zc { position: absolute; top: 8px; right: 8px; display: grid; gap: 4px; z-index: 2; }
+.minimap .zc button { width: 30px; height: 30px; padding: 0; border: 0; border-radius: var(--rad-btn); display: grid; place-items: center; font: 700 17px/1 var(--font-body); color: var(--parch-hi); background: rgba(30, 19, 26, .88); box-shadow: 0 0 0 1px var(--edge); cursor: pointer; }
+.minimap .zc button:hover { color: var(--gold); } .minimap .zc button:focus-visible { outline: 2px solid var(--gold); } .minimap .zc button:disabled { opacity: .4; cursor: default; }
+.minimap .zc .zr { font-size: 14px; }
+.minimap .zro { position: absolute; left: 8px; bottom: 8px; z-index: 2; max-width: calc(100% - 16px); padding: 1px 6px; border-radius: 4px; font: 600 11px/1.5 var(--font-body); color: var(--parch-hi); background: rgba(30, 19, 26, .88); box-shadow: 0 0 0 1px var(--edge); direction: ltr; unicode-bidi: isolate; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; }
+.minimap .d, .minimap .pin { z-index: 1; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--tx-2); }
 .legend label { display: inline-flex; align-items: center; gap: 6px; }
 .legend input { accent-color: var(--bronze-hi); }
@@ -336,6 +344,7 @@ const T = {
     mana: 'מאנה', cd: 'המתנה', sec: '\u00a0ש׳', how_get: 'איך משיגים', requires: 'דורש קודם', ult: 'אולטימייט', ults: 'אולטימייטים', reg_skills: 'כישורים', story_gift: 'מתנה בסיפור', branch: 'ענף',
     species: 'סוג', walk: 'הליכה', trot: 'טרוט', canter: 'קנטר', gallop: 'דהרה', sprint: 'ספרינט', flies: 'עף', water: 'הולך על מים', wade: 'עובר מים עד',
     towns: 'ערים וכפרים', characters: 'דמויות הסיפור', trades: 'בעלי מלאכה', residents: 'אנשים', gives_quests: 'נותן משימות', inside_temple: 'בתוך המקדש',
+    zoom_in: 'הגדלה', zoom_out: 'הקטנה', zoom_reset: 'איפוס המפה', map_label: 'מפה: אפשר להגדיל, להקטין ולגרור', map_hint: 'גלגלת או צביטה להגדלה והקטנה, גרירה להזזה, או מקשי + - וחיצים.',
     coords: 'מיקום במפה', near: 'ליד', danger: 'רמת סכנה', world_map: 'מפת העולם', regions: 'אזורים', dungeons: 'מערות ומבוכים', realms: 'ממלכות', places_n: 'מקומות',
     kinds_here: 'מי חי כאן', density: 'צפיפות', cave: 'מערה', realm: 'ממלכה', den: 'מאורה',
     giver: 'נותן המשימה', reward: 'פרס', steps: 'שלבים', after: 'אחרי', lvl_short: 'רמה',
@@ -392,6 +401,7 @@ const T = {
     mana: 'Mana', cd: 'Cooldown', sec: 's', how_get: 'How to get it', requires: 'Requires', ult: 'Ultimate', ults: 'Ultimates', reg_skills: 'Skills', story_gift: 'Story gift', branch: 'Branch',
     species: 'Kind', walk: 'Walk', trot: 'Trot', canter: 'Canter', gallop: 'Gallop', sprint: 'Sprint', flies: 'Flies', water: 'Walks on water', wade: 'Wades up to',
     towns: 'Towns and villages', characters: 'The story’s cast', trades: 'Trades', residents: 'People', gives_quests: 'Gives quests', inside_temple: 'inside the temple',
+    zoom_in: 'Zoom in', zoom_out: 'Zoom out', zoom_reset: 'Reset map', map_label: 'Map: zoom, zoom out and drag', map_hint: 'Wheel or pinch to zoom, drag to pan, or use the + - and arrow keys.',
     coords: 'Map position', near: 'near', danger: 'Danger level', world_map: 'World map', regions: 'Regions', dungeons: 'Caves and dungeons', realms: 'Realms', places_n: 'Places',
     kinds_here: 'Who lives here', density: 'Density', cave: 'Cave', realm: 'Realm', den: 'Den',
     giver: 'Given by', reward: 'Reward', steps: 'Steps', after: 'After', lvl_short: 'Lv',
@@ -448,6 +458,7 @@ const T = {
     mana: 'Maná', cd: 'Recarga', sec: ' s', how_get: 'Cómo conseguirla', requires: 'Requiere', ult: 'Definitiva', ults: 'Definitivas', reg_skills: 'Habilidades', story_gift: 'Regalo de la historia', branch: 'Rama',
     species: 'Tipo', walk: 'Paso', trot: 'Trote', canter: 'Medio galope', gallop: 'Galope', sprint: 'Esprint', flies: 'Vuela', water: 'Camina sobre el agua', wade: 'Vadea hasta',
     towns: 'Ciudades y pueblos', characters: 'Los personajes de la historia', trades: 'Oficios', residents: 'Gente', gives_quests: 'Da misiones', inside_temple: 'dentro del templo',
+    zoom_in: 'Acercar', zoom_out: 'Alejar', zoom_reset: 'Restablecer mapa', map_label: 'Mapa: acercar, alejar y arrastrar', map_hint: 'Rueda o pellizco para el zoom, arrastra para mover, o usa las teclas + - y las flechas.',
     coords: 'Posición en el mapa', near: 'cerca de', danger: 'Nivel de peligro', world_map: 'Mapa del mundo', regions: 'Regiones', dungeons: 'Cuevas y mazmorras', realms: 'Reinos', places_n: 'Lugares',
     kinds_here: 'Quién vive aquí', density: 'Densidad', cave: 'Cueva', realm: 'Reino', den: 'Guarida',
     giver: 'Lo da', reward: 'Recompensa', steps: 'Pasos', after: 'Después de', lvl_short: 'Nv',
@@ -838,12 +849,82 @@ function people() {
     (D.characters?.length ? `<section class="sub">${subh(t('characters'), D.characters.length)}<div class="grid">${D.characters.map(charCard).join('')}</div></section>` : '') +
     `<section class="sub">${subh(t('towns'), towns.length)}<div class="grid">${towns.map(townCard).join('')}</div></section>`;
 }
-function miniMap(x, z, dots = [], span = 520) {
+function miniMap(x, z, dots = [], span = 520, name = '') {
   if (!D.map?.img) return '';
   const B = D.map.bounds, W = B.x1 - B.x0, k = W / span; // the box shows `span` metres across
   const u = (x - B.x0) / W, v = (z - B.z0) / (B.z1 - B.z0);
-  const dd = dots.map((d) => { const du = (d.x - x) / span, dv = (d.z - z) / (span * .75); if (Math.abs(du) > .5 || Math.abs(dv) > .5) return ''; return `<i class="d" title="${esc(d.title || '')}" style="left:${(50 + du * 100).toFixed(2)}%;top:${(50 + dv * 100).toFixed(2)}%"></i>`; }).join('');
-  return `<div class="minimap" style="background-image:url(${img(D.map.img)});background-size:${(k * 100).toFixed(1)}% auto;background-position:${(((u * k) - .5) / (k - 1) * 100).toFixed(3)}% ${(((v * k * 4 / 3) - .5) / (k * 4 / 3 - 1) * 100).toFixed(3)}%">${dd}<span class="pin"></span></div>`;
+  const dd = dots.map((d) => { const du = (d.x - x) / span, dv = (d.z - z) / (span * .75), off = Math.abs(du) > .5 || Math.abs(dv) > .5; return `<i class="d"${off ? ' hidden' : ''} title="${esc(d.title || '')}" data-x="${d.x}" data-z="${d.z}" data-n="${esc(d.title || '')}" style="left:${(50 + du * 100).toFixed(2)}%;top:${(50 + dv * 100).toFixed(2)}%"></i>`; }).join('');
+  const bt = (a, k2, label) => `<button type="button" data-z="${a}"${k2 ? ` class="${k2}"` : ''} aria-label="${esc(t(label))}" title="${esc(t(label))}">`;
+  return `<div class="minimap" data-zoomable data-x="${x}" data-z="${z}" data-span="${span}" data-n="${esc(name)}" tabindex="0" role="group" aria-label="${esc(t('map_label'))}" style="background-image:url(${img(D.map.img)});background-size:${(k * 100).toFixed(1)}% auto;background-position:${(((u * k) - .5) / (k - 1) * 100).toFixed(3)}% ${(((v * k * 4 / 3) - .5) / (k * 4 / 3 - 1) * 100).toFixed(3)}%">${dd}<span class="pin" data-x="${x}" data-z="${z}" data-n="${esc(name)}"></span>`
+    + `<span class="zc">${bt('in', '', 'zoom_in')}+</button>${bt('out', '', 'zoom_out')}&minus;</button>${bt('reset', 'zr', 'zoom_reset')}&#8634;</button></span>`
+    + `<span class="zro" role="status" aria-live="off"></span></div><p class="mt" style="margin:4px 0 0;font-size:12px">${esc(t('map_hint'))}</p>`;
+}
+// zoom, pan and a coordinate readout for the little maps in the detail windows (buttons, wheel, pinch, drag, keys)
+function bindMaps(root) {
+  if (!D?.map) return;
+  const B = D.map.bounds, W = B.x1 - B.x0, H = B.z1 - B.z0;
+  $$('.minimap[data-zoomable]', root).forEach((el) => {
+    const x0 = +el.dataset.x, z0 = +el.dataset.z, span0 = +el.dataset.span, MIN = 60, MAX = W;
+    let cx = x0, cz = z0, span = span0;
+    const ro = el.querySelector('.zro'), marks = [...el.querySelectorAll('.pin, .d')], bt = (a) => el.querySelector(`.zc [data-z="${a}"]`);
+    const say = (x, z, n) => { ro.textContent = (n ? n + ' ' : '') + Math.round(x) + ', ' + Math.round(z); };
+    const home = () => say(x0, z0, el.dataset.n);
+    const clamp = () => {
+      const w = el.clientWidth || 1, h = el.clientHeight || 1, hw = span / 2, hh = span * h / w / 2;
+      cx = hw >= W / 2 ? B.x0 + W / 2 : Math.min(B.x1 - hw, Math.max(B.x0 + hw, cx));
+      cz = hh >= H / 2 ? B.z0 + H / 2 : Math.min(B.z1 - hh, Math.max(B.z0 + hh, cz));
+    };
+    const draw = () => {
+      const w = el.clientWidth, h = el.clientHeight; if (!w) return;
+      clamp(); const sz = W / span * w;
+      el.style.backgroundSize = `${sz}px ${sz * H / W}px`;
+      el.style.backgroundPosition = `${w / 2 - (cx - B.x0) / W * sz}px ${h / 2 - (cz - B.z0) / H * sz * H / W}px`;
+      for (const m of marks) {
+        const px = w / 2 + (+m.dataset.x - cx) / span * w, py = h / 2 + (+m.dataset.z - cz) / span * w;
+        m.hidden = px < -12 || px > w + 12 || py < -12 || py > h + 30; m.style.left = px + 'px'; m.style.top = py + 'px';
+      }
+      bt('in').disabled = span <= MIN + .01; bt('out').disabled = span >= MAX - .01;
+      el.dataset.zoom = (span0 / span).toFixed(2);
+    };
+    const zoomTo = (ns, ax, ay) => { // keeps the world point under (ax, ay), in box pixels, where it is
+      ns = Math.min(MAX, Math.max(MIN, ns)); const w = el.clientWidth, h = el.clientHeight;
+      ax = ax ?? w / 2; ay = ay ?? h / 2;
+      const wx = cx + (ax - w / 2) / w * span, wz = cz + (ay - h / 2) / w * span;
+      span = ns; cx = wx - (ax - w / 2) / w * span; cz = wz - (ay - h / 2) / w * span; draw();
+    };
+    const reset = () => { span = span0; cx = x0; cz = z0; draw(); home(); };
+    const at = (e) => { const r = el.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    const world = (px, py) => [cx + (px - el.clientWidth / 2) / el.clientWidth * span, cz + (py - el.clientHeight / 2) / el.clientWidth * span];
+    const zc = el.querySelector('.zc');
+    zc.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; const a = b.dataset.z; if (a === 'in') zoomTo(span / 1.6); else if (a === 'out') zoomTo(span * 1.6); else reset(); });
+    zc.addEventListener('pointerdown', (e) => e.stopPropagation());
+    el.addEventListener('wheel', (e) => { e.preventDefault(); const [ax, ay] = at(e); zoomTo(span * Math.exp(e.deltaY * (e.deltaMode ? .05 : .0016)), ax, ay); const [wx, wz] = world(ax, ay); say(wx, wz); }, { passive: false });
+    const ptr = new Map(); let pinch = 0;
+    const dist = () => { const [p, q] = [...ptr.values()]; return Math.hypot(p[0] - q[0], p[1] - q[1]); };
+    el.addEventListener('pointerdown', (e) => { if (e.button > 0) return; ptr.set(e.pointerId, at(e)); el.setPointerCapture?.(e.pointerId); el.classList.add('drag'); pinch = ptr.size === 2 ? dist() : 0; });
+    el.addEventListener('pointermove', (e) => {
+      const [ax, ay] = at(e);
+      if (ptr.has(e.pointerId)) {
+        const pv = ptr.get(e.pointerId); ptr.set(e.pointerId, [ax, ay]);
+        if (ptr.size === 2) { const [p, q] = [...ptr.values()], d = dist(); if (pinch && d) zoomTo(span * pinch / d, (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); pinch = d; }
+        else if (ptr.size === 1) { cx -= (ax - pv[0]) / el.clientWidth * span; cz -= (ay - pv[1]) / el.clientWidth * span; draw(); }
+      }
+      if (e.pointerType !== 'touch' && !e.target.closest('.pin, .d')) { const [wx, wz] = world(ax, ay); say(wx, wz); }
+    });
+    const up = (e) => { ptr.delete(e.pointerId); pinch = 0; if (!ptr.size) el.classList.remove('drag'); };
+    el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+    el.addEventListener('pointerleave', home);
+    marks.forEach((m) => m.addEventListener('pointerenter', () => say(+m.dataset.x, +m.dataset.z, m.dataset.n)));
+    el.addEventListener('keydown', (e) => {
+      if (e.target !== el) return;
+      const st = span * .2; let used = true;
+      if (e.key === '+' || e.key === '=') zoomTo(span / 1.6); else if (e.key === '-' || e.key === '_') zoomTo(span * 1.6); else if (e.key === '0' || e.key === 'Home') reset();
+      else if (e.key === 'ArrowLeft') { cx -= st; draw(); } else if (e.key === 'ArrowRight') { cx += st; draw(); } else if (e.key === 'ArrowUp') { cz -= st; draw(); } else if (e.key === 'ArrowDown') { cz += st; draw(); } else used = false;
+      if (used) { e.preventDefault(); e.stopPropagation(); say(cx, cz); }
+    });
+    if (window.ResizeObserver) new ResizeObserver(draw).observe(el);
+    home(); draw();
+  });
 }
 const qGiven = (place, role) => (D.quests || []).filter((q) => q.giver?.place === place && q.giver?.role === role);
 function townDetail(s) {
@@ -1008,7 +1089,7 @@ function npcDetail(p) {
   const { O } = JOB_I(), qs = (O.quests || []).filter((q) => q.giver?.role === p.key), spots = p.spots || (p.x != null ? [{ hall: p.hall, x: p.x, z: p.z }] : []);
   return `<div class="dhead"><span class="big">${p.img ? `<img src="${img(p.img)}" alt="">` : ''}</span><div><h2 id="dlgt" style="color:${esc(p.color || 'inherit')};text-shadow:1px 1px 0 var(--night)">${esc(tx(p.name))}</h2><p class="sub2">${esc(tx(JOB_I().roles[p.role]?.name) || p.role)}${p.job ? ' · ' + esc(jobName(p.job)) : ''}${p.path ? ' · ' + esc(pathName(p.path)) : ''}</p><div class="tags">${opill()}${p.title ? `<span class="pill">${esc(tx(p.title))}</span>` : ''}</div></div></div>
     ${p.intro ? `<blockquote class="quote">“${esc(tx(p.intro))}”</blockquote>` : ''}
-    <div class="cols"><div class="dsec"><h4>${esc(t('where_stand'))}</h4>${spots.map((q) => `<p><b>${esc(placeOf(q.place || q.hall))}</b> <span class="ltr">${q.x}, ${q.z}</span>${q.when ? ` · ${esc(tx(q.when))}` : ''}</p>`).join('')}${spots[0] ? miniMap(spots[0].x, spots[0].z, [], 420) : ''}</div>
+    <div class="cols"><div class="dsec"><h4>${esc(t('where_stand'))}</h4>${spots.map((q) => `<p><b>${esc(placeOf(q.place || q.hall))}</b> <span class="ltr">${q.x}, ${q.z}</span>${q.when ? ` · ${esc(tx(q.when))}` : ''}</p>`).join('')}${spots[0] ? miniMap(spots[0].x, spots[0].z, [], 420, tx(p.name)) : ''}</div>
     <div class="dsec">${p.shopTitle ? `<h4>${esc(t('shop'))}</h4><p>${esc(tx(p.shopTitle))}</p>` : ''}${qs.length ? `<h4>${esc(t('gives_quests'))}</h4><div class="rows">${qs.map(jqRow).join('')}</div>` : ''}${p.job ? `<p><a href="#jobs/job:${p.job}" data-open="jobs|job:${p.job}">${esc(jobName(p.job))}</a></p>` : ''}</div></div>`;
 }
 function hallDetail(h) {
@@ -1071,7 +1152,7 @@ let lastFocus = null;
 function openItem(cat, id) {
   const html = D && find(cat, id); if (!html) return;
   const dlg = $('#dlg'), box = $('#dlgin');
-  box.innerHTML = html; box.scrollTop = 0; bindCards(box);
+  box.innerHTML = html; box.scrollTop = 0; bindCards(box); bindMaps(box);
   $$('[data-rar]', box).forEach((b) => b.addEventListener('click', () => { gRar = b.dataset.rar; openItem(cat, id); }));
   if (!dlg.open) { lastFocus = document.activeElement; dlg.showModal(); }
 }
