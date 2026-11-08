@@ -30,6 +30,34 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '40', date: '2026-11-08',
+    he: { title: 'גרסה 40 (כולל 39): עולם חי, מפלים ונוף, Knockback, מפות מסתובבות, כפרי המאסטרים ותנועה חדשה', items: [
+      'עולם חי: יותר ממאה סצנות לאורך הדרכים הראשונות: מחנות שודדים וסטירים, מאורות זאבים וצנטאורים, קרבות בין מפלצות, סיורים, עגלות נטושות עם תיבה, אבנים עומדות, מקדשים קטנים ונזיר עם רמז. כולן מפלצות רגילות עם EXP ושלל, והרמות עולות ככל שמתרחקים',
+      'נוף: מפל המקדש, מפל אתונה עם אגם, גיא עם גשר חבלים, גבעת זיתים במדרגות, אמת מים הרוסה, צוק ים עם קשת, עץ דולב ענק, מערה זוהרת ומעיין חם',
+      'Knockback בסגנון MapleStory: מפלצת נדחפת לאחור רק כשפגיעה אחת מגיעה לסף הנזק שלה. בוסים לא זזים, ויש הגנה מפני נעילה. כיבוי: ?kb=0',
+      'מפה ומיני מאפ מסתובבות עם הזווית וצפון תמיד למעלה, כך ש-W הולך צפונה. הדרכים בזוויות של 45 מעלות',
+      'תנועה V2: האצה, בלימה וסיבוב טבעיים יותר',
+      'מערות הפרטי מסומנות על המפה מההתחלה. מאסטרים מסבירים למה אין שיעור, משימות ברורות יותר, מפלצות עד רמה 22 סביב הערים, סקילי VFX חדשים ו-ping מדויק',
+      'ONLINE (מגרסה 39): כפר לכל מאסטר, טריילר לכל מקצוע, פגיעות מרובות לסקיל חזק, אפשר לעזוב את האי הראשון מוקדם ב-500 דרכמות, ולאנצר 1.7.1 שמתעדכן בלחיצה אחת'
+    ] },
+    en: { title: 'Version 40 (with 39): a living world, waterfalls and scenery, knockback, turning maps, the masters\' villages and new movement', items: [
+      'A living world: over a hundred scenes along the first roads: bandit and satyr camps, wolf and centaur dens, monsters fighting each other, patrols, abandoned carts with a chest, standing stones, small shrines and a hermit with a hint. All are ordinary monsters with EXP and loot, and levels rise as you go out',
+      'Scenery: the temple falls, the Athens cascade with a lake, a gorge with a rope bridge, a terraced olive hill, a ruined aqueduct, a sea stack with an arch, a giant plane tree, a glowing grotto and a hot spring',
+      'MapleStory-style knockback: a monster is pushed back only when one single hit reaches its damage threshold. Bosses do not move, and a window prevents stun-lock. Switch off with ?kb=0',
+      'The map and minimap turn with the camera angle and north is always up, so W walks north. Roads run at 45 degree angles',
+      'Movement V2: more natural acceleration, braking and turning',
+      'The party-dungeon caves are marked on the map from the start. Masters explain why there is no lesson, clearer quests, monsters up to level 22 around the cities, new skill effects and an accurate ping',
+      'ONLINE (from 39): a village for each master, a trailer for every job, multi-hit blows for strong skills, an early departure from the first island for 500 drachmas, and launcher 1.7.1 that updates in one click'
+    ] },
+    es: { title: 'Versión 40 (con la 39): un mundo vivo, cascadas y paisaje, retroceso, mapas giratorios y movimiento nuevo', items: [
+      'Un mundo vivo: más de cien escenas junto a los primeros caminos: campamentos de bandidos y sátiros, guaridas de lobos y centauros, monstruos peleando entre sí, patrullas, carros abandonados, piedras erguidas, pequeños santuarios y un ermitaño',
+      'Paisaje: la cascada del templo, la de Atenas con lago, un desfiladero con puente de cuerda, una colina de olivos en terrazas, un acueducto en ruinas, un farallón con arco, un plátano gigante, una gruta luminosa y una fuente termal',
+      'Retroceso estilo MapleStory: un monstruo retrocede solo cuando un único golpe alcanza su umbral de daño. Los jefes no se mueven. Se desactiva con ?kb=0',
+      'El mapa y el minimapa giran con la cámara y el norte siempre está arriba, así W va al norte. Los caminos siguen ángulos de 45 grados',
+      'Movimiento V2: aceleración, frenado y giro más naturales'
+    ] },
+  },
+  {
     v: '38', date: '2026-11-07',
     he: { title: 'גרסה 38: סימני משימות, מפה נוחה, התקפה תוך כדי הליכה, קולות למפלצות, עצים חדשים, אפקטים מצוירים, שלט ומבוכים', items: [
       'סימני המשימות כמו ב-MapleStory: "!" זהוב למשימה חדשה ברמה שלכם, "?" זהוב למשימה שהושלמה, "?" אפור למשימה בדרך. חפצים, מקומות ומפלצות מקבלים את החץ האדום שלנו, ובאי ההתחלה הסימנים גדולים יותר עד רמה 3',
