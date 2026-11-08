@@ -9,7 +9,7 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css', '.png': 'image/png', '.json': 'application/json' };
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css', '.png': 'image/png', '.webp': 'image/webp', '.json': 'application/json' };
 const srv = http.createServer((req, res) => {
   const f = path.join(ROOT, decodeURIComponent(new URL(req.url, 'http://x').pathname));
   if (!f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); res.end('no'); return; }
@@ -121,6 +121,39 @@ for (const [lang, inL, outL, rstL] of [['en', 'Zoom in', 'Zoom out', 'Reset map'
   ok(vis >= 0, 'markers re-placed after zoom');
   const d = await pg.$('.minimap .d:not([hidden])');
   if (d) { await d.hover(); const ro = await pg.$eval('.minimap .zro', (e) => e.textContent); ok(/\S+ .*-?\d+, -?\d+$/.test(ro), 'hovering a marker shows its name and coordinates', ro); }
+  await ctx.close();
+}
+
+{ // the game's own map picture: the static worldmap.webp, the game's pixel icons and names, a pulsing dot with the name at the exact world point
+  const { ctx, pg } = await open('en', 'jobs/npc:chiron');
+  const bg = await pg.$eval('.minimap', (e) => e.style.backgroundImage);
+  ok(/assets\/worldmap\.webp/.test(bg), 'the little map uses assets/worldmap.webp', bg);
+  const dim = await pg.evaluate(() => new Promise((r) => { const i = new Image(); i.onload = () => r([i.naturalWidth, i.naturalHeight]); i.onerror = () => r(null); i.src = 'assets/worldmap.webp'; }));
+  ok(dim && dim[0] === 2048 && dim[1] === 2048, 'the picture is 2048 x 2048', JSON.stringify(dim));
+  ok(statSync(path.join(ROOT, 'assets/worldmap.webp')).size < 1e6, 'the picture is under 1 MB');
+  const lab = await pg.$eval('.minimap .pin b', (e) => e.textContent); ok(/Chiron/i.test(lab), 'the dot carries the name label', lab);
+  ok(await pg.$eval('.minimap .pin', (e) => getComputedStyle(e, '::before').animationName === 'pinpulse'), 'the dot pulses');
+  ok((await pg.$$eval('.minimap .m i', (a) => a.length)) > 0 && (await pg.$$eval('.minimap .m em', (a) => a.length)) > 0, 'the game icons and place names are drawn');
+  ok(await pg.$$eval('.minimap .m:not([hidden]) em', (a) => a.some((e) => /Elaia/i.test(e.textContent) && getComputedStyle(e).display !== 'none')), 'the town name (Elaia) shows beside the character');
+  // the world point under the dot is the character's: pixel of the picture under the dot = (x + half) / size * 2048
+  const px = await pg.$eval('.minimap', (e) => { const pin = e.querySelector('.pin'), cs = getComputedStyle(e), [bw, bh] = cs.backgroundSize.split(' ').map(parseFloat), [ox, oy] = cs.backgroundPosition.split(' ').map(parseFloat);
+    return { u: (parseFloat(pin.style.left) - ox) / bw, v: (parseFloat(pin.style.top) - oy) / bh }; });
+  ok(Math.abs(px.u * 2048 - (1145 + 5018) / 10036 * 2048) < 1.5 && Math.abs(px.v * 2048 - (-178 + 5018) / 10036 * 2048) < 1.5, 'dot sits on the character\'s world point in the picture', JSON.stringify(px));
+  await ctx.close();
+}
+{ // the halls: Marathon 1000,150  Den 760,-60  Hecate 680,-400  (the same maths, and land under the dot)
+  for (const [id, x, z] of [['marathon', 1000, 150], ['den', 760, -60], ['hecate', 680, -400]]) {
+    const { ctx, pg } = await open('en', 'jobs/hall:' + id);
+    const r = await pg.$eval('.minimap', (e) => { const pin = e.querySelector('.pin'), cs = getComputedStyle(e), [bw, bh] = cs.backgroundSize.split(' ').map(parseFloat), [ox, oy] = cs.backgroundPosition.split(' ').map(parseFloat);
+      return { u: (parseFloat(pin.style.left) - ox) / bw, v: (parseFloat(pin.style.top) - oy) / bh, ro: e.querySelector('.zro').textContent }; });
+    ok(Math.abs(r.u * 2048 - (x + 5018) / 10036 * 2048) < 1.5 && Math.abs(r.v * 2048 - (z + 5018) / 10036 * 2048) < 1.5 && r.ro.includes(`${x}, ${z}`), `hall ${id} dot at ${x}, ${z}`, JSON.stringify(r));
+    await ctx.close();
+  }
+}
+{ // a place and a town window: named dot, no duplicate of the target's own mark
+  const { ctx, pg } = await open('en', 'people/town:athenai');
+  ok((await pg.$eval('.minimap .pin b', (e) => e.textContent)).length > 2, 'town window: the dot carries the town name');
+  ok((await pg.$$eval('.minimap .m', (a) => a.length)) > 20, 'town window: other places drawn');
   await ctx.close();
 }
 
