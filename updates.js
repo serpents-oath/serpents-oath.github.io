@@ -30,6 +30,35 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '41', date: '2026-11-09',
+    he: { title: 'גרסה 41: תנועה בעכבר, גרירה של הכל לסרגל, ערים עם מדרגות וחנויות בולטות, נשקים שונים ומבוכים מותאמים לצוות', items: [
+      'תנועה בלחיצה ימנית כברירת מחדל: סמן זהב קצר, בלי סמן הליכה על מפלצות. אפשר לחזור ל-WASD בהגדרות',
+      'גרירה של הכל: סקילים, שיקויים, חפצים שימושיים ופעולות מערכת (גלגול, ריצה, הגנה ועוד) נגררים לסרגל ולמקלדת. שיקויי איפוס לא יכולים להיות על המקלדת',
+      'ערים: חנויות בולטות עם שלט, דגל ופנס, מקדשים שפונים לכיכר, מדרגות האקרופוליס באתונה שאפשר לטפס עליהן ו-12 טרסות מדורגות ב-11 ערים. באונליין יש 60% פחות אנשים מקשטים',
+      'נשקים: מראה שונה לכל נשק, כרטיס נשק ברור ומספרים רגילים במקום אחוזים',
+      'מבוכי הפארטי: חיי הבוס לפי גודל הצוות, ומבוך Rootbound Delve (20-30) עובד מקצה לקצה עם יציאה ופרס',
+      'מפלצות לפי עיר: רמה לפי המרחק, מערות מרמה 12, מפלצות גדולות ב-10% ואגרסיביות לפי רמה',
+      'מנה וחיים עולים עם הרמות, שיקויים זולים בכל עיר, בחירת כמות בקנייה ומכירה, וריחוף שמציג סטטים'
+    ] },
+    en: { title: 'Version 41: mouse movement, drag everything to the bar, cities with stairs and clear shops, distinct weapons and party-sized dungeons', items: [
+      'Right-click movement is the default: a short golden marker, and no walk cursor over monsters. WASD stays available in settings',
+      'Drag everything: skills, potions, usable items and system actions (roll, sprint, guard and more) can be dragged to the bar and the keyboard. Reset potions cannot go on a key',
+      'Cities: clear shops with a sign, a pennant and a lantern, temples facing the square, a climbable Athens acropolis stair and 12 stepped terraces in 11 towns. ONLINE has 60% fewer idle townsfolk',
+      'Weapons: every weapon looks different, a clear weapon card and plain numbers instead of percentages',
+      'Party dungeons: the boss\'s HP follows the party size, and the Rootbound Delve (20-30) works end to end with an exit and a reward',
+      'Monsters by city: level by distance, caves from level 12, monsters 10% larger and aggression by level',
+      'Mana and health grow with level, cheap potions in every city, a quantity picker for buying and selling, and hover stats'
+    ] },
+    es: { title: 'Versión 41: movimiento con ratón, arrastrar todo a la barra, ciudades con escaleras y tiendas visibles, armas distintas y mazmorras según el grupo', items: [
+      'El movimiento con clic derecho es el predeterminado: marcador dorado breve y sin cursor de caminar sobre monstruos. WASD sigue en ajustes',
+      'Arrastra todo: habilidades, pociones, objetos y acciones del sistema (rodar, correr, guardia) a la barra y al teclado. Las pociones de reinicio no se pueden poner en una tecla',
+      'Ciudades: tiendas bien visibles con letrero, banderín y farol, templos orientados a la plaza, escalera de la acrópolis de Atenas transitable y 12 terrazas escalonadas en 11 ciudades',
+      'Armas: cada arma luce distinta, con una tarjeta clara y números simples',
+      'Mazmorras de grupo: la vida del jefe depende del tamaño del grupo, y la Rootbound Delve (20-30) funciona de principio a fin',
+      'Maná y vida suben con el nivel, pociones baratas en cada ciudad y selector de cantidad al comprar y vender'
+    ] },
+  },
+  {
     v: '40', date: '2026-11-08',
     he: { title: 'גרסה 40 (כולל 39): עולם חי, מפלים ונוף, Knockback, מפות מסתובבות, כפרי המאסטרים ותנועה חדשה', items: [
       'עולם חי: יותר ממאה סצנות לאורך הדרכים הראשונות: מחנות שודדים וסטירים, מאורות זאבים וצנטאורים, קרבות בין מפלצות, סיורים, עגלות נטושות עם תיבה, אבנים עומדות, מקדשים קטנים ונזיר עם רמז. כולן מפלצות רגילות עם EXP ושלל, והרמות עולות ככל שמתרחקים',
