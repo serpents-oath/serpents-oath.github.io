@@ -30,6 +30,30 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '43', date: '2026-11-10',
+    he: { title: 'גרסה 43: יריה על ברך לקשת, מפלצות הוגנות יותר ושליטה במקלדת בלבד', items: [
+      'תזוזה בעכבר בוטלה: הולכים עם WASD, קליק שמאלי תוקף וקליק ימני מגן',
+      'המתקפה הטעונה באונליין שמורה לקשת: הוא יורד על ברך, טוען, משחרר וקם. אטלנטה מלמדת אותה במשימה חדשה, "הירייה המכריעה"',
+      'סימוני ההתקפה של המפלצות שקופים יותר, והיריות שלהן לא עפות רחוק מהטווח שלהן',
+      'שנייה וחצי של חסינות אחרי פגיעה, כך שאי אפשר לחטוף מטח חצים בבת אחת',
+      'אחרי בחירת דמות עולה מסך הטעינה מיד, בלי הבזק של המקדש'
+    ] },
+    en: { title: 'Version 43: the archer\'s Kneeling Shot, fairer monsters and keyboard-only movement', items: [
+      'Mouse movement is gone: walk with WASD, left click attacks, right click guards',
+      'Online, the charged attack belongs to the archer: kneel, draw, release, rise. Atalanta teaches it in a new quest, "The Kneeling Shot"',
+      'Monster attack markers are more transparent, and their shots no longer fly far past their range',
+      'A second and a half of protection after a hit, so a volley of arrows can no longer land all at once',
+      'After choosing a character the loading screen comes up at once, with no flash of the temple'
+    ] },
+    es: { title: 'Versión 43: el disparo de rodilla del arquero, monstruos más justos y movimiento solo con teclado', items: [
+      'Se acabó moverse con el ratón: camina con WASD, clic izquierdo ataca, clic derecho se protege',
+      'En línea, el ataque cargado es del arquero: se arrodilla, tensa, suelta y se levanta. Atalanta lo enseña en una misión nueva, "El disparo de rodilla"',
+      'Las marcas de ataque de los monstruos son más transparentes y sus disparos ya no vuelan mucho más allá de su alcance',
+      'Segundo y medio de protección tras recibir un golpe, para que una lluvia de flechas no te alcance toda a la vez',
+      'Tras elegir personaje, la pantalla de carga aparece enseguida, sin destello del templo'
+    ] },
+  },
+  {
     v: '42', date: '2026-11-10',
     he: { title: 'גרסה 42: מצלמה בסגנון Hades, קרב חי יותר, מאסטרים חדשים, לילה עם כוכבים ושמות גדולים', items: [
       'מצלמה בסגנון Hades: נעולה על הדמות וזזה בעדינות לכיוון העכבר. אפשר לחזור למצלמה הקלאסית בהגדרות',
