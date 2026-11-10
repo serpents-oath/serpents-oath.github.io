@@ -30,6 +30,27 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '44', date: '2026-11-10',
+    he: { title: 'גרסה 44: התקנה חדשה, יותר מאנה ובלי זוהר בגרירה', items: [
+      'התקנה חדשה: רק הלוגו ופס טעינה זהב, ובסוף הלאנצר נפתח לבד',
+      'הלאנצר יורד הצידה כשנכנסים למשחק, ורואים רק את מסך האנטי-צ\'יט ואז את המשחק',
+      'יותר מאנה בכל רמה, בערך רבע יותר, ושיקויי המאנה גדלים איתה',
+      'גרירת מיומנויות וחפצים בלי זוהר צהוב על המשבצות'
+    ] },
+    en: { title: 'Version 44: a new installer, more mana and no glow while dragging', items: [
+      'A new installer: just the logo and a gold loading bar, then the launcher opens by itself',
+      'The launcher steps aside when you enter the game, so only the anti-cheat screen and then the game are on screen',
+      'More mana every level, about a quarter more, and mana potions grow with it',
+      'Dragging skills and items no longer lights the slots up in yellow'
+    ] },
+    es: { title: 'Versión 44: un instalador nuevo, más maná y sin brillo al arrastrar', items: [
+      'Un instalador nuevo: solo el logo y una barra de carga dorada; al terminar se abre el lanzador',
+      'El lanzador se aparta al entrar al juego: solo se ve la pantalla del antitrampas y luego el juego',
+      'Más maná en cada nivel, cerca de un cuarto más, y las pociones de maná crecen con él',
+      'Arrastrar habilidades y objetos ya no ilumina las casillas en amarillo'
+    ] },
+  },
+  {
     v: '43', date: '2026-11-10',
     he: { title: 'גרסה 43: יריה על ברך לקשת, מפלצות הוגנות יותר ושליטה במקלדת בלבד', items: [
       'תזוזה בעכבר בוטלה: הולכים עם WASD, קליק שמאלי תוקף וקליק ימני מגן',
