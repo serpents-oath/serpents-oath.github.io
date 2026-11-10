@@ -30,6 +30,33 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '42', date: '2026-11-10',
+    he: { title: 'גרסה 42: מצלמה בסגנון Hades, קרב חי יותר, מאסטרים חדשים, לילה עם כוכבים ושמות גדולים', items: [
+      'מצלמה בסגנון Hades: נעולה על הדמות וזזה בעדינות לכיוון העכבר. אפשר לחזור למצלמה הקלאסית בהגדרות',
+      'קרב: קפיצה קדימה אל המפלצת, מפלצות נהדפות, טלטול במכה האחרונה ובקריטי, תנועות תקיפה גדולות יותר ואנימציית מוות למפלצות. מספרי הנזק גדולים ב-40%',
+      'באונליין אין ריצה, וההליכה מהירה ב-10%. מכות רגילות איטיות ב-15%. התנועה חזרה ל-WASD כברירת מחדל',
+      'מאסטרים חדשים, ומקדש מרשים באי המתחילים עם תחנה לכל מאסטר',
+      'יום ארוך פי 2 ולילה מואר עם ירח וכוכבים. הדמויות נושמות בעמידה, והשמות גדולים בסגנון MU Online',
+      'מבוכי הפארטי: תוקן קיר בלתי נראה בפתחים. לאנצר 1.7.2 עם אייקון גדול יותר'
+    ] },
+    en: { title: 'Version 42: a Hades-style camera, livelier combat, new masters, a starry night and bigger names', items: [
+      'A Hades-style camera: locked on the hero, it leans gently toward the mouse. The classic camera is still in settings',
+      'Combat: a lunge into the foe, monsters recoil, a jolt on finishers and crits, bigger attack motions and monster death animations. Damage numbers are 40% larger',
+      'ONLINE has no sprint and walking is 10% faster. Basic blows are 15% slower. Movement is back to WASD by default',
+      'New masters, and a grand sanctuary on the beginners\' island with a station for each master',
+      'Days twice as long and a moonlit night with stars. Characters breathe while standing, and names are bigger, MU Online style',
+      'Party dungeons: fixed an invisible wall in the doorways. Launcher 1.7.2 with a bigger icon'
+    ] },
+    es: { title: 'Versión 42: cámara estilo Hades, combate más vivo, nuevos maestros, noche estrellada y nombres más grandes', items: [
+      'Cámara estilo Hades: fija en el héroe, se inclina suavemente hacia el ratón. La cámara clásica sigue en ajustes',
+      'Combate: embestida hacia el enemigo, los monstruos retroceden, sacudida en remates y críticos, ataques más amplios y animaciones de muerte. Números de daño un 40% más grandes',
+      'ONLINE sin carrera y caminar un 10% más rápido. Golpes básicos un 15% más lentos. El movimiento vuelve a WASD por defecto',
+      'Nuevos maestros y un gran santuario en la isla de inicio',
+      'Días el doble de largos y noches con luna y estrellas. Los personajes respiran y los nombres son más grandes',
+      'Mazmorras de grupo: arreglado un muro invisible en las puertas. Lanzador 1.7.2 con un icono más grande'
+    ] },
+  },
+  {
     v: '41', date: '2026-11-09',
     he: { title: 'גרסה 41: תנועה בעכבר, גרירה של הכל לסרגל, ערים עם מדרגות וחנויות בולטות, נשקים שונים ומבוכים מותאמים לצוות', items: [
       'תנועה בלחיצה ימנית כברירת מחדל: סמן זהב קצר, בלי סמן הליכה על מפלצות. אפשר לחזור ל-WASD בהגדרות',
