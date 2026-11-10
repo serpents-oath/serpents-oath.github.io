@@ -30,6 +30,33 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '45', date: '2026-11-10',
+    he: { title: 'גרסה 45: קרב כבד יותר, אי ראשון חדש ושערים בכל צד', items: [
+      'תנועת הנשק כבדה וארוכה יותר, ולחיצה בסוף קומבו כבר לא הולכת לאיבוד',
+      'מכות דוחפות את המפלצות אחורה, והן עפות ונופלות בצורה דרמטית כשהן מתות',
+      'האי הראשון: מסלול אחד מקצה לקצה בלי לחזור אחורה, והאי קטן יותר',
+      '9 שערים חדשים: אפשר לצאת מכל צד של כמעט כל עיר',
+      'הירח לא נראה על המסך, והכוכבים רק על הספינה בלילה',
+      'שקיפות מדויקת יותר באזור המאסטרים ובעצים הגדולים, ומפת עולם בלי קו בין המים'
+    ] },
+    en: { title: 'Version 45: weightier combat, a new first island and gates on every side', items: [
+      'The weapon swing is weightier and longer, and a click at the end of a combo is no longer lost',
+      'Blows push monsters back, and they are thrown and fall dramatically when they die',
+      'The first island: one route from end to end with no going back, and a smaller island',
+      '9 new gates: you can leave almost every city on any side',
+      'No moon on the screen, and stars only aboard the ship at night',
+      'More precise see-through at the masters\' sanctuary and in big trees, and a world map with no seam in the sea'
+    ] },
+    es: { title: 'Versión 45: combate con más peso, una primera isla nueva y puertas en cada lado', items: [
+      'El golpe del arma tiene más peso y recorrido, y un clic al final de un combo ya no se pierde',
+      'Los golpes empujan a los monstruos, que salen despedidos y caen de forma dramática al morir',
+      'La primera isla: una sola ruta de punta a punta sin volver atrás, y una isla más pequeña',
+      '9 puertas nuevas: puedes salir de casi cualquier ciudad por cualquier lado',
+      'La luna ya no aparece en pantalla, y las estrellas solo a bordo del barco de noche',
+      'Transparencia más precisa en el santuario de los maestros y en los árboles grandes, y un mapa del mundo sin costura en el mar'
+    ] },
+  },
+  {
     v: '44', date: '2026-11-10',
     he: { title: 'גרסה 44: התקנה חדשה, יותר מאנה ובלי זוהר בגרירה', items: [
       'התקנה חדשה: רק הלוגו ופס טעינה זהב, ובסוף הלאנצר נפתח לבד',
