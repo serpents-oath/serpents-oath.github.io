@@ -30,6 +30,42 @@ window.SITE = {
 
 window.UPDATES = [
   {
+    v: '1.121126', date: '2026-11-13',
+    he: { title: 'גרסה 1.121126: דמות חדשה, קרב בלי קומבו, ריצה ומבוכי פארטי חדשים', items: [
+      'הדמות: כפות רגליים עם אצבעות, בד התחלה אדום כהה עם קפלים, גוף אנושי יותר, וכל ששת סוגי השיער נבנו מחדש עם קווצות ושיער ארוך שזז. במסך הבחירה הדמויות חדות יותר',
+      'קרב: אין יותר קומבו. לכל נשק לופ של ארבע מכות שונות, כל לחיצה היא מכה אחת, והנזק לשנייה כמו קודם. בחנית כל הארבע הן נעיצות, והסקיל Charge נקרא עכשיו "נעיצה"',
+      'אפקטי קול חדשים בקרב לכל נשק ולכל מפלצת, וצלילים לכל הפעולות',
+      'תנועה: גלגול טקטי, מהירות הבסיס גבוהה ב-10%, ואחרי 5 שניות הליכה מחוץ לקרב הדמות מתחילה לרוץ ומגיעה למהירות כפולה',
+      'האי הראשון: בערך חצי מהזמן, עם פחות משימות ויותר EXP, ודמות חדשה ששואלת חמש שאלות על המשחק',
+      'מאסטרים: המשימה הראשונה של כל מאסטר ברורה ומסומנת, המפלצות סביב כפרי המאסטרים ברמה 7 עד 10, ומי שנופל שם מתעורר בכפר. כירון מסביר מה קורה ברמה 10',
+      'מבוכי הפארטי: חמישה מבוכים חדשים, מפות עם גבהים ובורות, אויבים עם תפקידים ומטרות חדשות, קולות לבוסים, ובוסים חזקים יותר שמשתמשים בזירה. אפשר לפתוח פארטי גם לבד',
+      'העולם: פרות שנראות כמו פרות, כבר אי אפשר לעבור דרך אנשים (הם זזים הצידה ואומרים מילה), סימן אחד מעל כל דמות, גדרות ודוכני שוק, היום ארוך פי שניים והצמחים זזים בעדינות',
+      'ממשק: דיוקן נייח של מי שמדבר, "T to enter" ליד דלתות, חלון משימות שאפשר להזיז, שמות מפלצות רק בקרב, מפה שלא זזה עם מקשי ההליכה, וסידור חדש לתיק ולחנות'
+    ] },
+    en: { title: 'Version 1.121126: a new hero, combat without combos, running and new party dungeons', items: [
+      'The hero: bare feet with toes, a pleated dark-red starting cloth, a more human body, and all six hair styles rebuilt with real locks and long hair that moves. Heroes are sharper on the selection screen',
+      'Combat: no more combos. Every weapon has a loop of four different blows, one blow per click, with the same damage per second. The spear is four thrusts, and the skill Charge is now called Thrust',
+      'New combat sound effects for every weapon and every monster, and sounds for every action',
+      'Movement: a tactical dive roll, base speed is 10% higher, and after 5 seconds of walking out of combat the hero starts to run and reaches double speed',
+      'The first island: about half the time, with fewer quests and more EXP, and a new riddler who asks five questions about the game',
+      'Masters: each master\'s first quest is clear and marked, monsters around the masters\' villages are level 7 to 10, and whoever falls there wakes up in the village. Chiron explains what happens at level 10',
+      'Party dungeons: five new dungeons, maps with heights and pits, enemies with roles and new objectives, boss voices, and stronger bosses that use the arena. A party can be opened alone',
+      'The world: cows that look like cows, no more walking through people (they step aside and say a word), one mark above each person, fences and market stalls, a day twice as long and gentler plants',
+      'Interface: a still portrait of whoever is speaking, "T to enter" at doors, a quest panel that can be moved, monster names only in a fight, a map that no longer scrolls with the walk keys, and a new layout for the inventory and the shop'
+    ] },
+    es: { title: 'Versión 1.121126: un héroe nuevo, combate sin combos, carrera y nuevas mazmorras de grupo', items: [
+      'El héroe: pies descalzos con dedos, una tela inicial rojo oscuro con pliegues, un cuerpo más humano, y los seis peinados rehechos con mechones y pelo largo que se mueve. Los héroes se ven más nítidos en la pantalla de selección',
+      'Combate: se acabaron los combos. Cada arma tiene un ciclo de cuatro golpes distintos, un golpe por clic, con el mismo daño por segundo. La lanza son cuatro estocadas, y la habilidad Charge ahora se llama Thrust',
+      'Nuevos efectos de sonido de combate para cada arma y cada monstruo, y sonidos para todas las acciones',
+      'Movimiento: una voltereta táctica, la velocidad base sube un 10% y, tras 5 segundos caminando fuera de combate, el héroe echa a correr y alcanza el doble de velocidad',
+      'La primera isla: cerca de la mitad del tiempo, con menos misiones y más EXP, y un personaje nuevo que hace cinco preguntas sobre el juego',
+      'Maestros: la primera misión de cada maestro es clara y está marcada, los monstruos alrededor de las aldeas de los maestros son de nivel 7 a 10, y quien cae allí despierta en la aldea. Quirón explica qué pasa en el nivel 10',
+      'Mazmorras de grupo: cinco mazmorras nuevas, mapas con alturas y fosos, enemigos con funciones y objetivos nuevos, voces para los jefes, y jefes más fuertes que usan la arena. Se puede abrir un grupo en solitario',
+      'El mundo: vacas que parecen vacas, ya no se puede atravesar a la gente (se aparta y dice una palabra), una sola marca sobre cada personaje, vallas y puestos de mercado, un día el doble de largo y plantas más suaves',
+      'Interfaz: un retrato fijo de quien habla, "T to enter" junto a las puertas, un panel de misiones que se puede mover, nombres de monstruos solo en combate, un mapa que ya no se desplaza con las teclas de caminar, y una nueva distribución del inventario y la tienda'
+    ] },
+  },
+  {
     v: '45', date: '2026-11-10',
     he: { title: 'גרסה 45: קרב כבד יותר, אי ראשון חדש ושערים בכל צד', items: [
       'תנועת הנשק כבדה וארוכה יותר, ולחיצה בסוף קומבו כבר לא הולכת לאיבוד',
