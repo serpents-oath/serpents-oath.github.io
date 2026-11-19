@@ -15,7 +15,7 @@
 // (es: the site's Spanish; the game and the launcher are Hebrew and English, and the launcher reads he/en only.)
 window.SITE = {
   LAUNCHER_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Setup.exe',
-  LAUNCHER_MB: 162,
+  LAUNCHER_MB: 164,
   MAC_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac.zip',
   MAC_INTEL_URL: 'https://github.com/serpents-oath/serpents-oath.github.io/releases/latest/download/SerpentsOath-Launcher-Mac-Intel.zip',
   MAC_MB: 172,
@@ -29,6 +29,45 @@ window.SITE = {
 };
 
 window.UPDATES = [
+  {
+    v: '1.191126', date: '2026-11-19',
+    he: { title: 'גרסה 1.191126: 193 סקילים חדשים, 200 נשקים חדשים, כפרי מאסטרים ועולם משודרג', items: [
+      'סקילים: כל 193 הסקילים חדשים ודולקים לכולם, כל אחד עם אנימציה וזוהר משלו, וחיתוכי חרב חדים. Salmon Toss מחליף את Charge. סקילים שכבר נקנו עוברים לבד לסקיל החדש המקביל, ומה שאין לו מקביל מוחזר במטבעות',
+      'מכות: סקילים מכים כמה שורות של נזק כמו הסקיל הישן שהם מחליפים, עם טיק על כל שורה. מכה רגילה תמיד מכה אחת. דימום ורעל מכים כל 0.4 שניות',
+      'נשקים: 200 נשקים חדשים. הנשקים הישנים שאצל השחקנים מתחלפים בנשקים המקבילים. עד רמה 29 נמכרים בכפרי המאסטרים, ומ-30 עד 50 בערים. חיצים נספרים ונמכרים אצל נפחי הנשק',
+      'איזון: מכה רגילה כמעט שווה אצל כל המקצועות, והתחמקות לפי פער הרמות',
+      'כפרי המאסטרים נבנו מחדש כערים קטנות, כל אחד בסגנון משלו ועם מוכרים לכל דבר. סולמות וחבלים לטיפוס, ועולם עשיר יותר: מקדשים, גגות, חוות, חומות, נמלים, פסלים, שדות ודשא',
+      'שיקויים בלי נעילת רמה: שיקויים במספר קבוע, שיקויי אחוזים ושיקויים משולבים. כל עיר מוכרת לפי הרמה שלה',
+      'PQ החורשה של פאן (20-30): כניסה חדשה, גלים, משימות ברורות ובוס חזק יותר עם שלב גסיסה',
+      'עליית רמה: אור שמתפרץ מהדמות ו-LEVEL UP מעל הראש. פונט נזק חדש, ומספרי נזק ופסי חיים בפארטי גדולים יותר',
+      'ממשק: פס EXP לכל הרוחב בתחתית, כפתור ערוץ בצ\'אט (ALL, PARTY, GUILD, FRIENDS, WHISPER), מלאי צר יותר, וחנויות ברורות יותר',
+      'תנועה ותצוגה: המשחק קרוב ב-15%, WASD לפי כיוון העכבר, ריצה אחרי 3 שניות הליכה, V-Sync כבוי כברירת מחדל ומשתנה מיד, ויותר FPS בערים ובשדות'
+    ] },
+    en: { title: 'Version 1.191126: 193 new skills, 200 new weapons, master villages and a richer world', items: [
+      'Skills: all 193 skills are new and on for everyone, each with its own animation and glow, and crisp sword slashes. Salmon Toss replaces Charge. Skills already bought switch to their new counterpart by themselves; any without one are refunded in drachmas',
+      'Hits: skills strike as many damage lines as the old skill they replace, with a tick on every line. A basic attack is always one hit. Bleed and poison tick every 0.4 seconds',
+      'Weapons: 200 new weapons. Old weapons players own are swapped for their new counterparts. Up to level 29 they are sold in the master villages, 30 to 50 in the cities. Arrows are counted and sold by the weaponsmiths',
+      'Balance: a basic attack is about equal for every class, and evasion follows the level gap',
+      'The master villages are rebuilt as small towns, each with its own style and sellers for everything. Ladders and ropes to climb, and a richer world: temples, roofs, farms, walls, harbours, statues, fields and grass',
+      'Potions with no level lock: fixed-amount potions, percentage potions and combined potions. Each city sells by its level',
+      'Pan\'s Grove PQ (20-30): a new entrance, waves, clearer objectives and a stronger boss with a dying phase',
+      'Level up: light bursts from the hero and LEVEL UP shows above the head. A new damage font, and bigger damage numbers and party health bars',
+      'Interface: a full-width EXP bar at the bottom, a channel button in chat (ALL, PARTY, GUILD, FRIENDS, WHISPER), a narrower inventory and clearer shops',
+      'Movement and view: the game is 15% closer, WASD follows the mouse direction, running starts after 3 seconds of walking, V-Sync is off by default and changes at once, and more FPS in cities and fields'
+    ] },
+    es: { title: 'Versión 1.191126: 193 habilidades nuevas, 200 armas nuevas, aldeas de maestros y un mundo más rico', items: [
+      'Habilidades: las 193 habilidades son nuevas y están activas para todos, cada una con su animación y su brillo, y tajos de espada nítidos. Salmon Toss sustituye a Charge. Las habilidades ya compradas pasan solas a su equivalente nuevo; las que no lo tienen se devuelven en dracmas',
+      'Golpes: las habilidades dan tantas líneas de daño como la habilidad antigua que sustituyen, con un tic en cada línea. Un ataque básico es siempre un golpe. Sangrado y veneno golpean cada 0,4 segundos',
+      'Armas: 200 armas nuevas. Las armas antiguas de los jugadores se cambian por sus equivalentes nuevas. Hasta el nivel 29 se venden en las aldeas de maestros, del 30 al 50 en las ciudades. Las flechas se cuentan y las venden los armeros',
+      'Equilibrio: un ataque básico vale casi lo mismo en todas las clases, y la evasión depende de la diferencia de nivel',
+      'Las aldeas de maestros se reconstruyeron como pequeñas ciudades, cada una con su estilo y vendedores de todo. Escaleras y cuerdas para trepar, y un mundo más rico: templos, tejados, granjas, murallas, puertos, estatuas, campos y hierba',
+      'Pociones sin bloqueo de nivel: pociones de cantidad fija, de porcentaje y combinadas. Cada ciudad vende según su nivel',
+      'PQ del Bosque de Pan (20-30): una entrada nueva, oleadas, objetivos más claros y un jefe más fuerte con fase de agonía',
+      'Subida de nivel: luz que brota del héroe y LEVEL UP sobre la cabeza. Una fuente de daño nueva, y números de daño y barras de vida del grupo más grandes',
+      'Interfaz: una barra de EXP a todo lo ancho abajo, un botón de canal en el chat (ALL, PARTY, GUILD, FRIENDS, WHISPER), un inventario más estrecho y tiendas más claras',
+      'Movimiento y vista: el juego está un 15% más cerca, WASD sigue la dirección del ratón, se corre tras 3 segundos de caminar, el V-Sync viene apagado y cambia al instante, y más FPS en ciudades y campos'
+    ] }
+  },
   {
     v: '1.121126', date: '2026-11-13',
     he: { title: 'גרסה 1.121126: דמות חדשה, קרב בלי קומבו, ריצה ומבוכי פארטי חדשים', items: [
