@@ -14,7 +14,9 @@
 (() => {
   const F = window.SoF, R = window.SO_RULES, el = F.el, t = F.t;
   const Q = new URLSearchParams(location.search);
-  const next = F.safeNext(Q.get('next'));
+  // ?next=download: "Play for free" on the home page sent the player here; once signed in, the home page starts the download
+  const wantsDownload = Q.get('next') === 'download';
+  const next = wantsDownload ? 'index.html?download=1' : F.safeNext(Q.get('next'));
   const S = { view: 'loading', notice: null, noticeOk: false, busy: false, legal: { terms_version: '2026-10-30', min_age: 13 }, providers: null,
     email: '', confirmFrom: 'register', sentAt: 0, resendAt: 0, status: null, user: null, me: null, chars: null, charsErr: null, recoveryLink: false };
   const draft = {}; // what is typed, kept across views and language switches
@@ -184,8 +186,8 @@
   }
   function vRegister() {
     const f = form(register);
-    const un = inp('username', 'text', 'username'), em = inp('email', 'email', 'email'), pw = inp('password', 'password', 'new-password'), pw2 = inp('password2', 'password', 'new-password');
-    f.append(fld('inviteCode', 'g_invite', inp('inviteCode', 'text', 'off'), { hint: t('g_invite_hint') }), fld('username', 'g_username', un, { hint: t('g_username_hint') }), fld('email', 'g_email', em));
+    const em = inp('email', 'email', 'email'), pw = inp('password', 'password', 'new-password'), pw2 = inp('password2', 'password', 'new-password');
+    f.append(fld('email', 'g_email', em)); // (no invitation code and no username: the code is optional now and the server gives a new account its name)
     const pf = fld('password', 'g_password', pw); pf.insertBefore(strength(pw), pf.querySelector('.ferrm')); f.append(pf, fld('password2', 'g_password2', pw2));
     const bd = el('div', 'fld' + (errs.birthDate ? ' bad' : '')); bd.append(el('span', 'lbl', t('g_birth')), birthPicker(false), el('div', 'ferrm', errs.birthDate ? feText(errs.birthDate) : '')); f.append(bd);
     const gd = el('div', 'fld' + (errs.gender ? ' bad' : '')); gd.append(el('span', 'lbl', t('g_gender')), genderPicker(), el('div', 'ferrm', errs.gender ? feText(errs.gender) : '')); f.append(gd);
@@ -291,15 +293,12 @@
   }
   async function register() {
     const f = { inviteCode: draft.inviteCode, username: draft.username, email: draft.email, password: val('password'), password2: val('password2'), birthDate: draft.birthDate, gender: draft.gender, acceptTerms: draft.acceptTerms === true };
-    errs = R.registerProblems(f, new Date());
+    errs = R.registerProblems(f, new Date()); delete errs.username; delete errs.inviteCode; // (neither is asked for any more)
     if (Object.keys(errs).length) { S.notice = 'FORM'; render(); focusFirst(); return; }
     await run(async () => {
-      const username = nfkc(f.username), email = String(f.email).trim();
-      const st = await F.rpc('username_status', { p_username: username });
-      if (st === 'TAKEN') throw Object.assign(new Error(''), { soCode: 'USERNAME_TAKEN', fields: { username: 'TAKEN' } });
-      if (typeof st === 'string' && st.startsWith('INVALID:')) throw Object.assign(new Error(''), { soCode: 'USERNAME_INVALID', fields: { username: st.slice(8) } });
+      const email = String(f.email).trim();
       const { data, error } = await sb().auth.signUp({ email, password: f.password, options: { emailRedirectTo: back(),
-        data: { username, birth_date: f.birthDate, gender: f.gender, terms_version: S.legal.terms_version, invite_code: R.cleanInvite(f.inviteCode) } } });
+        data: { birth_date: f.birthDate, gender: f.gender, terms_version: S.legal.terms_version } } });
       if (error) throw error;
       delete draft.inviteCode; // (used up)
       // an address already registered: Supabase answers with a user that has no identities (and sends nothing)
@@ -438,4 +437,12 @@
   }
   F.boot(render);
   start();
+  // "Play for free" without an account: the download is always one link away
+  if (wantsDownload) {
+    const W = { he: 'הורדה בלי חשבון', en: 'Download without an account', es: 'Descargar sin cuenta' };
+    const p = document.createElement('p'), a = document.createElement('a'); p.className = 'dl-skip'; a.href = 'index.html?download=1'; p.append(a);
+    const say = () => { a.textContent = W[document.documentElement.lang] || W.en; };
+    say(); document.addEventListener('so-lang', say);
+    (document.querySelector('main') || document.body).append(p);
+  }
 })();

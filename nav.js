@@ -3,10 +3,25 @@
 // it listens for the 'so-lang' event that SoLang.show sends on every language change.
 (() => {
   const NAV = {
-    he: { nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_comp: 'Companion', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה', nav_menu: 'תפריט' },
-    en: { nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download', nav_menu: 'Menu' },
-    es: { nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar', nav_menu: 'Menú' },
+    he: { nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_comp: 'Companion', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה', nav_play: 'לשחק בחינם', nav_menu: 'תפריט' },
+    en: { nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download', nav_play: 'Play for free', nav_menu: 'Menu' },
+    es: { nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar', nav_play: 'Jugar gratis', nav_menu: 'Menú' },
   };
+  // The 2026 bar: the logotype on the left, the links in the middle, "Play for free" and the language on the right.
+  // There is no "Sign in" link any more: signing in is one step of "Play for free", and the account page is still there.
+  // Once a player is signed in, nav-auth.js writes their name into the account link, which sits beside the language.
+  (function shape() {
+    const bar = document.querySelector('.bar .in'), nav = document.getElementById('mainnav');
+    if (!bar || !nav || bar.dataset.r3) return;
+    bar.dataset.r3 = '1';
+    for (const im of bar.querySelectorAll('.brand img:not(.lt)')) im.remove();
+    const lt = bar.querySelector('.brand .lt'); if (lt) { lt.src = 'assets/r3/logotype_bar.webp'; lt.removeAttribute('height'); }
+    let tools = bar.querySelector('.tools'); if (!tools) { tools = document.createElement('div'); tools.className = 'tools'; bar.append(tools); }
+    const play = nav.querySelector('.navdl'), acct = nav.querySelector('[data-nav="acct"]'), tg = document.getElementById('navtg');
+    if (play) { play.className = 'playnav'; play.dataset.t = 'nav_play'; play.href = 'index.html?play=1'; tools.prepend(play); }
+    if (acct) { acct.classList.add('who'); tools.prepend(acct); }
+    if (tg) tools.append(tg);
+  })();
   function fill(L) {
     const t = NAV[L] || NAV.en, pre = L === 'he' ? '‏' : '';
     for (const n of document.querySelectorAll('.bar [data-t]')) { const k = n.dataset.t; if (k in t && !n.dataset.nav) n.textContent = pre + t[k]; }

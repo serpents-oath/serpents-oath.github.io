@@ -15,7 +15,7 @@
       const social = Object.keys(SVG).map((k) => SOC[k] ? `<a href="${SOC[k]}" target="_blank" rel="noopener" aria-label="${NAMES[k]}" title="${NAMES[k]}">${SVG[k]}</a>`
         : `<a class="off" aria-disabled="true" aria-label="${NAMES[k]}: ${t.soon}" title="${NAMES[k]}: ${t.soon}">${SVG[k]}</a>`).join('');
       f.innerHTML = `<div class="fline" aria-hidden="true"></div><div class="in wrap">
-        <a href="index.html" aria-label="The Serpent's Oath"><img src="assets/logo/logotype.png" alt="The Serpent's Oath" width="702" height="426"></a>
+        <a href="index.html" aria-label="The Serpent's Oath"><img src="assets/r3/logotype.webp" alt="The Serpent's Oath" width="209" height="150"></a>
         <nav class="social" aria-label="Social">${social}</nav>
         <p>${R(t.foot)}</p>
         <p class="links">${isHome ? '' : `<a href="index.html">${R(t.home)}</a>`}<a href="privacy.html">${R(t.privacy)}</a><a href="terms.html">${R(t.terms)}</a><a href="https://github.com/serpents-oath/serpents-oath.github.io/releases" rel="noopener">${R(t.releases)}</a><a href="#" data-top>${R(t.top)}</a></p>
@@ -23,6 +23,22 @@
     }
   }
   document.addEventListener('click', (e) => { if (e.target.closest('footer.sitefoot [data-top]')) { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); } });
+  // the essential-cookies note: information only (nothing to accept), a quiet close, and it stays closed
+  const COOKIE = { he: ['האתר משתמש בעוגיות חיוניות בלבד, כדי לשמור אותך מחובר/ת. אין צורך לאשר דבר.', 'סגירה'], en: ['This site uses essential cookies only, to keep you signed in. There is nothing to approve.', 'Close'], es: ['Este sitio solo usa cookies esenciales, para mantener tu sesión iniciada. No hay nada que aceptar.', 'Cerrar'] };
+  let note = null;
+  function cookie(L) {
+    let shut = false; try { shut = localStorage.getItem('so-cookie-note') === '1'; } catch (e) { /* storage off */ }
+    if (shut || document.getElementById('cookie')) return;
+    if (!note) {
+      note = document.createElement('aside'); note.className = 'cookie'; note.id = 'cookie-note'; note.setAttribute('aria-live', 'polite');
+      const p = document.createElement('p'), x = document.createElement('button'); x.type = 'button'; x.textContent = '×';
+      x.addEventListener('click', () => { note.hidden = true; try { localStorage.setItem('so-cookie-note', '1'); } catch (e) { /* storage off */ } });
+      note.append(p, x); document.body.append(note);
+    }
+    const c = COOKIE[L] || COOKIE.en; note.firstChild.textContent = (L === 'he' ? '\u200f' : '') + c[0]; note.lastChild.setAttribute('aria-label', c[1]);
+  }
+  cookie(window.SoLang ? SoLang.pick() : 'en');
+  document.addEventListener('so-lang', (e) => cookie(e.detail));
   draw(window.SoLang ? SoLang.pick() : 'en');
   document.addEventListener('so-lang', (e) => draw(e.detail));
 })();
