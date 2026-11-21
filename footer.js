@@ -24,7 +24,7 @@
   }
   document.addEventListener('click', (e) => { if (e.target.closest('footer.sitefoot [data-top]')) { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); } });
   // the essential-cookies note: information only (nothing to accept), a quiet close, and it stays closed
-  const COOKIE = { he: ['האתר משתמש בעוגיות חיוניות בלבד, כדי לשמור אותך מחובר/ת. אין צורך לאשר דבר.', 'סגירה'], en: ['This site uses essential cookies only, to keep you signed in. There is nothing to approve.', 'Close'], es: ['Este sitio solo usa cookies esenciales, para mantener tu sesión iniciada. No hay nada que aceptar.', 'Cerrar'] };
+  const COOKIE = { he: ['האתר משתמש בעוגיות חיוניות בלבד, כדי לשמור על החיבור לחשבון. אין צורך לאשר דבר.', 'סגירה'], en: ['This site uses essential cookies only, to keep you signed in. There is nothing to approve.', 'Close'], es: ['Este sitio solo usa cookies esenciales, para mantener tu sesión iniciada. No hay nada que aceptar.', 'Cerrar'] };
   let note = null;
   function cookie(L) {
     let shut = false; try { shut = localStorage.getItem('so-cookie-note') === '1'; } catch (e) { /* storage off */ }
