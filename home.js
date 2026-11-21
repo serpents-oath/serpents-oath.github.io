@@ -402,11 +402,11 @@ $('#trailer-btn').addEventListener('click', () => view('video', SITE.TRAILER || 
 {
   const slow = navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || ''));
   if (!slow && !reduced) {
-    const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => { for (const e of es) { const v = e.target; if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } else if (v.src) v.pause(); } }, { rootMargin: '200px' }) : null;
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => { for (const e of es) { const v = e.target; if (e.isIntersecting) { if (!v.src) v.src = v.dataset.clip; v.play().catch(() => {}); } else if (v.src) v.pause(); } }, { rootMargin: '200px' }) : null;
     for (const n of $$('[data-slot]')) {
       const v = el('video', 'slotv'); v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none'; v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1;
-      v.poster = `assets/slots/${n.dataset.slot}.jpg`; v.dataset.src = `assets/slots/${n.dataset.slot}.mp4`;
-      n.append(v); if (io) io.observe(v); else { v.src = v.dataset.src; v.play().catch(() => {}); }
+      v.poster = `assets/slots/${n.dataset.slot}.jpg`; v.dataset.clip = `assets/slots/${n.dataset.slot}.mp4`;
+      n.append(v); if (io) io.observe(v); else { v.src = v.dataset.clip; v.play().catch(() => {}); }
     }
   }
 }

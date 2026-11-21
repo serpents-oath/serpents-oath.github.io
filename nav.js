@@ -20,7 +20,8 @@
     const play = nav.querySelector('.navdl'), acct = nav.querySelector('[data-nav="acct"]'), tg = document.getElementById('navtg');
     if (play) { play.className = 'playnav'; play.dataset.t = 'nav_play'; play.href = 'index.html?play=1'; tools.prepend(play); }
     if (acct) { acct.classList.add('who'); tools.prepend(acct); }
-    if (tg) tools.append(tg);
+    let tg2 = tg; if (!tg2) { tg2 = document.createElement('button'); tg2.className = 'navtg'; tg2.id = 'navtg'; tg2.type = 'button'; tg2.setAttribute('aria-expanded', 'false'); tg2.setAttribute('aria-controls', 'mainnav'); tg2.append(document.createElement('i')); nav.hidden = true; }
+    tools.append(tg2);
   })();
   function fill(L) {
     const t = NAV[L] || NAV.en, pre = L === 'he' ? '‏' : '';

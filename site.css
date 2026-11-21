@@ -229,7 +229,7 @@ h1, h2, .sech { font-weight: 400; letter-spacing: 0; text-shadow: none; }
 @media (max-width: 1180px) {
   :root { --bar-h: 74px; }
   .bar .in { grid-template-columns: auto minmax(0, 1fr); gap: 10px; padding-inline: 16px; }
-  .brand .lt { height: 46px; }
+  .brand .lt { display: block; height: 46px; }
   .bar nav { justify-self: stretch; gap: 0; }
   .bar nav a { padding: 14px 4px; font-size: 17px; }
   .bar nav a::after { display: none; }
