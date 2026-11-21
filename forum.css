@@ -312,3 +312,62 @@ html[lang="he"] :is(.urank h3, .uchars h2, .urecent h2) { letter-spacing: 0; }
   .ustats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ustat:nth-child(2) { border-right: 0; }
 }
+
+/* ============ round 5: the forum, the account and the player pages in the home page's manner ============
+   The night ink and struck gold of the home page, its carved serif for headings, a run of meander under a page's title,
+   panels and controls with the same rounded game corners. Only the look: every element, text and control is where it was. */
+:root {
+  --night: #0d0a10; --night-2: #16111b; --edge: #08060a; --panel: #1c1621; --panel-2: #15101a; --panel-hi: #281e2d; --well: #0b080d;
+  --slot: #281e2d; --slot-2: #211826; --card: #1c1621; --ring-dk: #0d0a10;
+  --gold: #e9b949; --gold-hi: #ffe29a; --gold-dk: #a57422; --bronze: #a57422; --bronze-hi: #e9b949;
+  --tx: #efe8da; --tx-2: #b9b0a1; --tx-3: #8f8779; --parch: #ece5d8; --parch-hi: #f5efe4;
+  --line: rgba(233, 185, 73, .28); --line-lo: rgba(233, 185, 73, .14); --line-mid: rgba(233, 185, 73, .4); --line-hi: rgba(233, 185, 73, .55);
+  --r-lg: 12px; --r-md: 11px; --r-sm: 9px; --rad-slot: 9px;
+  --sh-panel: inset 0 0 0 1px var(--line), 0 18px 44px rgba(0, 0, 0, .42); --sh-card: inset 0 0 0 1px var(--line), 0 8px 22px rgba(0, 0, 0, .34);
+  --meander: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='12' viewBox='0 0 8 6'%3E%3Cpath d='M0 5.5H7.5V.5H2.5V3.5H5.5' fill='none' stroke='%23e9b949' stroke-linecap='square'/%3E%3C/svg%3E");
+}
+.sky { background: radial-gradient(ellipse 1300px 620px at 50% -8%, rgba(233, 185, 73, .08), transparent 70%), var(--night); }
+.sky::before { opacity: .08; }
+.fwrap { margin-top: clamp(34px, 5vw, 62px); padding-bottom: 48px; }
+.crumbs { margin-bottom: 22px; font-size: 14.5px; }
+.fhead { position: relative; margin-bottom: 28px; padding-bottom: 26px; }
+.fhead::after, .uhead::after { content: ""; position: absolute; left: 0; bottom: 0; width: min(176px, 40%); height: 12px; background: var(--meander) 0 0 / 16px 12px repeat-x; -webkit-mask-image: linear-gradient(90deg, #000 55%, transparent); mask-image: linear-gradient(90deg, #000 55%, transparent); }
+html[lang="he"] .fhead::after { left: auto; right: 0; transform: scaleX(-1); }
+.fhead h1, .uhead h1, .acct-box h1 { font: 400 clamp(32px, 4.4vw, 52px)/1.06 var(--font-title); color: var(--parch); letter-spacing: 0; text-shadow: none; }
+.fhead p { margin-top: 10px; font-size: 17px; color: var(--tx-2); }
+.panel, .parch { border-radius: var(--r-lg); background: linear-gradient(180deg, var(--panel), var(--panel-2)); box-shadow: var(--sh-panel); }
+.fgrid { gap: 26px; }
+.side { top: calc(var(--bar-h, 86px) + 14px); gap: 18px; }
+.sbox { padding: 20px 20px 22px; }
+.sbox h3, .signin-box h3, .urank h3, .uchars h2, .urecent h2, .fform h2, .acct-info h2 { font: 400 21px/1.2 var(--font-title); color: var(--gold); letter-spacing: 0; text-transform: none; text-shadow: none; }
+.sbox .who .uname, .acard .uname { font: 400 19px/1.2 var(--font-title); text-shadow: none; }
+.fsec { margin-bottom: 22px; padding: 4px 0 6px; }
+.fsec > h2 { padding: 18px 22px 14px; font: 400 23px/1.15 var(--font-title); color: var(--gold); letter-spacing: 0; text-transform: none; text-shadow: none; border-bottom: 1px solid var(--line-lo); }
+.fsec .cols, .tlist .cols { padding-inline: 22px; color: var(--tx-3); }
+.crow, .trow { padding: 15px 22px; }
+.crow:hover, .trow:hover { background: rgba(233, 185, 73, .055); }
+.trow.pin { background: rgba(233, 185, 73, .06); }
+.cicon { border-radius: 9px; background: #2e1d22; box-shadow: inset 0 0 0 2px #a57422, inset 0 0 0 4px #1a0f17; }
+.cmain a.cname { font: 400 21px/1.25 var(--font-title); color: var(--parch-hi); text-shadow: none; }
+.cmain p { margin-top: 4px; font-size: 14.5px; }
+.ttl a.tname { font-size: 17px; }
+.pager a, .pager span { border-radius: 9px; background: rgba(233, 185, 73, .05); }
+.pager .on { color: #1a0f17; background: linear-gradient(180deg, #f8dd8c, #e2ad48 60%, #c28a38); }
+.post { margin-bottom: 18px; border-radius: var(--r-lg); }
+.post.op { box-shadow: inset 0 0 0 1px rgba(233, 185, 73, .62), 0 18px 44px rgba(0, 0, 0, .46); }
+.post > .acard { background: rgba(0, 0, 0, .2); }
+.av { border-radius: 9px; background: #2e1d22; text-shadow: none; }
+.fnote { border-radius: var(--r-md); background: rgba(233, 185, 73, .05); }
+.inp, .fform textarea, .fform select, .modbar select, .fform input[type="text"], .fform input[type="email"], .fform input[type="password"], .code6 input { border-radius: 10px; background-color: #0f0b13; }
+.radio, .check { border-radius: 10px; }
+/* the plain button: the home page's dark slab with a gold line (the gold one comes from site.css) */
+.btn:not(.gold):not(.oa) { color: var(--tx); font: 600 16px/1.2 var(--font-game, var(--font-body)); letter-spacing: .01em; background: linear-gradient(180deg, #40292b, #2e1d22); border-radius: 11px;
+  box-shadow: inset 0 0 0 2px var(--gold-dk), inset 0 -5px 0 2px rgba(0, 0, 0, .25); }
+.btn:not(.gold):not(.oa):hover { color: var(--parch-hi); transform: none; filter: brightness(1.15); box-shadow: inset 0 0 0 2px var(--gold-dk), inset 0 -5px 0 2px rgba(0, 0, 0, .25); }
+html[lang="he"] .btn:not(.gold):not(.oa) { font-family: var(--font-body); }
+.btn.oa { border-radius: 11px; }
+.acct-box { border-radius: var(--r-lg); }
+.uhead { position: relative; padding-bottom: 26px; }
+.ustat, .chc { border-radius: var(--r-md); }
+.ranks table { border-radius: var(--r-md); }
+@media (max-width: 980px) { .fhead { padding-bottom: 22px; } .crow, .trow { padding-inline: 16px; } .fsec > h2 { padding-inline: 16px; font-size: 21px; } .fsec .cols, .tlist .cols { padding-inline: 16px; } }

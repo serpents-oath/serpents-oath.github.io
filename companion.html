@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik:wght@400;500;600;700&family=Silkscreen&display=swap">
-<link rel="stylesheet" href="site.css?v=r3b">
-<link rel="stylesheet" href="lang.css?v=r3b">
-<link rel="stylesheet" href="home.css?v=r3b">
+<link rel="stylesheet" href="site.css?v=r3c">
+<link rel="stylesheet" href="lang.css?v=r3c">
+<link rel="stylesheet" href="home.css?v=r3c">
 <style>
 .chero { min-height: min(64vh, 640px); padding-bottom: 72px; }
 .chero .hv { background: url(assets/hero.jpg) center / cover no-repeat; image-rendering: pixelated; }
@@ -37,6 +37,47 @@ html[lang="he"] .chero h1 { letter-spacing: 0; }
 .cc ul, .cc ol { margin: 0; padding-inline-start: 22px; display: grid; gap: 10px; color: var(--tx-2); unicode-bidi: plaintext; }
 html[lang="he"] .cc ul, html[lang="he"] .cc ol { direction: rtl; }
 @media (max-width: 820px) { .cfeat, .cfeat:nth-child(even) { grid-template-columns: 1fr; } .cfeat:nth-child(even) .ph { order: 0; } .crow { grid-template-columns: 1fr; } .cfeat .tx { padding: 22px; } }
+/* ============ round 5: the Companion page in the home page's manner (style only: every text and control as it was) ============ */
+:root {
+  --night: #0d0a10; --night-2: #16111b; --edge: #08060a; --panel: #1c1621; --panel-2: #15101a; --panel-hi: #281e2d; --well: #0b080d;
+  --slot: #281e2d; --slot-2: #211826; --card: #1c1621; --ring-dk: #0d0a10;
+  --gold: #e9b949; --gold-hi: #ffe29a; --gold-dk: #a57422; --bronze: #a57422; --bronze-hi: #e9b949;
+  --tx: #efe8da; --tx-2: #b9b0a1; --tx-3: #8f8779; --parch: #ece5d8; --parch-hi: #f5efe4;
+  --line: rgba(233, 185, 73, .28); --line-lo: rgba(233, 185, 73, .14); --line-mid: rgba(233, 185, 73, .4); --line-hi: rgba(233, 185, 73, .55);
+  --r-lg: 12px; --r-md: 11px; --r-sm: 9px; --rad-slot: 9px;
+  --sh-panel: inset 0 0 0 1px var(--line), 0 18px 44px rgba(0, 0, 0, .42); --sh-card: inset 0 0 0 1px var(--line), 0 8px 22px rgba(0, 0, 0, .34);
+  --meander: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='12' viewBox='0 0 8 6'%3E%3Cpath d='M0 5.5H7.5V.5H2.5V3.5H5.5' fill='none' stroke='%23e9b949' stroke-linecap='square'/%3E%3C/svg%3E");
+}
+.sky { background: var(--night); } .sky::before { opacity: .06; }
+.chero { min-height: min(72vh, 720px); padding-bottom: 86px; }
+.chero .hv, .hero.lite .hv { background: linear-gradient(180deg, rgba(13, 10, 16, .5) 0, rgba(13, 10, 16, .34) 40%, #0d0a10 100%), url(assets/slots/hero-loop.jpg) center / cover no-repeat; image-rendering: auto; }
+.chero h1 { margin-top: 20px; font: 400 clamp(40px, 6.4vw, 84px)/1.02 var(--font-title); color: var(--parch); letter-spacing: -.01em; text-shadow: 0 2px 26px rgba(0, 0, 0, .7); }
+.tagp { padding: 6px 14px; border-radius: 8px; font: 400 11px/1.4 "Silkscreen", var(--font-num); letter-spacing: .04em; text-transform: uppercase; color: var(--gold); background: rgba(13, 10, 16, .6); }
+html[lang="he"] .tagp { font: 600 13px/1.4 var(--font-body); letter-spacing: 0; }
+.chero .lead { margin: 22px auto 30px; font-size: clamp(17px, 1.6vw, 21px); color: var(--tx); }
+.chero .dlnote { color: var(--tx-2); }
+.hero-foot { height: 12px; background: var(--meander) 50% 0 / 16px 12px repeat-x; opacity: .55; -webkit-mask-image: linear-gradient(90deg, transparent 8%, #000 35%, #000 65%, transparent 92%); mask-image: linear-gradient(90deg, transparent 8%, #000 35%, #000 65%, transparent 92%); }
+.sec { padding: clamp(64px, 8vw, 110px) 0; }
+.cfeats { gap: clamp(22px, 3vw, 40px); }
+.cfeat { grid-template-columns: 290px minmax(0, 1fr); border-radius: 12px; background: linear-gradient(180deg, var(--panel), var(--panel-2)); box-shadow: var(--sh-panel); }
+.cfeat:nth-child(even) { grid-template-columns: minmax(0, 1fr) 290px; }
+.cfeat { position: relative; }
+.cfeat::after { content: ""; position: absolute; inset: 0; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); pointer-events: none; }
+.cfeat .ph { padding: 28px; background: radial-gradient(circle at 50% 45%, rgba(233, 185, 73, .16), transparent 66%), #120d17; }
+.cfeat .ph img { max-width: 226px; border-radius: 20px; box-shadow: 0 0 0 3px #08060a, 0 0 0 4px var(--line-hi), 0 16px 38px rgba(0, 0, 0, .6); }
+.cfeat .tx { padding: clamp(26px, 3.4vw, 52px); }
+.cfeat h3 { margin-bottom: 14px; font: 400 clamp(26px, 2.8vw, 38px)/1.1 var(--font-title); color: var(--parch); }
+.cfeat h3::after { content: ""; display: block; width: 96px; height: 12px; margin-top: 14px; background: var(--meander) 0 0 / 16px 12px repeat-x; -webkit-mask-image: linear-gradient(90deg, #000 50%, transparent); mask-image: linear-gradient(90deg, #000 50%, transparent); }
+.cfeat p, .cc p { font-size: 17px; line-height: 1.65; }
+.crow { gap: clamp(18px, 2.4vw, 30px); }
+.cc { padding: 30px 30px 32px; border-radius: 12px; }
+.cc h3 { margin-bottom: 16px; font: 400 26px/1.15 var(--font-title); color: var(--gold); }
+.cc ul, .cc ol { gap: 12px; font-size: 16.5px; }
+.cc li::marker { color: var(--gold); }
+.btn.quiet { color: var(--tx); font: 600 16px/1.2 var(--font-game, var(--font-body)); background: linear-gradient(180deg, #40292b, #2e1d22); border-radius: 11px; box-shadow: inset 0 0 0 2px var(--gold-dk), inset 0 -5px 0 2px rgba(0, 0, 0, .25); }
+.btn.quiet:hover { transform: none; filter: brightness(1.15); box-shadow: inset 0 0 0 2px var(--gold-dk), inset 0 -5px 0 2px rgba(0, 0, 0, .25); }
+html[lang="he"] .btn.quiet { font-family: var(--font-body); }
+@media (max-width: 820px) { .cfeat, .cfeat:nth-child(even) { grid-template-columns: 1fr; } .cfeat .tx { padding: 24px 22px 28px; } }
 </style>
 </head>
 <body>
@@ -101,11 +142,11 @@ html[lang="he"] .cc ul, html[lang="he"] .cc ol { direction: rtl; }
   </section>
 </main>
 <footer class="sitefoot"></footer>
-<script src="updates.js?v=r3b"></script>
-<script src="lang.js?v=r3b"></script>
-<script src="footer.js?v=r3b"></script>
-<script src="nav.js?v=r3b"></script>
-<script src="nav-auth.js?v=r3b"></script>
+<script src="updates.js?v=r3c"></script>
+<script src="lang.js?v=r3c"></script>
+<script src="footer.js?v=r3c"></script>
+<script src="nav.js?v=r3c"></script>
+<script src="nav-auth.js?v=r3c"></script>
 <script>
 const T = {"he": {"title": "אפליקציית Companion: הכפר הקטן שלך", "tag": "Companion 2 · בטא", "h": "הכפר הקטן שלך", "lead": "אפליקציה נלווית למשחק: כפר יווני קטן בטלפון, שבו הדמות האמיתית שלך לוקחת עבודות מתושבי הכפר וממשיכה לעבוד גם כשאת/ה רחוק/ה מהמחשב. נכנסים עם אותו חשבון של המשחק.", "dl": "פתיחת האפליקציה", "soon": "בדפדפן, בלי הורדה", "dlnote": "האפליקציה היא אתר שמתקינים על המסך הראשי, בלי חנות אפליקציות. היא בעברית ובאנגלית. כניסה עם אותו שם משתמש וסיסמה של המשחק.", "h1": "כפר יווני", "p1": "כפר קטן בפיקסל-ארט במבט מלמעלה, בסגנון של אלאיה: בתי טיח עם גגות רעפים, מזרקה, דוכן שוק, מקדש דורי, מזח ונמל. הדמות שלך מצוירת לפי המראה שלה במשחק (שיער, עור, עיניים, בגדים), בלי נשק. בלי קרבות.", "p2": "מקישים על נקודה כדי ללכת אליה, או מניחים אצבע במקום כלשהו על המפה וגוררים: ג'ויסטיק צף מופיע מתחת לאצבע והדמות הולכת כל עוד מחזיקים. בכפר גרים שישה תושבים: מקישים על אחד מהם כדי לדבר איתו.", "h3": "ארבע משימות AFK וסוחרת", "p3": "ניקון דג על המזח, דריאס חוטב עצים בקצה היער, ארגוס מתקן את הספינה הגדולה במספנה ומשלם שכר בדרכמות, וקלאון מסייר לאורך החומה. מקבלים משימה והיא רצה במסך משלה, עם שעון והשלל עד עכשיו: ניסיון אחד כל 4 עד 6 דקות, ולכל משימה שבעה ממצאים, מנפוצים ועד אגדיים. היא ממשיכה גם כשהאפליקציה סגורה, עד 8 שעות, ו\"סיום\" מכניס את השלל לתיק.", "p3b": "מליטה הסוחרת קונה את הסחורה בדרכמות. בזמן המסחר היא מוסיפה לפעמים שיקוי ריפוי או צוף בדרגה של הרמה שלך, ולעתים רחוקות מגילה עתיקה, מפת אוצר או שריד עתיק: פריטים אמיתיים של המשחק.", "h4": "בנק החשבון וכספת המטבעות", "p4": "כריסה הבנקאית פותחת את בנק החשבון של המשחק עצמו: 10 משבצות משותפות לכל הדמויות שלך, ועוד כספת מטבעות לדרכמות. מהאפליקציה אפשר רק להפקיד פריטי משחק ודרכמות, ומוציאים אותם במשחק, אצל הבנקאי באלאיה. האפליקציה אף פעם לא נוגעת בתיק או בארנק של הדמות במשחק.", "h5": "כללים הוגנים", "li": ["דמות אחת במקום אחד: דמות לא יכולה להיות פעילה במשחק ובאפליקציה באותו זמן. כשהדמות במשחק האפליקציה לא נותנת להיכנס אליה, ובאפליקציה היא פתוחה רק במכשיר אחד בכל פעם.", "משימה אחת בכל פעם לכל דמות, והיא מושהית בזמן שהדמות במשחק.", "כל ממצא מוגרל בשרת ככל שהזמן עובר, לא לפי השעון של הטלפון. האפליקציה קוראת רק את הדמויות שלך, ומוסיפה למשחק רק דרך הבנק."], "h6": "איך מתקינים", "steps": ["אנדרואיד: פותחים את האפליקציה ב-Chrome, בתפריט (שלוש נקודות) בוחרים \"התקנת אפליקציה\" או \"הוספה למסך הבית\".", "אייפון: פותחים ב-Safari, לוחצים על כפתור השיתוף ובוחרים \"הוסף למסך הבית\".", "נכנסים עם שם המשתמש והסיסמה של המשחק ובוחרים דמות."], "back": "חזרה לדף הבית", "foot": "המסע של Val להחזיר את Roye הביתה.", "home": "חזרה לדף הבית", "g_privacy_link": "מדיניות הפרטיות", "g_terms_link": "תנאי השימוש"}, "en": {"title": "Companion app: your little village", "tag": "Companion 2 · Beta", "h": "Your little village", "lead": "A companion app for the game: a small Greek village on your phone where your real character takes on jobs from the villagers and keeps working while you are away from the PC. You sign in with the same account as the game.", "dl": "Open the app", "soon": "in your browser, no download", "dlnote": "The app is a web app you install to your home screen. There is no app store. It is in English and Hebrew. Sign in with the same username and password as the game.", "h1": "A Greek village", "p1": "A small top-down pixel-art village in the style of Elaia: plaster houses with terracotta roofs, a fountain, a market stall, a doric temple, a pier and a harbour. Your hero is drawn from your character's look in the game (hair, skin, eyes, outfit), without weapons. No combat.", "p2": "Tap a spot to walk there, or put a finger anywhere on the map and drag: a floating joystick appears under your finger and the hero walks for as long as you hold it. Six villagers live here: tap one to talk.", "h3": "Four AFK tasks and a trader", "p3": "Nikon fishes from the pier, Dryas chops wood at the forest edge, Argos repairs the big ship in dry dock and pays a wage in drachmas, and Kleon walks the watch along the wall. Accept a task and it runs on its own screen, with a timer and the loot so far: one try every 4 to 6 minutes, and seven finds per task, from common to legendary. It keeps going with the app closed, up to 8 hours, and Finish puts the loot in your bag.", "p3b": "Melitta the trader buys the goods for drachmas. While trading she sometimes adds a healing draught or a nectar of your level's tier, and rarely an Ancient Scroll, a Treasure Map or an Ancient Relic: real game items.", "h4": "The account bank and the coin vault", "p4": "Chrysa the banker opens the game's own account bank: 10 slots shared by all your characters, plus a coin vault for drachmas. From the app you can only deposit game items and drachmas; you take them out in the game, at the Banker in Elaia. The app never touches a character's own bag or purse in the game.", "h5": "Fair rules", "li": ["One character, one place: a character cannot be active in the game and in the app at the same time. While it is in the game, the app will not let you in, and in the app it is open on one device at a time.", "One task at a time per character, paused while the character is in the game.", "Every find is rolled on the server as time passes, never by your phone's clock. The app reads only your own characters and adds to the game only through the bank."], "h6": "How to install", "steps": ["Android: open the app in Chrome, open the menu (three dots) and choose \"Install app\" or \"Add to Home screen\".", "iPhone: open it in Safari, tap the Share button and choose \"Add to Home Screen\".", "Sign in with your game username and password and pick a character."], "back": "Back to the home page", "foot": "Val's journey to bring Roye home.", "home": "Back to the home page", "g_privacy_link": "Privacy Policy", "g_terms_link": "Terms of Service"}, "es": {"title": "App Companion: tu pequeña aldea", "tag": "Companion 2 · Beta", "h": "Tu pequeña aldea", "lead": "Una app complementaria del juego: una pequeña aldea griega en tu móvil donde tu personaje real acepta trabajos de los vecinos y sigue trabajando aunque estés lejos del PC. Entras con la misma cuenta del juego.", "dl": "Abrir la app", "soon": "en el navegador, sin descarga", "dlnote": "La app es una web app que se instala en la pantalla de inicio. No hay tienda de apps. Está en inglés y hebreo. Entra con el mismo usuario y contraseña del juego.", "h1": "Una aldea griega", "p1": "Una pequeña aldea en pixel art vista desde arriba, al estilo de Elaia: casas encaladas con tejados de terracota, una fuente, un puesto de mercado, un templo dórico, un muelle y un puerto. Tu héroe se dibuja con el aspecto de tu personaje en el juego (pelo, piel, ojos, ropa), sin armas. Sin combate.", "p2": "Toca un punto para ir allí, o pon un dedo en cualquier parte del mapa y arrastra: aparece un joystick flotante bajo el dedo y el héroe camina mientras lo mantienes. En la aldea viven seis vecinos: toca uno para hablar.", "h3": "Cuatro tareas AFK y una comerciante", "p3": "Nikon pesca en el muelle, Dryas corta leña al borde del bosque, Argos repara el gran barco en el dique seco y paga un jornal en dracmas, y Kleon hace la guardia por la muralla. Acepta una tarea y corre en su propia pantalla, con un reloj y el botín hasta ahora: un intento cada 4 a 6 minutos y siete hallazgos por tarea, de comunes a legendarios. Sigue con la app cerrada, hasta 8 horas, y Terminar pone el botín en tu bolsa.", "p3b": "Melitta la comerciante compra los bienes por dracmas. Al comerciar a veces añade una poción de curación o un néctar del nivel de tu personaje, y rara vez un Pergamino antiguo, un Mapa del tesoro o una Reliquia antigua: objetos reales del juego.", "h4": "El banco de la cuenta y la cámara de monedas", "p4": "Chrysa la banquera abre el propio banco de la cuenta del juego: 10 casillas compartidas por todos tus personajes, más una cámara de monedas para los dracmas. Desde la app solo puedes depositar objetos del juego y dracmas; se sacan en el juego, con el Banquero de Elaia. La app nunca toca la bolsa ni el monedero del personaje en el juego.", "h5": "Reglas justas", "li": ["Un personaje, un lugar: un personaje no puede estar activo en el juego y en la app a la vez. Mientras está en el juego, la app no deja entrar, y en la app solo está abierto en un dispositivo a la vez.", "Una tarea a la vez por personaje, en pausa mientras el personaje está en el juego.", "Cada hallazgo se sortea en el servidor a medida que pasa el tiempo, nunca con el reloj del móvil. La app solo lee tus propios personajes y solo añade al juego a través del banco."], "h6": "Cómo instalar", "steps": ["Android: abre la app en Chrome, abre el menú (tres puntos) y elige \"Instalar app\" o \"Añadir a la pantalla de inicio\".", "iPhone: ábrela en Safari, toca Compartir y elige \"Añadir a pantalla de inicio\".", "Entra con tu usuario y contraseña del juego y elige un personaje."], "back": "Volver al inicio", "foot": "El viaje de Val para traer a Roye a casa.", "home": "Volver a la página principal", "g_privacy_link": "Política de privacidad", "g_terms_link": "Términos del servicio"}};
 function render(L) {

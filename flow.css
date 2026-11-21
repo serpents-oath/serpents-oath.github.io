@@ -801,3 +801,22 @@ html[lang="he"] .playbtn { font-size: 24px; }
 .lb-wait h3 { font: 400 28px/1.2 var(--f-display); color: var(--tx); margin-bottom: 8px; }
 .fig .sil { width: 56px; height: 84px; margin: 0 auto; border-radius: 28px 28px 8px 8px; background: linear-gradient(180deg, rgba(239, 232, 218, .28), rgba(239, 232, 218, .08)); }
 .fig img.live { image-rendering: pixelated; max-height: 150px; width: auto; }
+
+/* ---------- the frieze in whole frames (home.js layout() sets --fw / --fg / --fp, the origin --ox and the step-aside scale --os) ---------- */
+.shots.paged .film { gap: var(--fg, 18px); padding-inline: var(--fp, 28px); align-items: flex-start; }
+.shots.paged:not(.native) .film { transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
+.shots.paged .shot, .shots.paged .shot:nth-child(even), .shots.paged.native .shot, .shots.paged.native .shot:nth-child(even) { width: var(--fw, 44vw); margin-top: 0; overflow: visible; transform-origin: var(--ox, 50%) 46%; }
+.shots.paged .shot .im { background-size: contain; background-repeat: no-repeat; background-color: #0c0a10; filter: none; transform: none; }
+.shots.paged .shot .cap { opacity: 1; }
+.shots.paged .pin-stick { gap: clamp(14px, 3vh, 34px); }
+.shots.paged .pin-stick > .wrap { max-width: none; margin: 0; padding-inline: var(--fp, 28px); } /* the heading starts where the first frame does */
+.shots.paged.native .film { gap: var(--fg, 10px); padding-inline: var(--fp, 16px); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .shots.paged .film .shot:hover { transform: scale(1.1); z-index: 3; }
+  .shots.paged .film:has(.shot:hover) .shot:not(:hover) { transform: scale(var(--os, .9)); z-index: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .shots.paged .film { transition: none; } }
+
+/* ---------- a monster's card never covers text: home.js marks the ones with no room ---------- */
+.ad.nofit { visibility: hidden !important; pointer-events: none; }
+.drift .ad { transition: opacity .18s linear; }

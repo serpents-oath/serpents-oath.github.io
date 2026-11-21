@@ -265,7 +265,7 @@ const ADS = {
   tag: { he: 'מודעה · בדיחה מטעם המפלצות', en: 'Advert · a joke from the monsters', es: 'Anuncio · una broma de los monstruos' },
   wolf: { pic: 'mon-obIsthWolf', n: { he: 'זאב האיסתמוס', en: 'Isthmus Wolf', es: 'Lobo del Istmo' }, q: { he: 'משחק מעולה. בבקשה אל תספרו לחברים.', en: "Great game. Please don't tell your friends.", es: 'Gran juego. Por favor, no se lo cuentes a tus amigos.' } },
   bear: { pic: 'mon-obElisBear', n: { he: 'דוב ארקדי', en: 'Arcadian Bear', es: 'Oso arcadio' }, q: { he: 'הייתי ממליץ, אבל יש פה כבר מספיק מכם.', en: "I'd recommend it, but there are enough of you already.", es: 'Lo recomendaría, pero ya sois bastantes.' } },
-  bones: { pic: 'mon-obGiantBones', n: { he: 'עצמות ענק', en: "Giant's Bones", es: 'Huesos de gigante' }, q: { he: 'כבר הייתי מת. הרגו אותי שוב בכל זאת. קהילה נהדרת.', en: 'I was already dead. They killed me again anyway. Lovely community.', es: 'Yo ya estaba muerto. Me mataron otra vez igualmente. Una comunidad encantadora.' } },
+  asterion: { pic: 'mon-obAsterionKin', n: { he: 'בן אסטריון', en: 'Child of Asterion', es: 'Vástago de Asterión' }, q: { he: 'אני שומר על מבוך שלם. ובכל זאת מוצאים את הדרך לראש הרשימה.', en: 'I guard an entire maze. They still find their way to the top of this list.', es: 'Guardo un laberinto entero. Aun así encuentran el camino a lo más alto de esta lista.' } },
   skeleton: { pic: 'mon-skeleton', n: { he: 'שלד', en: 'Skeleton', es: 'Esqueleto' }, q: { he: 'אין לי בטן למשחק הזה. וגם לא לשום דבר אחר.', en: 'I have no stomach for this game. Or for anything else.', es: 'No tengo estómago para este juego. Ni para nada más.' } },
   crab: { pic: 'mon-crab', n: { he: 'סרטן', en: 'Crab', es: 'Cangrejo' }, q: { he: 'עולם פתוח, אמרו. אין איפה להתחבא, התכוונו.', en: 'Open world, they said. Nowhere left to hide, they meant.', es: 'Mundo abierto, decían. Sin dónde esconderse, querían decir.' } },
   boar: { pic: 'mon-boar', n: { he: 'חזיר בר', en: 'Boar', es: 'Jabalí' }, q: { he: 'קראתי את כל הסיפור. בסוף הטוב אני לא מופיע.', en: "I read the whole story. I'm not in the happy ending.", es: 'Me leí toda la historia. No salgo en el final feliz.' } },
@@ -452,16 +452,27 @@ function draw() {
 const hero = $('.hero'), bar = $('#bar'), stages = $$('[data-stage]').map((st) => ({ st, chaps: $$('.chap', st), figs: $$('.stage-media figure', st), ticks: $$('.ticks i', st) }));
 const shotsSec = $('#shots'), pin = $('#pin'), film = $('#film');
 const navLinks = $$('#mainnav a[href^="#"]').filter((a) => a.getAttribute('href').length > 1);
-const FILM_K = .62;
+const FILM_K = .55, FILM = { n: 2, step: 0, pages: 1, page: -1 }; // FILM_K: screens of scrolling for each page of the frieze
 let pinned = false, travel = 0, shotEls = [], shotMid = [];
 function layout() {
   pinned = !reduced && innerWidth >= 900 && innerHeight >= 520;
   shotsSec.classList.toggle('native', !pinned);
-  if (pinned) { travel = Math.max(0, film.scrollWidth - innerWidth); pin.style.height = (innerHeight + travel * FILM_K) + 'px'; } else { pin.style.height = ''; film.style.transform = ''; }
-  shotEls = $$('.shot', film); shotMid = shotEls.map((b) => b.offsetLeft + b.offsetWidth / 2); if (!pinned) for (const b of shotEls) b.style.removeProperty('--f');
+  // the frieze is laid in whole frames: as many as fit the window (two on a 16:9 screen, one on a phone, three on a very
+  // wide one), each one complete, the row centred; scrolling turns it a page at a time, so no frame is ever cut by an edge
+  shotEls = $$('.shot', film);
+  { const vw = document.documentElement.clientWidth, vh = innerHeight, bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 72;
+    const n = Math.max(1, Math.min(4, shotEls.length, Math.round(vw / (vh * .72)))), gap = vw < 600 ? 10 : 18, edge = vw < 600 ? 16 : Math.max(28, Math.round(vw * .035));
+    const headH = ($('#shots-h').offsetHeight || 60), roomH = pinned ? vh - bar - headH - 56 - vh * .1 : 1e5;
+    const fw = Math.floor(Math.max(120, Math.min((vw - 2 * edge - (n - 1) * gap) / n, roomH / 1.1 * 16 / 9))), pad = Math.max(edge, Math.floor((vw - n * fw - (n - 1) * gap) / 2));
+    shotsSec.style.setProperty('--fw', fw + 'px'); shotsSec.style.setProperty('--fg', gap + 'px'); shotsSec.style.setProperty('--fp', pad + 'px'); film.parentNode.style.scrollPaddingInline = pad + 'px';
+    FILM.n = n; FILM.step = vw; /* a page is one window wide: its frames, the gaps between them and the margin on both sides */ FILM.pages = Math.max(1, Math.ceil(shotEls.length / n)); FILM.page = -1;
+    shotEls.forEach((b, i) => { const j = i % n; b.style.marginRight = j === n - 1 && i < shotEls.length - 1 ? (2 * pad - gap) + 'px' : ''; b.style.scrollSnapAlign = j === 0 ? 'start' : 'none'; b.style.setProperty('--ox', (n > 1 ? j / (n - 1) * 100 : 50) + '%'); b.style.setProperty('--f', '1'); });
+    film.style.setProperty('--os', n > 1 ? ((n - 1.1) / (n - 1)).toFixed(3) : '1'); }
+  shotsSec.classList.add('paged');
+  if (pinned) { travel = (FILM.pages - 1) * innerHeight * FILM_K; pin.style.height = (innerHeight + travel) + 'px'; } else { pin.style.height = ''; film.style.transform = ''; }
   nodrift = reduced || innerWidth <= 900; document.documentElement.classList.toggle('nodrift', nodrift);
   if (nodrift) for (const d of drifts) { d.card.style.transform = ''; d.card.style.opacity = ''; }
-  mapLayout(); serpLayout(); onScroll();
+  mapLayout(); serpLayout(); fitAds(); onScroll();
 }
 const compPh = $('#comp-ph');
 let ticking = false;
@@ -479,8 +490,8 @@ function onScroll() {
     // the chapter text travels: it rises into the middle of the screen, holds, and leaves upward as the next one arrives
     if (!reduced) for (const c of S.chaps) { const r = c.getBoundingClientRect(), d = (r.top + r.height / 2 - vh / 2) / vh, a = Math.abs(d); c.style.setProperty('--co', Math.max(0, Math.min(1, 1.3 - a * 2)).toFixed(3)); c.style.setProperty('--cy', (d * 54).toFixed(1) + 'px'); }
   }
-  if (pinned) { const r = pin.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / Math.max(1, travel * FILM_K))); film.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`;
-    const mid = p * travel + innerWidth / 2, w = innerWidth * .6; shotEls.forEach((b, i) => b.style.setProperty('--f', Math.max(0, 1 - Math.abs(shotMid[i] - mid) / w).toFixed(2))); }
+  if (pinned) { const r = pin.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / Math.max(1, travel))), pg = Math.round(p * (FILM.pages - 1));
+    if (pg !== FILM.page) { FILM.page = pg; film.style.transform = `translate3d(${-pg * FILM.step}px,0,0)`; } }
   mapScroll(); serpent(y, vh); drift(y, vh);
   if (!reduced) { const r = compPh.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) compPh.style.setProperty('--cp', Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh)).toFixed(3)); }
   // the current section in the bar
@@ -503,6 +514,35 @@ function serpLayout() {
 // the monsters' cards ride the serpent: each one enters from below on the gold line, follows its curve across the screen and leaves at the top
 const drifts = $$('.drift').map((box) => ({ box, card: $('.ad', box) }));
 let nodrift = true;
+// ---------- a monster's card never covers text (Roy): where its box meets a line of text that can be seen, the card is not shown ----------
+const rng = document.createRange();
+let txtEls = [];
+function covers(card, pad = 8) {
+  const c = card.getBoundingClientRect(); if (!c.width || !c.height) return false;
+  for (const e of txtEls) {
+    const b = e.getBoundingClientRect(); if (!b.width || b.bottom < c.top - pad || b.top > c.bottom + pad || b.right < c.left - pad || b.left > c.right + pad) continue;
+    rng.selectNodeContents(e); const r = rng.getBoundingClientRect(); // (the words themselves, not the block they sit in)
+    if (!r.width || r.bottom < c.top - pad || r.top > c.bottom + pad || r.right < c.left - pad || r.left > c.right + pad) continue;
+    if (e.checkVisibility && !e.checkVisibility({ visibilityProperty: true })) continue; // (not drawn at all: inside a closed disclosure, or hidden)
+    // faded out (a chapter that has left), or cut away by the box it sits in (a closed disclosure): not text that can be seen
+    let ok = true;
+    for (let x = e; x && x !== document.body; x = x.parentElement) {
+      const cs = getComputedStyle(x); if (x.classList.contains('chap') && +cs.opacity < .06) { ok = false; break; } // (a chapter's fade follows the scroll, as the cards do; anything else that is still fading in counts as there)
+      if (cs.overflowX !== 'visible' || cs.overflowY !== 'visible') { const q = x.getBoundingClientRect(); if (r.bottom <= q.top || r.top >= q.bottom || r.right <= q.left || r.left >= q.right) { ok = false; break; } }
+    }
+    if (ok) return true;
+  }
+  return false;
+}
+let fitT = 0;
+function fitAds() {
+  fitT = 0;
+  txtEls = $$('main *, #top *, #foot *').filter((e) => !e.closest('.ad, dialog, .viewer, svg') && [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())); // (every element that holds words of its own)
+  for (const a of $$('.ad')) { if (!nodrift && a.closest('.drift')) continue; a.classList.remove('nofit'); }
+  for (const a of $$('.ad')) { if (!nodrift && a.closest('.drift')) continue; const arm = a.classList.contains('armed'); if (arm) a.classList.remove('armed'); a.classList.toggle('nofit', covers(a)); if (arm) a.classList.add('armed'); }
+}
+const fitSoon = () => { if (!fitT) fitT = setTimeout(fitAds, 120); };
+if ('ResizeObserver' in window) new ResizeObserver(fitSoon).observe(document.body);
 function drift(y, vh) {
   if (nodrift) return;
   const ty = -((y * .55) % sP), w = innerWidth;
@@ -511,7 +551,9 @@ function drift(y, vh) {
     if (ys < -260 || ys > vh + 260) continue;
     const cw = d.card.offsetWidth, ph = (ys - ty) / sP * Math.PI * 2, left = d.box.dataset.side === 'l', x = Math.max(left ? cw / 2 + 40 : w * .34, Math.min(left ? w * .2 : w * .7, sCx + sA * Math.sin(ph))), t = ys / vh;
     d.card.style.transform = `translate3d(${(x - r.left - cw / 2).toFixed(1)}px,-50%,0) rotate(${(Math.cos(ph) * -3.5).toFixed(2)}deg)`;
-    d.card.style.opacity = Math.min(sstep(1.04, .84, t), sstep(-.04, .16, t)).toFixed(3);
+    const op = Math.min(sstep(1.04, .84, t), sstep(-.04, .16, t));
+    const hid = op > .02 && covers(d.card);
+    d.card.style.transition = hid ? 'none' : ''; d.card.style.opacity = hid ? '0' : op.toFixed(3); /* gone at once where it meets text, back in softly */
   }
 }
 function serpent(y, vh) {
