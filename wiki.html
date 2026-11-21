@@ -495,6 +495,179 @@ const T = {
     bosses: 'Jefes', d_bosses: 'Los jefes tienen su propia categoría, fuera de las franjas de nivel: jefes de la historia y del mundo, las cuevas de jefe y los jefes de las misiones de clase.', boss_story: 'Jefes de la historia y del mundo', boss_cave: 'Cuevas de jefe', boss_job: 'Jefes de misiones de clase', band_n: 'Niveles {a}–{b}', no_level: 'En la historia y eventos', mini_boss: 'Minijefe (líder de manada)', mini_note: 'En el {c}% de las manadas de dos o más desde el nivel 15, uno las lidera: {p} niveles por encima de su especie, con el doble de vida.', at_her: 'a tu nivel (se muestra el nivel de la misión)', party_n: 'Grupo', quest_n: 'Misión', lands_lv: 'según las tierras donde vive', job_quests: 'Misiones de clase', d_job_quests: 'Solo online: las misiones de cada clase, por clase y por trabajo. No forman parte de la lista de misiones de la campaña.', jq_general: 'Para todas las clases', jq_other: 'Otras misiones', job_of: 'Clase', hidden_hall: 'Oculto: aparece en el mapa cuando Quirón habla de él', anchor: 'Nivel de la zona', people_n: 'Gente', job_skills_n: 'Habilidades', of_job: 'de',
   },
 };
+// the sections added with build 53 (the Fateforge, Weapons 200, the rotating town stock, caves, special events, attack patterns):
+// their texts, merged into T above (the data they show comes from tools/wiki-extra.mjs, read from the game)
+const T_NEW = {
+  he: {
+    i_fate: 'כור הגורל', kind_fate: 'חוט גורל', ff_cat_kind: 'זרז', ff_title: 'כור הגורל', ff_open: 'איך כור הגורל עובד',
+    d_ff: 'כור הגורל משדרג פריט ציוד מרמה ‎+0 עד ‎+{max} בעזרת חוטי גורל. זו לשונית בחלון של האלכימאי בכל עיר, והיא פתוחה רק ב־BETA ONLINE: בקמפיין אין כור גורל ואין חוטים.',
+    ff_what_h: 'מה הם חוטי הגורל',
+    ff_what: 'חוטי גורל הם פריטים שנערמים בתיק ואפשר לסחור בהם. יש {n} חוטים ב־{t} דרגות. שתי הדרגות הראשונות ניטרליות: את סוג השדרוג בוחרים בכור. מרמה ‎+5 לכל חוט יש סוג משלו (כוח, הגנה, מהירות או תכונה), ושדרוג צריך חוט מהדרגה ומהסוג שאליו הוא מכוון.',
+    ff_tier_h: 'דרגות החוטים', ff_tier: 'דרגה', ff_levels: 'רמות שדרוג', ff_rarity: 'נדירות', ff_kinds: 'סוגים', ff_neutral: 'ניטרלי: הסוג נבחר בכור', ff_typed: 'חוט לכל סוג',
+    ff_fam_h: 'מה כל פריט יכול לקבל', ff_fam_weapon: 'נשקים', ff_fam_other: 'שאר הציוד', ff_fam_footwear: 'נעליים', ff_fam_wings: 'כנפיים (לא גלימה)', ff_fam_none: 'אי אפשר לשדרג',
+    ff_def_note: 'הגנה אפשרית רק בפריט שיש לו הגנה משלו. תכונה מוסיפה נקודות קבועות לתכונה הראשית של המקצוע של הפריט ({stats}); לפריט בלי מקצוע אין שדרוג תכונה.',
+    ff_try_h: 'ניסיון שדרוג',
+    ff_try: 'לכל פריט יש {slots} חריצי שדרוג והוא עולה עד ‎+{max}. כל ניסיון לוקח חוט אחד, תשלום וחריץ אחד, בין אם הוא מצליח ובין אם נכשל. כישלון לעולם לא שובר את הפריט ולא מוריד שדרוג: הוא שורף רק את החוט ואת החריץ. עם {slots2} חריצים ל־{max2} רמות, פריט יכול להיכשל פעם אחת ועדיין להגיע לשיא. ניסיון שאינו מותר לא לוקח כלום.',
+    ff_table_h: 'סיכוי, תשלום ובונוס לפי רמה', ff_lv: 'רמה', ff_fee: 'תשלום', ff_thread: 'חוט', ff_attr: 'תכונה', ff_pts: 'נק׳',
+    ff_bonus_note: 'כוח והגנה: אחוז מהכוח או מההגנה של הפריט עצמו לפני שדרוגים, והם מצטברים. מהירות: מהירות תנועה, עד {a}% מפריט אחד ועד {b}% מנעליים וכנפיים יחד. תכונה: נקודות.',
+    ff_spin_h: 'שזירת חוטים',
+    ff_spin: 'באותה לשונית שוזרים חוטים לחוטים משובחים יותר. שזירה מצליחה תמיד (100%) כשיש את כל החומרים, והיא לא משנה את סיכוי השדרוג, שהוא נפרד. מתכון עם סוג לוקח ונותן חוטים מסוג אחד בלבד.',
+    ff_makes: 'מקבלים', ff_takes: 'צריך', ff_same_type: 'מאותו סוג',
+    ff_src_h: 'מאיפה מגיעים החוטים',
+    ff_src: 'רק ברשת, ורק מהשרת: הגרלה אחת לכל הריגה או השלמה, ואף פעם לא יותר מחוט אחד מהגרלה אחת. בדרגה עם סוגים, הסוג אקראי: רבע לכל סוג.',
+    ff_s_kill: 'מפלצת רגילה שהופלה', ff_s_elite: 'עילית או מנהיג להקה (גם מיני־בוס של מערה)', ff_s_mid: 'מערת בוס מתחת לרמה {lv}, או מבוך פארטי שמסתיים מתחתיה', ff_s_endgame: 'מערת בוס מרמה {lv}, או מבוך הפארטי שמגיע אליה',
+    ff_cat_h: 'זרזים', ff_cat: 'כל השלמה של סוף המשחק מגרילה גם כל זרז בנפרד: {list}. זרזים נערמים ואפשר לסחור בהם; הם נחוצים לחוטים מחושלים, מיתיים ואלוהיים.',
+    ff_rules_h: 'מגבלות',
+    ff_r_grey: 'מפלצת שנמוכה ב־{a} רמות או יותר מרמת הדמות, או גבוהה ממנה ב־{b} רמות או יותר, לא נותנת הגרלה.',
+    ff_r_isle: 'באי ההתחלה נושרים רק חוטים פרומים.',
+    ff_r_once: 'כל מפלצת משלמת פעם אחת, לא משנה מי מדווח עליה. מפלצות מזומנות ומפלצות של הסיפור לא נותנות כלום.',
+    ff_r_elite: 'עד {n} עיליות ברצף נחשבות עיליות, ואחר כך אחת בכל {s} שניות; השאר נחשבות הריגות רגילות.',
+    ff_r_boss: 'מערת בוס נחשבת פעם אחת לכל שומר ופעם אחת בכל זמן חזרה שלה ({a}–{b} דקות), ורק כשרמת הדמות נמוכה ממנה ב־{g} רמות לכל היותר.',
+    ff_r_dun: 'מבוך פארטי נחשב פעם אחת לכל ריצה, בגבולות הפרסים שלו.',
+    ff_r_off: 'טרטרוס והאווזה המוזהבת לא נותנים חוטים כרגע.',
+    ff_r_fuse: 'פריט משודרג לא מתאחד אצל האלכימאי. השדרוגים נשארים איתו בתיק, בבנק ובמסחר.',
+    ff_used: 'משמש ל', ff_up: 'שדרוג ל־‎{lv}', ff_spin_in: 'שזירה',
+    jump_w200: 'הנשקים הנוכחיים', w200: 'נשקי המקצועות (200 הנשקים)',
+    d_w200: 'ברשת המקצועות נלחמים ב־{n} הנשקים והידיים השניות האלה. הם החליפו את הנשקים הישנים בחנויות, בשלל, ביצירה ובפרסים (שלושת נשקי ההתחלה נשארים). רמות 1–{v} נמכרות בכפר המאסטר של המקצוע, {c1}–{c2} בערים, ומעל זה הנפחים, ההיכלים והשלל מגרילים אותם.',
+    w200_off: 'כדור האנרגיה והספר המרחף הם יד שנייה של הקוסם בלבד.', retired: 'הוחלף ברשת ב־200 הנשקים', w200_needs: 'דרישות', w200_class: 'מקצוע',
+    jump_stock: 'מלאי מתחלף', stock_h: 'מלאי מתחלף בערים',
+    d_stock: 'מלבד הסחורה הקבועה, הנפח והשריונאי של עיר מוכרים מבחר אקראי של ציוד ברמת העיר שמתחלף כל {h} שעות, אותו מבחר לכולם. בעיר יש {a} נשקים וידיים שניות אצל הנפח ו־{b} פריטי שריון אצל השריונאי; בכפר בלי שריונאי, הנפח מציג {va} נשקים ו־{vb} פריטי שריון.',
+    stock_band: 'הפריטים ברמה שבין רמת העיר פחות {lo} לרמת העיר ועוד {hi}, ולעולם לא מעל {max}. עיר ברמה {min} ומעלה לא מוכרת כלום מהמלאי: משם את הציוד צריך להשיג בדרכים אחרות.',
+    stock_what: 'נשקים, ידיים שניות, קסדות, שריונות, נעליים וגלימות של כל המקצועות, מעורבבים; אף פעם לא כנפיים או חיצים. רק בדרגה רגילה, במחיר הרגיל של החנויות.',
+    stock_town: 'מקום', stock_lv: 'רמת העיר', stock_items: 'רמות הפריטים', stock_none: 'אין',
+    caves_h: 'מערות',
+    d_caves: 'המערות גדולות וקשות יותר: חדר נוסף, מעברים רחבים, מכשולים בחדרים, ובחדר העמוק מיני־בוס של המפלצת החזקה ביותר במערה: עילית ומנהיג להקה יחד (‎+{lv} רמות, חיים ×{hp}, מכות ×{dmg}, ניסיון ×{exp}). מערת בוס שומרת את הבוס בזירה, והמיני־בוס שלה, {g} רמות מתחת לבוס, מחכה באולם שלפניה.',
+    caves_online: 'ברשת אין מערות מתחת לרמה {n}: {k} מערות שהיו נמוכות יותר לא נבנות.', caves_list: 'המערות ברשת',
+    ev_h: 'אירועים מיוחדים',
+    d_ev: 'רק ברשת. אירוע מיוחד יכול להגיע פעם ביום בשעה אקראית (שעון ישראל), לפחות {gap} שעות מהאירוע האחר, וכל המחוברים מקבלים הודעה לפני שהוא מתחיל. אם אף אחד לא מחובר בשעה הזו, הוא עובר לשעה מאוחרת יותר באותו יום.',
+    ev_tart: 'טרטרוס',
+    ev_tart_d: 'האדמה נפתחת הרחק מהערים וידי טרטרוס עולות. ההודעה יוצאת {lead} דקות לפני הקרב, ועד {max} דמויות שעומדות בטבעת נבחרות. לטרטרוס יש {hp} נקודות חיים בכל רמה ובכל גודל קבוצה; הקרב מתוכנן לכ־{a}–{b} דקות ונכשל אחרי {fail} דקות. כל דמות שנבחרה ונמצאת שם בסוף מקבלת ניסיון לפי רמה, {dr} דרכמות ושלל.',
+    ev_tart_exp: 'ניסיון לפי רמה', ev_upto: 'עד רמה {n}', ev_sites: 'איפה הוא יכול להיפתח',
+    ev_goose: 'האווזה המוזהבת',
+    ev_goose_d: 'ההודעה יוצאת {lead} שניות מראש, ואז האווזה מופיעה על דרך ממש מחוץ לעיר ורצה {chase} שניות במהירות {sp} מ׳ לשנייה. עמידה עד {near} מ׳ ממנה לפחות {min} שניות נחשבת להשתתפות; מקש הפעולה לידה תופס אותה. השתתפות משלמת את הדרכמות של כ־{k} הריגות ברמה של הדמות, ותפיסה משלמת את אותו סכום פעם נוספת.',
+    atk_h: 'דפוסי התקפה',
+    d_atk: 'מעל רמה {lv} מפלצות מתריעות לפני ההתקפות המיוחדות שלהן בסימן אדום על הקרקע, והמכה נוחתת בדיוק איפה שהאדום. מין עם מהלך מיוחד משלו מקבל את דפוס המשפחה שלו, ואת הדפוס המרשים יותר כשהוא עילית, מנהיג להקה, גוף גדול או ברמה 30 ומעלה. מין עם מכה פשוטה בלבד נשאר פשוט, אבל העיליות והמנהיגים שלו מקבלים את הדפוס המרשים. מרמה {b} חלק מהמשפחות גם מחזקות את עצמן.',
+    atk_basic: 'דפוס', atk_fancy: 'עיליות, מנהיגים, גדולים, רמה 30+', atk_fancy_plain: 'רק עיליות ומנהיגים', atk_buff: 'חיזוק עצמי מרמה {lv}', atk_none: 'מכות פשוטות בלבד', atk_lead: 'כמנהיג להקה',
+    atk_mul: 'מכה', atk_wind: 'אזהרה', atk_cd: 'כל', atk_buffs: 'חיזוקים עצמיים',
+    buff_enrage: 'מכות ×{d}, מהירות +{s}% למשך {t} ש׳', buff_stoneskin: 'מקבל ×{k} נזק למשך {t} ש׳', buff_regen: 'מרפא {h}% מהחיים בשנייה למשך {t} ש׳', buff_haste: 'מהירות +{s}% למשך {t} ש׳',
+    pat_rake: 'גריפה', pat_gore: 'נגיחה', pat_cleave: 'ביקוע', pat_sting: 'עקיצה', pat_stomp: 'רקיעה', pat_crescent: 'סהר', pat_glare: 'מבט', pat_thunder: 'רעם', pat_coil: 'התפתלות', pat_teeth: 'שיני אדמה',
+    pat_vortex: 'מערבולת', pat_echo: 'הד', pat_bloom: 'פריחה', pat_lunge: 'זינוק', pat_fan: 'מניפה', pat_sun: 'שמש', pat_prison: 'כלא', pat_dial: 'שעון', pat_cross: 'צלב', pat_chain: 'שרשרת', pat_quakering: 'טבעת רעש',
+    pat_soulbolt: 'חץ נשמה', pat_meteors: 'מטאורים', pat_tide: 'גאות', pat_hook: 'וו', pat_riddle: 'חידה', pat_tunnel: 'מנהרה', pat_swoop: 'צלילה', pat_puddles: 'שלוליות', pat_punch: 'אגרוף', pat_bite: 'נשיכה', pat_mirror: 'מראה',
+  },
+  en: {
+    i_fate: 'Fateforge', kind_fate: 'Fate Thread', ff_cat_kind: 'Catalyst', ff_title: 'The Fateforge', ff_open: 'How the Fateforge works',
+    d_ff: "The Fateforge upgrades a piece of equipment from +0 up to +{max} with Fate Threads. It is a tab of the Alchemist's window in every town, and it is open in the BETA ONLINE only: the campaign has no Fateforge and no threads.",
+    ff_what_h: 'What the threads are',
+    ff_what: "Fate Threads are items that stack in the bag and can be traded. There are {n} of them in {t} tiers. The first two tiers are neutral: the upgrade's type is chosen at the forge. From +5 every thread has a type of its own (Power, Defense, Speed or Attribute), and an upgrade takes a thread of the tier and type it aims at.",
+    ff_tier_h: 'The thread tiers', ff_tier: 'Tier', ff_levels: 'Upgrade levels', ff_rarity: 'Rarity', ff_kinds: 'Types', ff_neutral: 'Neutral: the type is chosen at the forge', ff_typed: 'One thread per type',
+    ff_fam_h: 'What each piece can take', ff_fam_weapon: 'Weapons', ff_fam_other: 'Other equipment', ff_fam_footwear: 'Boots', ff_fam_wings: 'Wings (not a cape)', ff_fam_none: 'Cannot be upgraded',
+    ff_def_note: "Defense is possible only on a piece that has Defense of its own. Attribute adds flat points to the main stat of the piece's job ({stats}); a piece with no job has no Attribute upgrade.",
+    ff_try_h: 'An upgrade attempt',
+    ff_try: 'Every item has {slots} upgrade slots and goes up to +{max}. Each attempt takes one thread, the fee and one slot, whether it succeeds or fails. A failure never breaks the item and never takes an upgrade back: it only burns the thread and the slot. With {slots2} slots for {max2} levels, an item can fail once and still reach the top. An attempt that is not allowed takes nothing.',
+    ff_table_h: 'Chance, fee and bonus by level', ff_lv: 'Level', ff_fee: 'Fee', ff_thread: 'Thread', ff_attr: 'Attribute', ff_pts: 'pts',
+    ff_bonus_note: "Power and Defense: a percentage of the piece's own Power or Defense before upgrades, added up. Speed: movement speed, at most {a}% from one piece and {b}% from boots and wings together. Attribute: points.",
+    ff_spin_h: 'Spinning threads',
+    ff_spin: 'In the same tab, threads are spun into finer ones. Spinning always succeeds (100%) when every input is there, and it does not change the upgrade chance, which is separate. A typed recipe takes and gives threads of one type only.',
+    ff_makes: 'Makes', ff_takes: 'Takes', ff_same_type: 'of the same type',
+    ff_src_h: 'Where the threads come from',
+    ff_src: 'Online only, and only from the server: one roll for each kill or completion, and never more than one thread from one roll. In a typed tier the type is random, a quarter each.',
+    ff_s_kill: 'An ordinary monster you fell', ff_s_elite: "An elite or a pack leader (a cave's mini-boss too)", ff_s_mid: 'A boss cave under level {lv}, or a party dungeon that tops out under it', ff_s_endgame: 'A boss cave from level {lv}, or the party dungeon that reaches it',
+    ff_cat_h: 'Catalysts', ff_cat: 'Every endgame completion also rolls for each catalyst on its own: {list}. Catalysts stack and can be traded; Tempered, Mythic and Divine threads need them.',
+    ff_rules_h: 'Limits',
+    ff_r_grey: 'A monster {a} or more levels below you, or {b} or more levels above you, gives no roll.',
+    ff_r_isle: 'On the starting island only Frayed threads drop.',
+    ff_r_once: 'Each monster pays once, whoever reports it. Summoned monsters and story monsters give nothing.',
+    ff_r_elite: 'Up to {n} elites in a row count as elites, then one every {s} seconds; the rest count as ordinary kills.',
+    ff_r_boss: 'A boss cave counts once per keeper and once per its respawn time ({a}–{b} minutes), and only when you are no more than {g} levels under it.',
+    ff_r_dun: 'A party dungeon counts once per run, within its own reward limit.',
+    ff_r_off: 'Tartarus and the Golden Goose give no threads for now.',
+    ff_r_fuse: 'An upgraded item cannot be fused at the Alchemist. Its upgrades stay with it in the bag, the bank and trades.',
+    ff_used: 'Used for', ff_up: 'Upgrade to {lv}', ff_spin_in: 'Spinning',
+    jump_w200: 'Current weapons', w200: "The jobs' weapons (Weapons 200)",
+    d_w200: "Online the jobs fight with these {n} weapons and off hands. They replaced the older weapons in the shops, drops, crafting and rewards (the three starting weapons stay). Levels 1–{v} are sold in the class's master village, {c1}–{c2} in the cities, and above that the weaponsmiths, the halls and the drops roll them.",
+    w200_off: "The energy orb and the levitating book are the wizard's off hand only.", retired: 'Replaced online by Weapons 200', w200_needs: 'Requirements', w200_class: 'Job',
+    jump_stock: 'Town stock', stock_h: 'Rotating town stock',
+    d_stock: "Besides their usual wares, a town's weaponsmith and armourer sell a random choice of gear of the town's level that changes every {h} hours, the same for everyone. A town shows {a} weapons and off hands at the weaponsmith and {b} pieces of armour at the armourer; in a village with no armourer the weaponsmith shows {va} weapons and {vb} pieces of armour.",
+    stock_band: "The items are made at a level from the town's level minus {lo} to plus {hi}, never above {max}. A town of level {min} or more sells none: from there the gear must be found.",
+    stock_what: "Any job's weapons, off hands, helmets, armour, boots and capes, mixed; never wings or arrows. Normal grade only, at the shops' usual price.",
+    stock_town: 'Place', stock_lv: 'Town level', stock_items: 'Item levels', stock_none: 'None',
+    caves_h: 'Caves',
+    d_caves: 'Caves are bigger and harder: an extra chamber, wider passages, obstacles in the chambers, and in the deepest chamber a mini-boss of the strongest monster in the cave: an elite and a pack leader at once (+{lv} levels, health ×{hp}, blows ×{dmg}, EXP ×{exp}). A boss cave keeps its boss in the arena; its mini-boss, {g} levels under the boss, waits in the hall before it.',
+    caves_online: 'Online there are no caves under level {n}: the {k} caves that would be lower are not built.', caves_list: 'The online caves',
+    ev_h: 'Special events',
+    d_ev: 'Online only. A special event can come once a day at a random hour (Israel time), at least {gap} hours from the other one, and everyone online is told before it starts. If nobody is online at that hour, it moves to a later hour that day.',
+    ev_tart: 'Tartarus',
+    ev_tart_d: 'The land opens far from the towns and the hands of Tartarus rise. It is announced {lead} minutes before the fight, and up to {max} players standing in the ring are chosen. Tartarus has {hp} hit points at any level and any party size; the fight is planned to take about {a}–{b} minutes and fails after {fail} minutes. Everyone chosen who is there at the end gets EXP by level, {dr} drachmas and loot.',
+    ev_tart_exp: 'EXP by level', ev_upto: 'up to level {n}', ev_sites: 'Where it can open',
+    ev_goose: 'The Golden Goose',
+    ev_goose_d: 'It is announced {lead} seconds ahead, then the goose appears on a road just outside a town and runs for {chase} seconds at {sp} m/s. Standing within {near} m of it for at least {min} seconds counts as taking part; the interact key next to it catches it. Taking part pays the drachmas of about {k} kills at your level, and the catcher gets the same again.',
+    atk_h: 'Attack patterns',
+    d_atk: 'Above level {lv}, monsters warn before their special attacks with a red mark on the ground, and the blow lands exactly where the red is. A kind with a special move of its own gets its family\'s pattern, and the fancier one when it is an elite, a pack leader, a large body or level 30 and over. A kind with only a plain blow stays plain, but its elites and leaders get the fancier pattern. From level {b} some families also buff themselves.',
+    atk_basic: 'Pattern', atk_fancy: 'Elites, leaders, large ones, level 30+', atk_fancy_plain: 'Elites and leaders only', atk_buff: 'Self-buff from level {lv}', atk_none: 'Plain blows only', atk_lead: 'As a pack leader',
+    atk_mul: 'Blow', atk_wind: 'Warning', atk_cd: 'Every', atk_buffs: 'Self-buffs',
+    buff_enrage: 'Blows ×{d}, speed +{s}% for {t} s', buff_stoneskin: 'Takes ×{k} damage for {t} s', buff_regen: 'Heals {h}% of its health a second for {t} s', buff_haste: 'Speed +{s}% for {t} s',
+    pat_rake: 'Rake', pat_gore: 'Gore', pat_cleave: 'Cleave', pat_sting: 'Sting', pat_stomp: 'Stomp', pat_crescent: 'Crescent', pat_glare: 'Glare', pat_thunder: 'Thunder', pat_coil: 'Coil', pat_teeth: 'Teeth',
+    pat_vortex: 'Vortex', pat_echo: 'Echo', pat_bloom: 'Bloom', pat_lunge: 'Lunge', pat_fan: 'Fan', pat_sun: 'Sun', pat_prison: 'Prison', pat_dial: 'Dial', pat_cross: 'Cross', pat_chain: 'Chain', pat_quakering: 'Quake ring',
+    pat_soulbolt: 'Soul bolt', pat_meteors: 'Meteors', pat_tide: 'Tide', pat_hook: 'Hook', pat_riddle: 'Riddle', pat_tunnel: 'Tunnel', pat_swoop: 'Swoop', pat_puddles: 'Puddles', pat_punch: 'Punch', pat_bite: 'Bite', pat_mirror: 'Mirror',
+  },
+  es: {
+    i_fate: 'Forja del Destino', kind_fate: 'Hilo del Destino', ff_cat_kind: 'Catalizador', ff_title: 'La Forja del Destino', ff_open: 'Cómo funciona la Forja del Destino',
+    d_ff: 'La Forja del Destino mejora una pieza de equipo de +0 hasta +{max} con Hilos del Destino. Es una pestaña de la ventana del Alquimista en cada ciudad, y solo abre en la BETA ONLINE: la campaña no tiene Forja ni hilos.',
+    ff_what_h: 'Qué son los hilos',
+    ff_what: 'Los Hilos del Destino son objetos que se apilan en la bolsa y se pueden intercambiar. Hay {n} en {t} rangos. Los dos primeros rangos son neutros: el tipo de mejora se elige en la forja. Desde +5 cada hilo tiene su propio tipo (Poder, Defensa, Velocidad o Atributo), y una mejora gasta un hilo del rango y del tipo al que apunta.',
+    ff_tier_h: 'Los rangos de hilo', ff_tier: 'Rango', ff_levels: 'Niveles de mejora', ff_rarity: 'Rareza', ff_kinds: 'Tipos', ff_neutral: 'Neutro: el tipo se elige en la forja', ff_typed: 'Un hilo por tipo',
+    ff_fam_h: 'Qué admite cada pieza', ff_fam_weapon: 'Armas', ff_fam_other: 'Resto del equipo', ff_fam_footwear: 'Botas', ff_fam_wings: 'Alas (no una capa)', ff_fam_none: 'No se puede mejorar',
+    ff_def_note: 'La Defensa solo es posible en una pieza con Defensa propia. El Atributo suma puntos fijos a la estadística principal del oficio de la pieza ({stats}); una pieza sin oficio no tiene mejora de Atributo.',
+    ff_try_h: 'Un intento de mejora',
+    ff_try: 'Cada objeto tiene {slots} ranuras de mejora y llega hasta +{max}. Cada intento gasta un hilo, la tarifa y una ranura, salga bien o mal. Un fallo nunca rompe el objeto ni quita una mejora: solo quema el hilo y la ranura. Con {slots2} ranuras para {max2} niveles, un objeto puede fallar una vez y aun así llegar al máximo. Un intento no permitido no gasta nada.',
+    ff_table_h: 'Probabilidad, tarifa y bonificación por nivel', ff_lv: 'Nivel', ff_fee: 'Tarifa', ff_thread: 'Hilo', ff_attr: 'Atributo', ff_pts: 'pts',
+    ff_bonus_note: 'Poder y Defensa: un porcentaje del Poder o la Defensa propios de la pieza antes de mejoras, sumados. Velocidad: velocidad de movimiento, como mucho {a}% de una pieza y {b}% de botas y alas juntas. Atributo: puntos.',
+    ff_spin_h: 'Hilar hilos',
+    ff_spin: 'En la misma pestaña se hilan hilos más finos. Hilar siempre sale bien (100%) si está todo, y no cambia la probabilidad de mejora, que es aparte. Una receta con tipo gasta y da hilos de un solo tipo.',
+    ff_makes: 'Da', ff_takes: 'Gasta', ff_same_type: 'del mismo tipo',
+    ff_src_h: 'De dónde salen los hilos',
+    ff_src: 'Solo en línea, y solo del servidor: una tirada por cada muerte o cada final, y nunca más de un hilo por tirada. En un rango con tipos, el tipo es al azar, un cuarto cada uno.',
+    ff_s_kill: 'Un monstruo normal que derribas', ff_s_elite: 'Un élite o un líder de manada (también el mini-jefe de una cueva)', ff_s_mid: 'Una cueva de jefe por debajo del nivel {lv}, o una mazmorra de grupo que termina por debajo', ff_s_endgame: 'Una cueva de jefe desde el nivel {lv}, o la mazmorra de grupo que llega a él',
+    ff_cat_h: 'Catalizadores', ff_cat: 'Cada final de fin de juego tira además por cada catalizador por separado: {list}. Los catalizadores se apilan y se intercambian; los hilos Templados, Míticos y Divinos los necesitan.',
+    ff_rules_h: 'Límites',
+    ff_r_grey: 'Un monstruo {a} o más niveles por debajo, o {b} o más niveles por encima, no da tirada.',
+    ff_r_isle: 'En la isla inicial solo caen hilos Deshilachados.',
+    ff_r_once: 'Cada monstruo paga una vez, lo informe quien lo informe. Los monstruos invocados y los de la historia no dan nada.',
+    ff_r_elite: 'Hasta {n} élites seguidos cuentan como élites, luego uno cada {s} segundos; el resto cuenta como muertes normales.',
+    ff_r_boss: 'Una cueva de jefe cuenta una vez por guardián y una vez por su tiempo de reaparición ({a}–{b} minutos), y solo si estás como mucho {g} niveles por debajo.',
+    ff_r_dun: 'Una mazmorra de grupo cuenta una vez por partida, dentro de su propio límite de recompensas.',
+    ff_r_off: 'Tártaro y la Oca de Oro no dan hilos por ahora.',
+    ff_r_fuse: 'Un objeto mejorado no se fusiona en el Alquimista. Sus mejoras lo acompañan en la bolsa, el banco y los intercambios.',
+    ff_used: 'Sirve para', ff_up: 'Mejora a {lv}', ff_spin_in: 'Hilado',
+    jump_w200: 'Armas actuales', w200: 'Las armas de los oficios (Armas 200)',
+    d_w200: 'En línea los oficios luchan con estas {n} armas y segundas manos. Sustituyeron a las armas antiguas en tiendas, botín, fabricación y recompensas (las tres armas iniciales se quedan). Los niveles 1–{v} se venden en la aldea del maestro de la clase, {c1}–{c2} en las ciudades, y por encima las sacan los armeros, los salones y el botín.',
+    w200_off: 'El orbe de energía y el libro levitante son solo la segunda mano del mago.', retired: 'Sustituida en línea por Armas 200', w200_needs: 'Requisitos', w200_class: 'Oficio',
+    jump_stock: 'Surtido de ciudad', stock_h: 'Surtido rotativo en las ciudades',
+    d_stock: 'Además de su mercancía habitual, el armero y el armadurero de una ciudad venden una selección al azar de equipo del nivel de la ciudad que cambia cada {h} horas, la misma para todos. Una ciudad muestra {a} armas y segundas manos en el armero y {b} piezas de armadura en el armadurero; en una aldea sin armadurero el armero muestra {va} armas y {vb} piezas de armadura.',
+    stock_band: 'Los objetos son de un nivel entre el de la ciudad menos {lo} y más {hi}, nunca por encima de {max}. Una ciudad de nivel {min} o más no vende ninguno: a partir de ahí el equipo hay que conseguirlo.',
+    stock_what: 'Armas, segundas manos, cascos, armaduras, botas y capas de cualquier oficio, mezclados; nunca alas ni flechas. Solo de grado Normal, al precio habitual de las tiendas.',
+    stock_town: 'Lugar', stock_lv: 'Nivel de la ciudad', stock_items: 'Niveles de objeto', stock_none: 'Ninguno',
+    caves_h: 'Cuevas',
+    d_caves: 'Las cuevas son más grandes y difíciles: una cámara más, pasillos más anchos, obstáculos en las cámaras y, en la cámara más honda, un mini-jefe del monstruo más fuerte de la cueva: élite y líder de manada a la vez (+{lv} niveles, vida ×{hp}, golpes ×{dmg}, EXP ×{exp}). Una cueva de jefe mantiene a su jefe en la arena; su mini-jefe, {g} niveles por debajo del jefe, espera en la sala anterior.',
+    caves_online: 'En línea no hay cuevas por debajo del nivel {n}: las {k} cuevas que serían más bajas no se construyen.', caves_list: 'Las cuevas en línea',
+    ev_h: 'Eventos especiales',
+    d_ev: 'Solo en línea. Un evento especial puede llegar una vez al día a una hora al azar (hora de Israel), al menos {gap} horas separado del otro, y todos los conectados reciben el aviso antes de que empiece. Si nadie está conectado a esa hora, pasa a una hora más tarde ese día.',
+    ev_tart: 'Tártaro',
+    ev_tart_d: 'La tierra se abre lejos de las ciudades y se alzan las manos del Tártaro. Se anuncia {lead} minutos antes del combate, y se eligen hasta {max} jugadores que estén en el anillo. El Tártaro tiene {hp} puntos de vida a cualquier nivel y con cualquier tamaño de grupo; el combate dura unos {a}–{b} minutos y fracasa a los {fail} minutos. Cada elegido que esté al final recibe EXP según su nivel, {dr} dracmas y botín.',
+    ev_tart_exp: 'EXP por nivel', ev_upto: 'hasta el nivel {n}', ev_sites: 'Dónde puede abrirse',
+    ev_goose: 'La Oca de Oro',
+    ev_goose_d: 'Se anuncia {lead} segundos antes; luego la oca aparece en un camino justo fuera de una ciudad y corre {chase} segundos a {sp} m/s. Estar a {near} m o menos de ella al menos {min} segundos cuenta como participar; la tecla de interacción junto a ella la atrapa. Participar paga las dracmas de unas {k} muertes de tu nivel, y quien la atrapa recibe lo mismo otra vez.',
+    atk_h: 'Patrones de ataque',
+    d_atk: 'Por encima del nivel {lv}, los monstruos avisan de sus ataques especiales con una marca roja en el suelo, y el golpe cae justo donde está el rojo. Una especie con un movimiento especial propio recibe el patrón de su familia, y el más vistoso si es élite, líder de manada, de cuerpo grande o de nivel 30 o más. Una especie con solo un golpe simple se queda así, pero sus élites y líderes reciben el patrón vistoso. Desde el nivel {b} algunas familias también se refuerzan.',
+    atk_basic: 'Patrón', atk_fancy: 'Élites, líderes, grandes, nivel 30+', atk_fancy_plain: 'Solo élites y líderes', atk_buff: 'Refuerzo propio desde el nivel {lv}', atk_none: 'Solo golpes simples', atk_lead: 'Como líder de manada',
+    atk_mul: 'Golpe', atk_wind: 'Aviso', atk_cd: 'Cada', atk_buffs: 'Refuerzos propios',
+    buff_enrage: 'Golpes ×{d}, velocidad +{s}% durante {t} s', buff_stoneskin: 'Recibe ×{k} de daño durante {t} s', buff_regen: 'Cura {h}% de su vida por segundo durante {t} s', buff_haste: 'Velocidad +{s}% durante {t} s',
+    pat_rake: 'Zarpazo', pat_gore: 'Cornada', pat_cleave: 'Tajo', pat_sting: 'Aguijón', pat_stomp: 'Pisotón', pat_crescent: 'Media luna', pat_glare: 'Mirada', pat_thunder: 'Trueno', pat_coil: 'Enroscada', pat_teeth: 'Colmillos de tierra',
+    pat_vortex: 'Vórtice', pat_echo: 'Eco', pat_bloom: 'Floración', pat_lunge: 'Embestida', pat_fan: 'Abanico', pat_sun: 'Sol', pat_prison: 'Prisión', pat_dial: 'Esfera', pat_cross: 'Cruz', pat_chain: 'Cadena', pat_quakering: 'Anillo sísmico',
+    pat_soulbolt: 'Rayo de alma', pat_meteors: 'Meteoros', pat_tide: 'Marea', pat_hook: 'Garfio', pat_riddle: 'Acertijo', pat_tunnel: 'Túnel', pat_swoop: 'Picado', pat_puddles: 'Charcos', pat_punch: 'Puñetazo', pat_bite: 'Mordisco', pat_mirror: 'Espejo',
+  },
+};
+for (const l of Object.keys(T_NEW)) Object.assign(T[l], T_NEW[l]);
 const CATS = [
   ['overview', 'M3 3h7v7H3zm9 0h7v7h-7zM3 12h7v7H3zm9 0h7v7h-7z'],
   ['monsters', 'M5 2h10v2h2v6h-2v2h-2v2h-2v-2H9v2H7v-2H5v-2H3V4h2zm2 4v2h2V6zm4 0v2h2V6zM7 16h2v2H7zm4 0h2v2h-2z'],
@@ -539,7 +712,7 @@ function chrome() {
   document.title = t('nav_wiki') + " · The Serpent's Oath";
 }
 function rail() {
-  const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0) + (D?.online?.weapons?.length || 0) + (D?.online?.sets || []).reduce((s, x) => s + x.pieces.length, 0),
+  const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0) + (D?.online?.weapons?.length || 0) + (D?.online?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.online?.w200?.length || 0),
     items: (D?.items?.length || 0) + (D?.online?.items?.length || 0) + (D?.online?.craft?.materials?.length || 0) + (D?.online?.questItems?.length || 0), skills: D?.skills?.length, mounts: D?.mounts?.length,
     people: (D?.towns || []).reduce((s, x) => s + x.people.length, 0) + (D?.characters?.length || 0), places: (D?.places?.length || 0) + (D?.dungeons?.length || 0), quests: D?.quests?.length, jobs: D?.online?.jobs?.length };
   $('#rail').innerHTML = CATS.filter(([c]) => c === 'overview' || n[c]).map(([c, p]) => `<a href="#${c}"${route.cat === c && !route.q ? ' aria-current="page"' : ''}>${icon(p)}<span>${esc(t(c))}</span>${n[c] ? `<b>${n[c]}</b>` : ''}</a>`).join('');
@@ -609,7 +782,7 @@ function monsters() {
   const shown = list.filter((m) => (mFilter === 'all' || m.cls === mFilter) && !isBossM(m));
   if (mMode === 'online' && D.onlineMonsters?.length) return onlineMonsters();
   const chips = `<div class="filters" role="group"><button data-filter="all" aria-pressed="${mFilter === 'all'}">${esc(t('all'))} <b>${list.length}</b></button>${(D.monsterClasses || []).filter((c) => cnt[c.id] && c.id !== 'boss').map((c) => `<button data-filter="${c.id}" aria-pressed="${mFilter === c.id}">${esc(tx(c.name))} <b>${cnt[c.id]}</b></button>`).join('')}</div>`;
-  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${monSeg()}${chips}`) + bandSecs(shown, (m) => m.levelRange?.[0] ?? null, monCard) + bossSecs();
+  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${monSeg()}${chips}`) + bandSecs(shown, (m) => m.levelRange?.[0] ?? null, monCard) + bossSecs() + patternsSec();
 }
 // the Bosses: the campaign's named bosses (data.monsters, boss) and, online, the boss caves and the job quests' bosses (data.online.bosses)
 const bossCard = (b) => { const M = MON()[b.body], O = (D.onlineMonsters || []).find((m) => m.body === b.body); return card({ cat: 'monsters', id: 'b:' + b.id, img: M?.img || O?.img, name: tx(b.name), lv: `${t('lv')} ${b.level}`, tag: t('boss'), tagc: 'boss', r: 'legendary',
@@ -638,7 +811,7 @@ const omonCard = (m) => card({ cat: 'monsters', id: 'o:' + m.id, img: m.img, nam
 function onlineMonsters() {
   const mul = D.onlineMonsters.find((m) => m.hpMul)?.hpMul || 1.5, regs = (D.onlineRegions || []).slice().sort((a, b) => a.level[0] - b.level[0] || a.level[1] - b.level[1]), OM = by(D.onlineMonsters);
   void regs; void OM; const body = bandSecs(D.onlineMonsters, (m) => m.level, omonCard); // (Roy 29.10: by level bands; each card names its home region)
-  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${monSeg()}<p class="oband"><span class="pill online">${esc(t('online_badge'))}</span> ${esc(t('online_mons_lead', { m: mul }))}</p>`) + body + bossSecs();
+  return sec(t('monsters'), `<p class="lead">${esc(t('d_monsters'))}</p>${monSeg()}<p class="oband"><span class="pill online">${esc(t('online_badge'))}</span> ${esc(t('online_mons_lead', { m: mul }))}</p>`) + body + bossSecs() + patternsSec();
 }
 function omonDetail(m) {
   const S = m.stats || {}, base = MON()[m.body], mul = m.hpMul || 1;
@@ -680,7 +853,7 @@ function monDetail(m) {
 }
 
 // ------------------------------------------------------------------------------------------------ gear
-const catName = (c) => tx(WT[c]?.name) || tx(JOB_I().kinds[c]?.name) || c;
+const catName = (c) => tx(WT[c]?.name) || tx(JOB_I().kinds[c]?.name) || tx(w2Cat(c)?.name) || c;
 const setCard = (s) => card({ cat: 'gear', id: 'set:' + s.id, img: (s.pieces.find((p) => p.cat === 'sword1') || s.pieces.find((p) => p.cat === 'body') || s.pieces[0])?.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`,
   meta: esc(tx(FAM[s.family]?.name) || '') + (s.wings ? ' · ' + esc(t('wings_set')) : ''),
   extra: `${s.colors ? `<span class="swatch">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}<span class="icons">${s.pieces.slice(0, 10).map((p) => p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" title="${esc(tx(p.name))}">` : '').join('')}</span>` });
@@ -689,12 +862,12 @@ function gear() {
   const rar = (D.rarities || []).map((r) => `<div class="row"><span class="dot" style="background:var(--r-${r.id});width:28px;height:28px"></span><div><div class="nm rar ${r.id}">${esc(tx(r.name))}</div><div class="mt">${r.mult ? `${esc(t('power'))} ×${r.mult.power} · ${esc(t('atkSpeed'))} ×${r.mult.atkSpeed} · ${esc(t('crit'))} ×${r.mult.crit}` : ''}</div></div></div>`).join('');
   const wts = (D.weaponTypes || []).map((w) => `<tr><td><b>${esc(tx(w.name))}</b></td><td class="n">${w.unlock ?? ''}</td><td class="n">${w.hands === 'pair' ? '2×' : w.hands === 'off' ? '½' : w.hands ?? ''}</td><td class="n">${w.tempo ?? ''}</td><td class="n">${w.reach ? w.reach + ' m' : ''}</td><td>${esc(tx(w.handling))}</td></tr>`).join('');
   const fams = (D.families || []).map((f) => `<div class="row"><span class="swatch" style="flex-direction:column;width:16px;height:40px">${(f.colors || []).map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span><div><div class="nm">${esc(tx(f.name))}${f.passive ? ` · <span style="color:var(--gold)">${esc(tx(f.passive.name))}</span>` : ''}</div><div class="mt">${esc(tx(f.passive?.desc))}</div></div></div>`).join('');
-  const jumps = [['sets', 'jump_sets', D.sets], ['standalone', 'jump_single', D.standalone], ['jobarms', 'jump_arms', D.online?.weapons?.length], ['jobsets', 'jump_jsets', D.online?.sets?.length], ['wtypes', 'jump_types', wts], ['fams', 'jump_fam', fams]].filter((j) => j[2]);
+  const jumps = [['sets', 'jump_sets', D.sets], ['standalone', 'jump_single', D.standalone], ['jobarms', 'jump_arms', D.online?.weapons?.length], ['jobsets', 'jump_jsets', D.online?.sets?.length], ['w200', 'jump_w200', D.online?.w200?.length], ['stock', 'jump_stock', D.shopStock], ['wtypes', 'jump_types', wts], ['fams', 'jump_fam', fams]].filter((j) => j[2]);
   return sec(t('gear'), `<p class="lead">${esc(t('d_gear'))}</p><div class="filters" role="group">${jumps.map(([id, k]) => `<button type="button" data-jump="${id}">${esc(t(k))}</button>`).join('')}</div>`) +
     (D.sets ? `<section class="sub" id="sets">${subh(t('sets'), D.sets.length)}<div class="grid wide">${D.sets.map(setCard).join('')}</div></section>` : '') +
     (D.standalone ? `<section class="sub" id="standalone">${subh(t('standalone'), D.standalone.length)}<div class="grid">${D.standalone.map(itemCard).join('')}</div></section>` : '') +
     (D.heirlooms?.length ? `<section class="sub">${subh(t('heirlooms'), D.heirlooms.length)}<div class="grid small">${D.heirlooms.map((p) => card({ cat: 'gear', id: 'heir:' + p.id, img: p.img, ico: true, name: tx(p.name), meta: esc(catName(p.cat)) })).join('')}</div></section>` : '') +
-    jobArms() + jobSetsSec() +
+    jobArms() + jobSetsSec() + w200Sec() + stockSec() +
     (rar ? `<section class="sub">${subh(t('rarities'))}<div class="rows">${rar}</div></section>` : '') +
     (wts ? `<section class="sub" id="wtypes">${subh(t('weapon_types'))}<div class="tblwrap tblbox"><table class="tbl"><tr><th></th><th class="n">${esc(t('unlock'))}</th><th class="n">${esc(t('hands'))}</th><th class="n">${esc(t('tempo'))}</th><th class="n">${esc(t('reach'))}</th><th>${esc(t('handling'))}</th></tr>${wts}</table></div></section>` : '') +
     (fams ? `<section class="sub" id="fams">${subh(t('families'), D.families.length)}<div class="rows">${fams}</div></section>` : '');
@@ -750,9 +923,9 @@ function itemDetail(p, heir) {
 }
 
 // ------------------------------------------------------------------------------------------------ items: potions, quest items, keys, loot (data.items), the online extras and crafting (data.online.craft)
-const ikind = (x) => (x.kind === 'potion' ? 'potion' : x.kind === 'quest' ? 'quest' : x.kind === 'key' ? 'key' : x.kind === 'trophy' ? 'trophy' : 'other');
+const ikind = (x) => (x.kind === 'potion' ? 'potion' : x.kind === 'quest' ? 'quest' : x.kind === 'key' ? 'key' : x.kind === 'trophy' ? 'trophy' : x.kind === 'fate' ? 'fate' : 'other');
 const kindLabel = (x) => t('kind_' + x.kind);
-const itemCardI = (x, pre = 'i:') => card({ cat: 'items', id: pre + x.id, img: x.img, ico: true, name: tx(x.name), lv: x.from ? `${t('lv')} ${x.from}` : '', tag: pre === 'i:' && x.online ? t('online_tag') : '', tagc: 'online', meta: esc(kindLabel(x)) });
+const itemCardI = (x, pre = 'i:') => card({ cat: 'items', id: pre + x.id, img: x.img, ico: true, name: tx(x.name), lv: x.from ? `${t('lv')} ${x.from}` : '', tag: pre === 'i:' && (x.online || x.kind === 'fate') ? t('online_tag') : '', tagc: 'online', meta: esc(kindLabel(x)) });
 const ITEMS_ALL = () => [...(D.items || []), ...(D.online?.items || []).map((x) => ({ ...x, online: true }))];
 const MATS = () => D.online?.craft?.materials || [];
 const QITEMS = () => (D.online?.questItems || []);
@@ -762,7 +935,7 @@ function items() {
   const all = ITEMS_ALL(), cnt = { all: all.length + MATS().length + QITEMS().length };
   for (const x of all) cnt[ikind(x)] = (cnt[ikind(x)] || 0) + 1;
   cnt.craft = MATS().length; cnt.quest = (cnt.quest || 0) + QITEMS().length;
-  const chips = `<div class="filters" role="group">${['all', 'potion', 'quest', 'key', 'trophy', 'other', 'craft'].filter((k) => cnt[k]).map((k) => `<button type="button" data-ifilter="${k}" aria-pressed="${iFilter === k}">${esc(t('i_' + k))} <b>${cnt[k]}</b></button>`).join('')}</div>`;
+  const chips = `<div class="filters" role="group">${['all', 'potion', 'quest', 'key', 'trophy', 'other', 'fate', 'craft'].filter((k) => cnt[k]).map((k) => `<button type="button" data-ifilter="${k}" aria-pressed="${iFilter === k}">${esc(t('i_' + k))} <b>${cnt[k]}</b></button>`).join('')}</div>`;
   const show = (k) => iFilter === 'all' || iFilter === k;
   const grp = (k, list, extra = '') => (show(k) && list.length ? `<section class="sub">${subh(t('i_' + k), list.length)}${extra}<div class="grid small">${list.join('')}</div></section>` : '');
   const by = (k) => all.filter((x) => ikind(x) === k);
@@ -770,6 +943,7 @@ function items() {
   return sec(t('items'), `<p class="lead">${esc(t('d_items'))}</p>${chips}`) +
     grp('potion', by('potion').map((x) => itemCardI(x))) + grp('quest', quest) + grp('key', by('key').map((x) => itemCardI(x))) +
     grp('trophy', by('trophy').map((x) => itemCardI(x))) + grp('other', by('other').map((x) => itemCardI(x))) +
+    (show('fate') ? fateSec(by('fate').map((x) => itemCardI(x))) : '') +
     (show('craft') && D.online?.craft ? craftSec() : '');
 }
 function craftSec() {
@@ -790,8 +964,8 @@ function itemInfoDetail(x) {
   if (x.sell) bits.push(`${esc(t('sells_for'))} <span class="ltr">${x.sell} ₯</span>`);
   if (x.stack) bits.push(esc(t('stacks')));
   const dr = droppedBy(x.id), mon = dr.length ? `<div class="dsec"><h4>${esc(t('dropped_by'))} (${dr.length})</h4><div class="rows">${dr.slice(0, 40).map((m) => { const d = m.drops.find((q) => q.id === x.id); return `<a class="row face" href="#monsters/${m.id}" data-open="monsters|${m.id}">${m.img ? `<img src="${img(m.img)}" alt="" loading="lazy" width="96" height="96">` : '<span></span>'}<div><div class="nm">${esc(tx(m.name))}</div><div class="mt">${esc(t('lv'))} <span class="ltr">${lvr(m.levelRange)}</span></div></div><span class="end">${d?.chance != null ? pct(d.chance, d.chance < .01 ? 1 : 0) : ''}</span></a>`; }).join('')}</div></div>` : '';
-  return `<div class="dhead"><span class="big">${x.img ? `<img class="ico" src="${img(x.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(x.name))}</h2><p class="sub2">${esc(kindLabel(x))}</p><div class="tags">${x.online ? opill() : ''}${x.rarity ? `<span class="pill">${esc(x.rarity)}</span>` : ''}</div></div></div>
-    ${x.desc ? `<div class="dsec"><p>${esc(tx(x.desc))}</p></div>` : ''}${bits.length ? `<div class="dsec">${bits.map((b) => `<p>${b}</p>`).join('')}</div>` : ''}${mon}`;
+  return `<div class="dhead"><span class="big">${x.img ? `<img class="ico" src="${img(x.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(x.name))}</h2><p class="sub2">${esc(kindLabel(x))}</p><div class="tags">${x.online || x.kind === 'fate' ? opill() : ''}${x.rarity ? `<span class="pill">${esc(x.rarity)}</span>` : ''}</div></div></div>
+    ${x.desc ? `<div class="dsec"><p>${esc(tx(x.desc))}</p></div>` : ''}${bits.length ? `<div class="dsec">${bits.map((b) => `<p>${b}</p>`).join('')}</div>` : ''}${x.kind === 'fate' ? ffItemBlock(x) : ''}${mon}`;
 }
 function matDetail(m) {
   const dr = droppedBy(m.id);
@@ -995,7 +1169,7 @@ function places() {
   const dun = (D.dungeons || []).slice().sort((a, b) => (a.kind === 'realm') - (b.kind === 'realm') || (a.level || 0) - (b.level || 0)).map((d) => `<a class="row" href="#places/dun:${d.id}" data-open="places|dun:${d.id}"><span class="pill${d.kind === 'realm' ? ' teal' : ''}" style="min-width:52px;text-align:center">${esc(t('lv'))} ${d.level ?? '?'}</span><div><div class="nm">${esc(tx(d.name))}</div><div class="mt">${esc(t(d.kind))}${d.near ? ` · ${esc(t('near'))} ${esc(tx(PL[d.near.id]?.name))}` : ''}${d.sub ? ' · ' + esc(tx(d.sub)) : ''}</div></div><span class="end">${d.x}, ${d.z}</span></a>`).join('');
   return sec(t('places'), `<p class="lead">${esc(t('d_places'))}</p>`) + map +
     (regs ? `<section class="sub">${subh(t('regions'), D.regions.length)}<div class="rows">${regs}</div></section>` : '') +
-    (dun ? `<section class="sub">${subh(t('dungeons'), D.dungeons.length)}<div class="rows">${dun}</div></section>` : '');
+    (dun ? `<section class="sub">${subh(t('dungeons'), D.dungeons.length)}<div class="rows">${dun}</div></section>` : '') + cavesSec() + eventsSec();
 }
 let _mon = null; const MON = () => (_mon ||= by(D.monsters));
 function placeDetail(p) {
@@ -1137,7 +1311,7 @@ function hallDetail(h) {
 }
 function jwDetail(p) {
   const I = JOB_I(), K = I.kinds[p.cat], offs = K?.offs || [], mains = (I.O.weaponKinds || []).filter((k) => (k.offs || []).includes(p.cat));
-  const pills = `${opill()}<span class="pill">${esc(jobName(p.job))}</span>${p.starter ? `<span class="pill gold">${esc(t('starter'))}</span>` : ''}${p.reward ? `<span class="pill gold">${esc(t('oath_reward'))}</span>` : ''}${p.stub ? `<span class="pill">${esc(t('stub'))}</span>` : ''}`;
+  const pills = `${opill()}<span class="pill">${esc(jobName(p.job))}</span>${p.starter ? `<span class="pill gold">${esc(t('starter'))}</span>` : ''}${p.reward ? `<span class="pill gold">${esc(t('oath_reward'))}</span>` : ''}${p.stub ? `<span class="pill">${esc(t('stub'))}</span>` : ''}${p.retired ? `<span class="pill">${esc(t('retired'))}</span>` : ''}`;
   const lv = Math.max(1, (p.lvl || 1) - 10) + '–' + ((p.lvl || 1) + 5), ob = (p.obtain || []).map((k) => `<li>${esc(t('ob_' + k, { lv }))}</li>`).join('');
   const R = p.recipe, rq = R && I.quests[R.quest];
   const special = p.special ? `<div class="dsec"><h4>${esc(t('special'))}</h4><p>${esc(tx(p.special))}</p></div>` : '';
@@ -1158,14 +1332,155 @@ function jobFind(id) {
   return null;
 }
 
+// ------------------------------------------------------------------------------------------------ build 53: the Fateforge, Weapons 200, the rotating town stock,
+// caves, special events and the monsters' attack patterns (data.fateforge, data.online.w200, data.shopStock, data.caveRules, data.events,
+// data.attackPatterns: tools/wiki-extra.mjs, read from the game)
+const FFD = () => D?.fateforge || null;
+const ffTier = (id) => FFD()?.tiers.find((x) => x.id === id);
+const ffTierOf = (lv) => FFD()?.tiers.find((x) => lv >= x.min && lv <= x.max);
+const ffType = (ty) => tx(FFD()?.typeName?.[ty]) || ty;
+const ffBand = (rows, lv) => { for (const [a, b, v] of rows || []) if (lv >= a && lv <= b) return v; return 0; };
+const ffLv = (T) => `+${T.min}${T.max !== T.min ? '–+' + T.max : ''}`;
+const ffIn = (w) => { const F = FFD(), M = F.mats.find((m) => m.id === w.what); return M ? tx(M.name) : tx(ffTier(w.what)?.name) || w.what; };
+const ffLink = () => `<p><a href="#items/ff:guide" data-open="items|ff:guide">${esc(t('ff_open'))}</a></p>`;
+const tbl = (head, rows) => `<div class="tblwrap tblbox"><table class="tbl"><tr>${head.map(([h, n]) => `<th${n ? ' class="n"' : ''}>${esc(h)}</th>`).join('')}</tr>${rows}</table></div>`;
+function ffGuide() {
+  const F = FFD(); if (!F) return '';
+  const typed = (T) => F.threads.some((x) => x.tier === T.id && x.type);
+  const tiers = F.tiers.map((T) => `<tr><td><b>${esc(tx(T.name))}</b></td><td class="n ltr">${ffLv(T)}</td><td><span class="rar ${T.rarity}">${esc(t(T.rarity))}</span></td><td>${esc(typed(T) ? t('ff_typed') + ': ' + F.types.map(ffType).join(', ') : t('ff_neutral'))}</td></tr>`).join('');
+  const catsOf = (f) => Object.entries(F.catFamily).filter(([, v]) => v === f).map(([c]) => tx(F.catNames?.[c]) || c).join(', ');
+  const fams = ['weapon', 'footwear', 'wings', 'other'].map((f) => `<tr><td><b>${esc(t('ff_fam_' + f))}</b><div class="mt">${esc(catsOf(f))}</div></td><td>${esc((F.familyTypes[f] || []).map(ffType).join(', '))}</td></tr>`).join('')
+    + `<tr><td><b>${esc(t('ff_fam_none'))}</b><div class="mt">${esc(catsOf(null))}</div></td><td>–</td></tr>`;
+  const stats = Object.entries(F.jobPrimary).map(([j, s]) => `${jobName(j)} ${STAT(s)}`).join(', ');
+  const types = ['power', 'def', 'speed', 'stats'];
+  const lv = [...Array(F.max)].map((_, i) => i + 1).map((n) => { const T = ffTierOf(n);
+    return `<tr><td class="n ltr">+${n}</td><td class="n">${pct(F.chance[n], 0)}</td><td class="n ltr">${F.fee[n].toLocaleString('en-US')} ₯</td><td>${esc(tx(T?.name))}</td>${types.map((ty) => { const v = ffBand(F.balance[ty], n); return `<td class="n ltr">${ty === 'stats' ? `+${v} ${esc(t('ff_pts'))}` : `+${+v.toFixed(2)}%`}</td>`; }).join('')}</tr>`; }).join('');
+  const spin = F.recipes.map((r) => `<tr><td><b>${esc(tx(ffTier(r.tier)?.name))}</b>${r.typed ? `<div class="mt">${esc(t('ff_same_type'))}</div>` : ''}</td><td>${r.ins.map((w) => `${esc(ffIn(w))} ×${w.n}`).join(', ')}</td><td class="n ltr">${r.fee.toLocaleString('en-US')} ₯</td></tr>`).join('');
+  const order = F.tiers.map((x) => x.id), srcRow = (k, label) => `<tr><td>${esc(label)}</td>${order.map((ti) => `<td class="n">${F.sources[k]?.[ti] ? pct(F.sources[k][ti], 2) : '–'}</td>`).join('')}</tr>`;
+  const src = srcRow('kill', t('ff_s_kill')) + srcRow('elite', t('ff_s_elite')) + srcRow('mid', t('ff_s_mid', { lv: F.endgameLv })) + srcRow('endgame', t('ff_s_endgame', { lv: F.endgameLv }));
+  const cat = F.catalysts.map((c) => `${tx(F.mats.find((m) => m.id === c.id)?.name)} ${pct(c.chance, 1)}`).join(', ');
+  const S = F.server, rsp = S.bosscaves.map((x) => x.respawnMin);
+  const rules = [t('ff_r_grey', { a: S.greyGap, b: S.overGap }), t('ff_r_isle'), t('ff_r_once'), t('ff_r_elite', { n: S.eliteBurst, s: S.eliteEveryS }),
+    t('ff_r_boss', { a: Math.min(...rsp), b: Math.max(...rsp), g: S.bossLvGap }), t('ff_r_dun'), ...(!S.tartarus && !S.goose ? [t('ff_r_off')] : []), t('ff_r_fuse')];
+  return `<div class="dsec"><h4>${esc(t('ff_what_h'))}</h4><p>${esc(t('ff_what', { n: F.threads.length, t: F.tiers.length }))}</p>${tbl([[t('ff_tier')], [t('ff_levels'), 1], [t('ff_rarity')], [t('ff_kinds')]], tiers)}</div>
+    <div class="dsec"><h4>${esc(t('ff_fam_h'))}</h4>${tbl([[''], [t('ff_kinds')]], fams)}<p class="hint">${esc(t('ff_def_note', { stats }))}</p></div>
+    <div class="dsec"><h4>${esc(t('ff_try_h'))}</h4><p>${esc(t('ff_try', { slots: F.slots, max: F.max, slots2: F.slots, max2: F.max }))}</p></div>
+    <div class="dsec"><h4>${esc(t('ff_table_h'))}</h4>${tbl([[t('ff_lv'), 1], [t('chance'), 1], [t('ff_fee'), 1], [t('ff_thread')], ...types.map((ty) => [ffType(ty), 1])], lv)}<p class="hint">${esc(t('ff_bonus_note', { a: F.speedCapItem, b: F.speedCapWorn }))}</p></div>
+    <div class="dsec"><h4>${esc(t('ff_spin_h'))}</h4><p>${esc(t('ff_spin'))}</p>${tbl([[t('ff_makes')], [t('ff_takes')], [t('ff_fee'), 1]], spin)}</div>
+    <div class="dsec"><h4>${esc(t('ff_src_h'))}</h4><p>${esc(t('ff_src'))}</p>${tbl([[''], ...F.tiers.map((x) => [tx(x.name), 1])], src)}</div>
+    <div class="dsec"><h4>${esc(t('ff_cat_h'))}</h4><p>${esc(t('ff_cat', { list: cat }))}</p></div>
+    <div class="dsec"><h4>${esc(t('ff_rules_h'))}</h4><ul style="margin:0;padding-inline-start:20px">${rules.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>`;
+}
+const ffHead = () => `<p class="oband"><span class="pill online">${esc(t('online_badge'))}</span> ${esc(t('d_ff', { max: FFD().max }))}</p>`;
+function fateSec(cards) {
+  if (!FFD()) return '';
+  return `<section class="sub" id="fateforge">${subh(t('ff_title'), cards.length)}${ffHead()}<div class="grid small">${cards.join('')}</div>${ffGuide()}</section>`;
+}
+const ffGuideDetail = () => `<div class="dhead"><span class="big">${itemFind('ff_thr_018')?.img ? `<img class="ico" src="${img(itemFind('ff_thr_018').img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(t('ff_title'))}</h2><p class="sub2">${esc(t('ff_open'))}</p><div class="tags">${opill()}</div></div></div>${ffHead()}${ffGuide()}`;
+// a thread's or a catalyst's own window: what it upgrades to, the spinning it goes into or comes out of, where it drops
+function ffItemBlock(x) {
+  const F = FFD(); if (!F) return '';
+  const th = F.threads.find((q) => q.id === x.id), mat = F.mats.find((m) => m.id === x.id), out = [];
+  if (th) {
+    const T = ffTier(th.tier); out.push(`<p>${esc(t('ff_up', { lv: ffLv(T) }))}${th.type ? ' · ' + esc(ffType(th.type)) : ''}</p>`);
+    const ins = F.recipes.filter((r) => r.ins.some((w) => w.what === th.tier)), outs = F.recipes.filter((r) => r.tier === th.tier);
+    for (const r of [...outs, ...ins]) out.push(`<p>${esc(t('ff_spin_in'))}: ${r.ins.map((w) => `${esc(ffIn(w))} ×${w.n}`).join(', ')} + <span class="ltr">${r.fee.toLocaleString('en-US')} ₯</span> → ${esc(tx(ffTier(r.tier)?.name))}</p>`);
+    const src = Object.entries(F.sources).filter(([k, v]) => v[th.tier] && !F.sourcesOff.includes(k) && k !== 'tartarus');
+    if (src.length) out.push(`<p>${src.map(([k, v]) => `${esc(t('ff_s_' + k, { lv: F.endgameLv }))}: <b class="ltr">${pct(v[th.tier], 2)}</b>`).join('<br>')}</p>`);
+  }
+  if (mat) {
+    const c = F.catalysts.find((q) => q.id === mat.id); if (c) out.push(`<p>${esc(t('ff_s_endgame', { lv: F.endgameLv }))}: <b class="ltr">${pct(c.chance, 1)}</b></p>`);
+    for (const r of F.recipes.filter((q) => q.ins.some((w) => w.what === mat.id))) out.push(`<p>${esc(t('ff_spin_in'))}: ${r.ins.map((w) => `${esc(ffIn(w))} ×${w.n}`).join(', ')} + <span class="ltr">${r.fee.toLocaleString('en-US')} ₯</span> → ${esc(tx(ffTier(r.tier)?.name))}</p>`);
+  }
+  return `<div class="dsec"><h4>${esc(t('ff_used'))}</h4>${out.join('')}${ffLink()}</div>`;
+}
+// Weapons 200 (data.online.w200): the jobs' current weapons and off hands online
+const W2 = () => D?.online?.w200 || [];
+const w2Cat = (c) => (D?.online?.w200cats || []).find((x) => x.id === c);
+const w200Card = (p) => card({ cat: 'gear', id: 'w2:' + p.id, img: p.img, ico: true, name: tx(p.name), lv: `${t('lv')} ${p.lvl}`, tag: t('online_tag'), tagc: 'online', meta: esc(catName(p.cat)) });
+function w200Sec() {
+  const W = W2(); if (!W.length) return '';
+  const P = D.shopStock?.w200 || {}, JO = [...new Set([...(D.online?.jobs || []).map((j) => j.id), ...W.map((w) => w.job)])];
+  const body = JO.map((j) => { const mine = W.filter((w) => w.job === j); if (!mine.length) return '';
+    const cats = [...new Set(mine.map((w) => w.cat))];
+    return `<div class="dsec"><h4>${esc(jobName(j))} (${mine.length})</h4>${cats.map((c) => { const l = mine.filter((w) => w.cat === c).sort((a, b) => a.lvl - b.lvl); return `<h5 class="kindh">${esc(catName(c))} <small>${l.length}</small></h5><div class="grid small">${l.map(w200Card).join('')}</div>`; }).join('')}</div>`; }).join('');
+  const off = Object.entries(D.online?.offJob || {}).filter(([c, j]) => j === 'mage' && (c === 'orb' || c === 'book')).length ? `<p class="hint">${esc(t('w200_off'))} ${esc(tx(D.online?.w200text?.w200Wizard))}</p>` : '';
+  return `<section class="sub" id="w200">${subh(t('w200'), W.length)}${oband()}<p class="lead">${esc(t('d_w200', { n: W.length, v: P.villageMax ?? '', c1: P.cityMin ?? '', c2: P.cityMax ?? '' }))}</p>${off}${body}</section>`;
+}
+function w200Detail(p) {
+  const needs = (p.needs || []).length ? `<span class="pill">${esc(t('w200_needs'))}: ${p.needs.map(([k, v]) => `${STAT(k)} ${v}`).join(' · ')}</span>` : '';
+  const off = (p.cat === 'orb' || p.cat === 'book') ? `<div class="dsec"><p>${esc(t('w200_off'))} ${esc(tx(D.online?.w200text?.[p.cat === 'orb' ? 'w200Orb' : 'w200Book']))}</p></div>` : '';
+  return itemDetail(p).replace('<div class="tags">', `<div class="tags">${opill()}<span class="pill">${esc(jobName(p.job))}</span>${needs}`) + off;
+}
+// the rotating town stock (data.shopStock: js/shopstock.js STOCK and each town's band, campaign and online)
+function stockSec() {
+  const S = D.shopStock; if (!S) return '';
+  const C = by(S.towns || []), O = by(S.onlineTowns || []), ids = [...new Set([...(S.onlineTowns || []), ...(S.towns || [])].map((x) => x.id))];
+  const nm = (id) => tx(TOWN[id]?.name || PL[id]?.name) || id, band = (x) => (x?.band ? `<span class="ltr">${lvr(x.band)}</span>` : esc(t('stock_none')));
+  const rows = ids.sort((a, b) => ((O[a] || C[a]).level - (O[b] || C[b]).level)).map((id) => `<tr><td>${esc(nm(id))}</td><td class="n">${C[id]?.level ?? '–'}</td><td class="n">${band(C[id])}</td><td class="n">${O[id]?.level ?? '–'}</td><td class="n">${band(O[id])}</td></tr>`).join('');
+  return `<section class="sub" id="stock">${subh(t('stock_h'))}<p class="lead">${esc(t('d_stock', { h: S.hours, a: S.arms, b: S.armour, va: S.village[0], vb: S.village[1] }))}</p>
+    <p>${esc(t('stock_band', { lo: S.below, hi: S.above, max: S.maxLevel, min: S.maxLevel + 1 }))}</p><p>${esc(t('stock_what'))}</p>
+    ${tbl([[t('stock_town')], [t('campaign') + ': ' + t('stock_lv'), 1], [t('campaign') + ': ' + t('stock_items'), 1], [t('online_tag') + ': ' + t('stock_lv'), 1], [t('online_tag') + ': ' + t('stock_items'), 1]], rows)}</section>`;
+}
+// caves (data.caveRules) and the special events (data.events), on the places page
+function cavesSec() {
+  const C = D.caveRules; if (!C) return '';
+  const L0 = C.leader || {}, list = (C.onlineCaves || []).slice().sort((a, b) => (a.level ?? 999) - (b.level ?? 999));
+  const rows = list.map((c) => `<tr><td>${esc(tx(c.name) || t('cave'))}</td><td class="n">${c.level ?? '–'}</td><td class="n ltr">${c.x}, ${c.z}</td></tr>`).join('');
+  return `<section class="sub" id="caves">${subh(t('caves_h'))}<p class="lead">${esc(t('d_caves', { lv: L0.lvl, hp: L0.hp, dmg: L0.dmg, exp: L0.exp, g: C.bossMiniGap }))}</p>${oband()}<p>${esc(t('caves_online', { n: C.minOnline, k: (C.skippedOnline || []).length }))}</p>
+    ${rows ? `<h5 class="kindh">${esc(t('caves_list'))} <small>${list.length}</small></h5>${tbl([[t('cave')], [t('lv'), 1], [t('coords'), 1]], rows)}` : ''}</section>`;
+}
+function evTart() {
+  const E = D.events, T = E.tartarus; let lo = 1;
+  const exp = T.expByLevel.map(([mx, e]) => { const r = `<tr><td class="n ltr">${lo}–${Math.min(mx, D.maxLevel || 300)}</td><td class="n">${num(e)}</td></tr>`; lo = mx + 1; return r; }).join('');
+  return `<div class="dsec"><h4>${esc(t('ev_tart'))}</h4><p>${esc(t('ev_tart_d', { lead: T.leadS / 60, max: T.maxPlayers, hp: T.bossHp.toLocaleString('en-US'), a: T.targetS[0] / 60, b: T.targetS[1] / 60, fail: T.fightMaxS / 60, dr: T.drachma.toLocaleString('en-US') }))}</p>
+    ${tbl([[t('lv'), 1], [t('exp'), 1]], exp)}<p class="mt">${esc(t('ev_sites'))}: ${T.sites.map((s) => esc(tx(s.name))).join(' · ')}</p></div>`;
+}
+function evGoose() {
+  const G = D.events.goose;
+  return `<div class="dsec"><h4>${esc(t('ev_goose'))}</h4><p>${esc(t('ev_goose_d', { lead: G.leadS, chase: G.chaseS, sp: G.speed, near: G.nearR, min: G.minS, k: G.killsPart }))}</p></div>`;
+}
+function eventsSec() {
+  const E = D.events; if (!E) return '';
+  return `<section class="sub" id="events">${subh(t('ev_h'))}${oband()}<p class="lead">${esc(t('d_ev', { gap: E.gapMin / 60 }))}</p>${evTart()}${evGoose()}</section>`;
+}
+const evDetail = (id) => (D.events ? `<div class="dhead"><span class="big"></span><div><h2 id="dlgt">${esc(t(id === 'goose' ? 'ev_goose' : 'ev_tart'))}</h2><p class="sub2">${esc(t('ev_h'))}</p><div class="tags">${opill()}</div></div></div><div class="dsec"><p>${esc(t('d_ev', { gap: D.events.gapMin / 60 }))}</p></div>${id === 'goose' ? evGoose() : evTart()}` : null);
+// the monsters' attack patterns (data.attackPatterns; monsters[].attacks, onlineMonsters[].attacks)
+const patName = (p) => t('pat_' + p);
+const buffText = (k) => { const B = D.attackPatterns?.buffs?.[k]; if (!B) return k; return `${tx(B.word)}: ${t('buff_' + k, { d: B.dmg, s: Math.round((B.spd || 0) * 100), t: B.dur, k: B.k, h: +((B.heal || 0) * 100).toFixed(2) })}`; };
+const patPills = (l) => l.map((p) => `<span class="pill">${esc(patName(p))}</span>`).join(' ');
+function atkBlock(m) {
+  const A = m.attacks, P = D.attackPatterns; if (!A || !P) return '';
+  const rows = [];
+  if (A.basic) { // the campaign: the rule for the kind
+    if (A.basic.length) rows.push(`<dt>${esc(t('atk_basic'))}</dt><dd>${patPills(A.basic)}</dd>`);
+    if (A.fancy.length) rows.push(`<dt>${esc(t(A.special ? 'atk_fancy' : 'atk_fancy_plain'))}</dt><dd>${patPills(A.fancy)}</dd>`);
+    if (A.buff) rows.push(`<dt>${esc(t('atk_buff', { lv: P.buffLv }))}</dt><dd>${esc(buffText(A.buff))}</dd>`);
+  } else { // online: at its one level
+    if (A.patterns.length) rows.push(`<dt>${esc(t('atk_basic'))}</dt><dd>${patPills(A.patterns)}</dd>`);
+    if (A.buff) rows.push(`<dt>${esc(t('atk_buffs'))}</dt><dd>${esc(buffText(A.buff))}</dd>`);
+    if (A.leader && (A.leader.patterns.length || (A.leader.buff && A.leader.buff !== A.buff))) rows.push(`<dt>${esc(t('atk_lead'))}</dt><dd>${patPills(A.leader.patterns)}${A.leader.buff && A.leader.buff !== A.buff ? ' ' + esc(buffText(A.leader.buff)) : ''}</dd>`);
+  }
+  return `<div class="dsec"><h4>${esc(t('atk_h'))}</h4>${rows.length ? `<dl class="kv">${rows.join('')}</dl>` : `<p>${esc(t('atk_none'))}</p>`}</div>`;
+}
+function patternsSec() {
+  const P = D.attackPatterns; if (!P) return '';
+  const rows = Object.entries(P.patterns).sort((a, b) => a[1].tier - b[1].tier || patName(a[0]).localeCompare(patName(b[0]))).map(([k, v]) => `<tr><td><b>${esc(patName(k))}</b></td><td class="n">${v.tier}</td><td class="n ltr">×${v.mul}</td><td class="n ltr">${v.wind} s</td><td class="n ltr">${v.cd} s</td></tr>`).join('');
+  const buffs = Object.keys(P.buffs).map((k) => `<tr><td><b>${esc(tx(P.buffs[k].word))}</b></td><td>${esc(buffText(k).split(': ').slice(1).join(': '))}</td><td class="n ltr">${P.buffs[k].cd} s</td></tr>`).join('');
+  return `<section class="sub" id="patterns">${subh(t('atk_h'), Object.keys(P.patterns).length)}<p class="lead">${esc(t('d_atk', { lv: P.plainLv, b: P.buffLv }))}</p>
+    ${tbl([[t('atk_basic')], [t('ff_tier'), 1], [t('atk_mul'), 1], [t('atk_wind'), 1], [t('atk_cd'), 1]], rows)}
+    <h5 class="kindh">${esc(t('atk_buffs'))} <small>${Object.keys(P.buffs).length}</small></h5>${tbl([[''], [''], [t('atk_cd'), 1]], buffs)}</section>`;
+}
+
 // ------------------------------------------------------------------------------------------------ the detail dialog
 function find(cat, id) {
-  if (cat === 'monsters') { if (id.startsWith('b:')) { const b = (D.online?.bosses || []).find((x) => x.id === id.slice(2)); return b && bossDetail(b); } if (id.startsWith('o:')) { const m = (D.onlineMonsters || []).find((x) => x.id === id.slice(2)); return m && omonDetail(m); } const m = MON()[id]; return m && monDetail(m); }
+  if (cat === 'monsters') { if (id.startsWith('b:')) { const b = (D.online?.bosses || []).find((x) => x.id === id.slice(2)); return b && bossDetail(b); } if (id.startsWith('o:')) { const m = (D.onlineMonsters || []).find((x) => x.id === id.slice(2)); return m && omonDetail(m) + atkBlock(m); } const m = MON()[id]; return m && monDetail(m) + atkBlock(m); }
   if (cat === 'items') {
     const [k, ...r] = id.split(':'), v = r.join(':');
     if (k === 'i') { const x = itemFind(v); return x && itemInfoDetail(x); }
     if (k === 'm') { const m = MATS().find((x) => x.id === v); return m && matDetail(m); }
     if (k === 'r') { const x = (D.online?.craft?.recipes || []).find((q) => q.id === v); return x && recipeDetail(x); }
+    if (k === 'ff') return FFD() ? ffGuideDetail() : null;
     if (k === 'qi') { const q = QITEMS().find((x) => x.id === v), Q = q && JOB_I().quests[q.quest]; return q && `<div class="dhead"><span class="big"></span><div><h2 id="dlgt">${esc(tx(q.name))}</h2><p class="sub2">${esc(t('lesson_item'))}</p><div class="tags">${opill()}</div></div></div><div class="dsec"><p>${esc(tx(q.desc))}</p></div>${Q ? `<div class="dsec"><h4>${esc(t('quests'))}</h4><div class="rows">${jqRow(Q)}</div></div>` : ''}`; }
     return null;
   }
@@ -1179,9 +1494,10 @@ function find(cat, id) {
     if (k === 'item') { const p = (D.standalone || []).find((x) => x.id === v) || (D.sets || []).flatMap((s) => s.pieces).find((x) => x.id === v); return p && itemDetail(p); }
     if (k === 'w' || k === 'jset') return jobFind((k === 'w' ? 'w:' : 'set:') + v);
     if (k === 'heir') { const p = (D.heirlooms || []).find((x) => x.id === v); return p && itemDetail(p, true); }
+    if (k === 'w2') { const p = W2().find((x) => x.id === v); return p && w200Detail(p); }
   }
   if (cat === 'people') { if (k === 'town') return TOWN[v] && townDetail(TOWN[v]); if (k === 'char') { const c = (D.characters || []).find((x) => x.key === v); return c && charDetail(c); } }
-  if (cat === 'places') { if (k === 'place') return PL[v] && placeDetail(PL[v]); if (k === 'reg') return RG[v] && regDetail(RG[v]); if (k === 'dun') { const d = (D.dungeons || []).find((x) => x.id === v); return d && dunDetail(d); } }
+  if (cat === 'places') { if (k === 'place') return PL[v] && placeDetail(PL[v]); if (k === 'reg') return RG[v] && regDetail(RG[v]); if (k === 'dun') { const d = (D.dungeons || []).find((x) => x.id === v); return d && dunDetail(d); } if (k === 'ev') return evDetail(v); }
   return null;
 }
 let lastFocus = null;
@@ -1229,6 +1545,10 @@ function index() {
   for (const q of O.quests || []) add('jobs', 'q:' + q.id, q.title, [q.offer, ...(q.steps || []), 'online'], () => card({ cat: 'jobs', id: 'q:' + q.id, name: tx(q.title), tag: t('online_tag'), tagc: 'online', meta: esc(qkName(q)), lv: q.lvl ? `${t('lv')} ${q.lvl}` : '' }));
   for (const p of O.weapons || []) add('gear', 'w:' + p.id, p.name, [p.desc, p.special, catName(p.cat), jobName(p.job), 'online'], () => jwCard(p, 'gear'));
   for (const s of O.sets || []) { add('gear', 'jset:' + s.id, s.name, [s.theme, jobName(s.job), 'online'], () => jsetCard(s, 'gear')); }
+  for (const p of W2()) add('gear', 'w2:' + p.id, p.name, [p.desc, catName(p.cat), jobName(p.job), p.wpn, 'online'], () => w200Card(p));
+  if (FFD()) add('items', 'ff:guide', { he: T.he.ff_title, en: T.en.ff_title }, [T.es.ff_title, T.he.i_fate, T.en.i_fate, T.he.kind_fate, T.en.kind_fate, T.es.kind_fate, 'fateforge thread threads alchemist upgrade online', ...FFD().threads.map((x) => x.name), ...FFD().mats.map((x) => x.name)],
+    () => card({ cat: 'items', id: 'ff:guide', name: t('ff_title'), tag: t('online_tag'), tagc: 'online', meta: esc(t('ff_open')) }));
+  if (D.events) for (const k of ['tartarus', 'goose']) { const key = k === 'goose' ? 'ev_goose' : 'ev_tart'; add('places', 'ev:' + k, { he: T.he[key], en: T.en[key] }, [T.es[key], T.he.ev_h, T.en.ev_h, T.es.ev_h, k === 'goose' ? 'golden goose' : 'tartarus', 'online'], () => card({ cat: 'places', id: 'ev:' + k, name: t(key), tag: t('online_tag'), tagc: 'online', meta: esc(t('ev_h')) })); }
   return out;
 }
 function searchView(q) {
