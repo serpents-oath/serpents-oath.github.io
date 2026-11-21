@@ -26,7 +26,7 @@ const T = {
     about_h: 'המשחק',
     about_p1: 'Val היא אישה רגילה מכפר קטן לחוף הים האגאי. בלילה שבו נעלמו הכוכבים, מרכבה שחורה לקחה ממנה את Roye, והיא יוצאת אחריו: דרך ערי יוון המוקפות חומות, הרים ומערות, אל הנהר של המתים ועד לשאול. בדרך היא מגלה שמדוזה, היצור שכולם לימדו אותה לפחד ממנו, היא לא מה שחשבה.',
     f_fight_h: 'קרבות עם משקל', f_fight_p: '4 מקצועות: לוחם, קשת, נוכל ואשף. בכל מקצוע 5 עבודות, 12 סוגי נשק, קומבו זורם ואולטימייט.', f_fight_m: 'עוד על הקרבות',
-    f_fight_x: 'כל נשק מגן אחרת ומכה אחרת: חרב ומגן, חנית, גרזן דו-ידני, קשת, פגיון, שרביט או מטה. ברמה 30 נשבעים שבועה שנייה ובוחרים מקצוע, ועץ הכישורים נפתח לפיו: 217 כישורים בארבעה מקצועות. כישורים מופעלים ב-<span class="key">Q</span> <span class="key">E</span> <span class="key">R</span> <span class="key">X</span> וה-ULT ב-<span class="key">F</span>. הסטטים, הכישורים והסטים המלאים: בוויקי.',
+    f_fight_x: 'כל נשק מגן אחרת ומכה אחרת: חרב ומגן, חנית, גרזן דו-ידני, קשת, פגיון, שרביט או מטה. ברמה 30 נשבעים שבועה שנייה ובוחרים מקצוע, ועץ הכישורים נפתח לפיו: 193 כישורים בארבעה מקצועות. כישורים מופעלים ב-<span class="key">Q</span> <span class="key">E</span> <span class="key">R</span> <span class="key">X</span> וה-ULT ב-<span class="key">F</span>. הסטטים, הכישורים והסטים המלאים: בוויקי.',
     f_ride_h: 'עולם פתוח אחד גדול', f_ride_p: 'מאליאה על החוף, דרך אתונה, קורינתוס ותבאי, אל נהר אכרון ולשאול. 36 ערים, 46 אזורים ב-ONLINE, ו-321 מפלצות. על סוס זה מהיר יותר.', f_ride_m: 'עוד על העולם',
     f_ride_x: 'ערים מוקפות חומה עם סוחרים, מקדשים, ספרייה נשכחת, איים ומערות. כל מקום ברמה משלו, ובכל עיר יש מה לקנות ולמי לדבר. מפת העולם המלאה נמצאת בוויקי.',
     f_story_h: 'סיפור בפרקים', f_story_p: 'שיחות עם אלים וגיבורים, בחירות, וארבעה פרקים שמובילים מהכפר הקטן עד לממלכת הדס.', f_story_m: 'עוד על הסיפור',
@@ -63,7 +63,7 @@ const T = {
     about_h: 'The game',
     about_p1: 'Val is an ordinary woman from a small village on the Aegean coast. On the night the stars went out, a black chariot took Roye from her, and she goes after him: through walled Greek cities, mountains and caves, to the river of the dead and down into the underworld. Along the way she learns that Medusa, the creature everyone taught her to fear, is not what she seemed.',
     f_fight_h: 'Combat with weight', f_fight_p: 'Four jobs: warrior, archer, rogue and mage. Five tiers in every job, twelve weapon kinds, a flowing combo and an ultimate.', f_fight_m: 'More about combat',
-    f_fight_x: 'Each weapon guards and strikes differently: sword and shield, spear, great axe, bow, dagger, wand or staff. At level 30 you swear a second oath and pick a job, and the skill tree opens along it: four jobs, five tiers each, 217 skills in all. Skills go on <span class="key">Q</span> <span class="key">E</span> <span class="key">R</span> <span class="key">X</span>, the ultimate on <span class="key">F</span>. Every stat, skill and set is in the wiki.',
+    f_fight_x: 'Each weapon guards and strikes differently: sword and shield, spear, great axe, bow, dagger, wand or staff. At level 30 you swear a second oath and pick a job, and the skill tree opens along it: four jobs, five tiers each, 193 skills in all. Skills go on <span class="key">Q</span> <span class="key">E</span> <span class="key">R</span> <span class="key">X</span>, the ultimate on <span class="key">F</span>. Every stat, skill and set is in the wiki.',
     f_ride_h: 'One big open world', f_ride_p: 'From Elaia on the coast, through Athens, Corinth and Thebes, to the Acheron and the underworld. 36 towns, 46 online regions and 321 monsters. Faster on a horse.', f_ride_m: 'More about the world',
     f_ride_x: 'Walled cities with merchants and temples, a forgotten library, islands and caves. Every place has its own level, and every city has something to buy and someone to talk to. The full world map is in the wiki.',
     f_story_h: 'A story in chapters', f_story_p: 'Conversations with gods and heroes, choices, and four chapters that lead from a small village to the realm of Hades.', f_story_m: 'More about the story',
@@ -100,7 +100,7 @@ const T = {
     about_h: 'El juego',
     about_p1: 'Val es una mujer corriente de un pequeño pueblo de la costa del Egeo. La noche en que se apagaron las estrellas, un carro negro se llevó a Roye, y ella sale tras él: por ciudades griegas amuralladas, montañas y cuevas, hasta el río de los muertos y el inframundo. Por el camino descubre que Medusa, la criatura a la que todos le enseñaron a temer, no es lo que parecía.',
     f_fight_h: 'Combate con peso', f_fight_p: 'Cuatro profesiones: guerrero, arquero, pícaro y mago. Cinco rangos en cada una, doce tipos de arma, un combo fluido y una definitiva.', f_fight_m: 'Más sobre el combate',
-    f_fight_x: 'Cada arma defiende y golpea de forma distinta: espada y escudo, lanza, hacha a dos manos, arco, daga, varita o bastón. Al nivel 30 juras un segundo juramento y eliges profesión, y el árbol de habilidades se abre con ella: cuatro profesiones, cinco rangos en cada una, 217 habilidades en total. Las habilidades van en <span class="key">Q</span> <span class="key">E</span> <span class="key">R</span> <span class="key">X</span> y la definitiva en <span class="key">F</span>. Cada estadística, habilidad y conjunto está en la wiki.',
+    f_fight_x: 'Cada arma defiende y golpea de forma distinta: espada y escudo, lanza, hacha a dos manos, arco, daga, varita o bastón. Al nivel 30 juras un segundo juramento y eliges profesión, y el árbol de habilidades se abre con ella: cuatro profesiones, cinco rangos en cada una, 193 habilidades en total. Las habilidades van en <span class="key">Q</span> <span class="key">E</span> <span class="key">R</span> <span class="key">X</span> y la definitiva en <span class="key">F</span>. Cada estadística, habilidad y conjunto está en la wiki.',
     f_ride_h: 'Un gran mundo abierto', f_ride_p: 'Desde Elaia, en la costa, pasando por Atenas, Corinto y Tebas, hasta el Aqueronte y el inframundo. 36 ciudades, 46 regiones online y 321 monstruos. A caballo es más rápido.', f_ride_m: 'Más sobre el mundo',
     f_ride_x: 'Ciudades amuralladas con mercaderes y templos, una biblioteca olvidada, islas y cuevas. Cada lugar tiene su nivel y en cada ciudad hay algo que comprar y alguien con quien hablar. El mapa completo está en la wiki.',
     f_story_h: 'Una historia por capítulos', f_story_p: 'Conversaciones con dioses y héroes, decisiones y cuatro capítulos que llevan de un pequeño pueblo al reino de Hades.', f_story_m: 'Más sobre la historia',
@@ -326,7 +326,7 @@ function heroes() {
   (LB.list.length >= 3 ? [1, 0, 2, 3, 4] : [0, 1, 2, 3, 4]).forEach((i, pos) => {
     const h = LB.list[i]; if (!h) return;
     const li = el('li', 'hc' + (i ? '' : ' r1')), fig = el('div', 'fig'), col = el('div', 'col');
-    if (h.png) { const img = el('img', 'px live'); img.alt = t.lb_pic.replace('{n}', h.name); img.decoding = 'async'; img.addEventListener('error', () => img.replaceWith(el('div', 'sil')), { once: true }); img.src = 'data:image/png;base64,' + h.png; fig.append(img); }
+    if (h.png) { const img = el('img', 'px live'); img.alt = t.lb_pic.replace('{n}', h.name); img.decoding = 'async'; img.addEventListener('error', () => img.replaceWith(el('div', 'sil')), { once: true }); img.addEventListener('load', () => figBox(img, li), { once: true }); img.src = 'data:image/png;base64,' + h.png; fig.append(img); }
     else fig.append(el('div', 'sil'));
     col.style.setProperty('--h', H[pos] + 'px'); col.style.setProperty('--i', pos);
     const rk = el('span', 'rk', String(i + 1)); rk.setAttribute('aria-hidden', 'true'); col.append(rk);
@@ -340,6 +340,20 @@ function heroes() {
   });
   box.append(ol, names);
   arm();
+}
+// the figure itself inside its picture (the game paints it on a clear ground with room around it): the page shows the figure
+// alone, as tall as the hall asks, and gives it a column half as wide again as the figure (Roy), whatever it holds
+function figBox(img, li) {
+  try {
+    const w = img.naturalWidth, h = img.naturalHeight; if (!w || !h) return;
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0);
+    const d = x.getImageData(0, 0, w, h).data; let x0 = w, x1 = -1, y0 = h, y1 = -1;
+    for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if (d[(j * w + i) * 4 + 3] > 24) { if (i < x0) x0 = i; if (i > x1) x1 = i; if (j < y0) y0 = j; if (j > y1) y1 = j; }
+    if (x1 < x0 || y1 < y0) return;
+    const S = li.style; S.setProperty('--nw', w); S.setProperty('--bw', x1 - x0 + 1); S.setProperty('--bh', y1 - y0 + 1); S.setProperty('--x0', x0); S.setProperty('--y0', y0);
+    li.classList.add('boxed');
+  } catch (e) { /* the picture is shown whole */ }
 }
 let rose = false;
 function arm() {

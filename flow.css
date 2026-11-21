@@ -820,3 +820,34 @@ html[lang="he"] .playbtn { font-size: 24px; }
 /* ---------- a monster's card never covers text: home.js marks the ones with no room ---------- */
 .ad.nofit { visibility: hidden !important; pointer-events: none; }
 .drift .ad { transition: opacity .18s linear; }
+
+/* ============ round 6 ============ */
+/* hall of fame: bigger figures, standing as the game paints them; a column half as wide again as the figure, no more.
+   home.js figBox() gives each .hc the figure's own box inside its picture (--bw x --bh at --x0, --y0 of a picture --nw wide);
+   --u is how many page pixels one picture pixel takes: as tall as --th asks, held back where the row is too narrow. */
+.podium { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1180px; }
+.hall-names { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1180px; }
+.hc { container-type: inline-size; --th: 250px; --nw: 160; --bw: 64; --bh: 150; --x0: 48; --y0: 150; }
+.hc.r1 { --th: 300px; }
+.hc .up { --u: min(calc(var(--th) / var(--bh)), calc(100cqw / (1.5 * var(--bw)))); }
+.hc .fig, .hc.r1 .fig { position: relative; display: block; width: calc(var(--u) * var(--bw)); height: calc(var(--u) * var(--bh)); margin: 0; }
+.hc .fig img, .hc.r1 .fig img, .fig img.live { display: block; width: 100%; height: 100%; max-height: none; object-fit: contain; object-position: 50% 100%; }
+.hc.boxed .fig { overflow: hidden; }
+.hc.boxed .fig img, .hc.boxed.r1 .fig img { position: absolute; left: calc(var(--u) * var(--x0) * -1); top: calc(var(--u) * var(--y0) * -1); width: calc(var(--u) * var(--nw)); height: auto; max-width: none; }
+.fig .sil { width: 100%; height: 100%; }
+.hc .col { width: calc(var(--u) * var(--bw) * 1.5 - 10px); max-width: none; margin-top: 12px; }
+.hc .col::before { inset: -12px -5px auto; height: 12px; }
+@media (max-width: 700px) {
+  .hc .fig, .hc.r1 .fig { height: calc(var(--u) * var(--bh)); } .hc .fig img, .hc.r1 .fig img { height: 100%; } .hc.boxed .fig img, .hc.boxed.r1 .fig img { height: auto; }
+  .hc .col { width: calc(var(--u) * var(--bw) * 1.5 - 6px); } .hc .col::before { inset: -9px -3px auto; height: 9px; }
+  .hall-names { grid-template-columns: 1fr; }
+}
+/* the story stage fills the window: the scene runs the whole width behind the chapter's words, darker where they stand */
+@media (min-width: 901px) {
+  .stage-media .im, .stage-media .im.wide { inset: 0; width: 100%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 30%, #000 70%, transparent); mask-image: linear-gradient(180deg, transparent 0, #000 30%, #000 70%, transparent); }
+  .stage-media figure::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(13, 10, 16, .84) 0, rgba(13, 10, 16, .76) 38%, rgba(13, 10, 16, .36) 56%, rgba(13, 10, 16, 0) 74%); }
+  .chap > p { color: var(--tx); }
+  .stage-media figure .win { z-index: 1; }
+  .chap h3, .chap > p, .chap .more summary { text-shadow: 0 1px 2px rgba(8, 6, 10, .9), 0 0 18px rgba(8, 6, 10, .8); }
+}
