@@ -668,6 +668,58 @@ const T_NEW = {
   },
 };
 for (const l of Object.keys(T_NEW)) Object.assign(T[l], T_NEW[l]);
+// Skills v4: the online skill system of the live build (js/skillsv4), read by tools/wiki-skills.mjs
+const T_SV4 = {
+  he: {
+    sv4_band: 'החלק הזה קיים רק בבטא אונליין. לקמפיין יש כישורים משלה, למטה.', sv4_h: 'כישורי המקצועות ברשת', sv4_lead: 'ברשת כל המקצועות משתמשים במערכת הכישורים החדשה: {n} כישורים, 8 לכל עבודה. מעבודה 2 כל כישור של הקוסם שייך לדרך אחת. כל כישור נקנה אצל מאמן המקצוע באולם שלו. כל דמות מתחילה עם {first} במקום {old}.',
+    sv4_rules: 'המאנה היא המחיר ברמת הפתיחה ועולה מעט עם הרמה. לכישורי התקפה אין זמן המתנה: המאנה ושער ההטלה המשותף מגבילים אותם. לחיזוקים, ריפוי, הגנה ושליטה יש זמן המתנה.',
+    sv4_campaign: 'הכישורים שלמטה שייכים לקמפיין (משחק יחיד), והקמפיין שומר עליהם.', sv4_camp_h: 'כישורי הקמפיין',
+    sv4_cat: 'סוג', sv4_slot: 'מקום בעבודה', sv4_price: 'מחיר', sv4_calling: 'דרך', sv4_shared: 'משותף לשתי הדרכים', sv4_first_h: 'הכישור הראשון',
+    sv4_how: 'נלמד אצל מאמן המקצוע באולם, תמורת {p} דרכמות.', sv4_first: 'ניתן לכל דמות בהתחלה, בכל המקצועות.',
+    sv4_nocd: 'בלי המתנה', sv4_target: 'מטרה', sv4_radius: 'רדיוס', sv4_cap: 'מספר מטרות', sv4_hits: 'מכות', sv4_el: 'יסוד', sv4_status: 'מצבים', sv4_buff: 'חיזוק', sv4_cast: 'זמן הטלה', sv4_arc: 'קשת', sv4_move: 'תנועה',
+    sv4_replaces: 'מחליף את', sv4_new: 'חדש', sv4_tag: 'חדש',
+    sk_retired: 'הוצא משימוש ברשת', sk_retired_by: 'הוצא משימוש ברשת: מערכת הכישורים החדשה החליפה אותו ב־', sk_refunded: 'הוצא משימוש ברשת: אין לו מחליף במערכת החדשה, והמחיר ששולם עליו הוחזר בדרכמות.',
+    sv4_old_h: 'כישורים ישנים (הוצאו משימוש)', sv4_old_lead: 'כישורי המקצועות של המערכת הקודמת. מי שלמד כישור עם מחליף קיבל את המחליף באותו מקום בסרגל, בלי תשלום. על כישור בלי מחליף הוחזר המחיר.',
+    sv4_kept_h: 'כישורים שנשארו',
+    tg_proj: 'קליע', tg_melee: 'קרוב', tg_self: 'עצמי', tg_cone: 'חרוט', tg_line: 'קו', tg_dash: 'זינוק', tg_around: 'מסביב', tg_point: 'נקודה בקרקע', tg_leap: 'קפיצה', tg_mark: 'סימון',
+    cc_stagger: 'התנודדות', cc_interrupt: 'קטיעה', cc_root: 'שיתוק רגליים', cc_mark: 'סימון', cc_stun: 'הלם', cc_launch: 'העפה', cc_push: 'הדיפה', cc_pull: 'משיכה', cc_slow: 'האטה', cc_weaken: 'החלשה',
+    el_water: 'מים', el_physical: 'פיזי', el_earth: 'אדמה', el_fire: 'אש', el_celestial: 'שמימי', el_nature: 'טבע', el_light: 'אור', el_poison: 'רעל', el_wind: 'רוח', el_ice: 'קרח', el_shadow: 'צל', el_void: 'ריק', el_lightning: 'ברק', el_arcane: 'קסם', el_underworld: 'שאול',
+    bf_power: 'כוח', bf_guard: 'הגנה', bf_atkSpeed: 'מהירות התקפה', bf_crit: 'מכה קריטית', bf_speed: 'מהירות', bf_heal: 'ריפוי',
+  },
+  en: {
+    sv4_band: 'This part exists only in the BETA ONLINE. The campaign has its own skills, below.', sv4_h: 'Job skills online', sv4_lead: "Online, every job uses the new skill system: {n} skills, 8 per job tier. From job 2 each of the wizard's skills belongs to one calling. Every skill is bought from the job's trainer in its hall. Every character starts with {first} instead of {old}.",
+    sv4_rules: 'Mana is the cost at the unlock level and rises a little with level. Attack skills have no cooldown: mana and the shared cast gate limit them. Buffs, heals, guards and control keep a cooldown.',
+    sv4_campaign: 'The skills below belong to the campaign (single player), which keeps them.', sv4_camp_h: 'Campaign skills',
+    sv4_cat: 'Type', sv4_slot: 'Place in the tier', sv4_price: 'Price', sv4_calling: 'Calling', sv4_shared: 'Shared by both callings', sv4_first_h: 'The first skill',
+    sv4_how: "Taught by the job's trainer in the hall, for {p} drachmas.", sv4_first: 'Given to every character at the start, in every job.',
+    sv4_nocd: 'No cooldown', sv4_target: 'Target', sv4_radius: 'Radius', sv4_cap: 'Targets', sv4_hits: 'Hits', sv4_el: 'Element', sv4_status: 'Effects', sv4_buff: 'Buff', sv4_cast: 'Cast time', sv4_arc: 'Arc', sv4_move: 'Movement',
+    sv4_replaces: 'Replaces', sv4_new: 'New', sv4_tag: 'New',
+    sk_retired: 'Retired online', sk_retired_by: 'Retired online: the new skill system replaced it with ', sk_refunded: 'Retired online: it has no successor in the new system, and what was paid for it was refunded in drachmas.',
+    sv4_old_h: 'Old skills (retired)', sv4_old_lead: 'The job skills of the previous system. A learnt skill with a successor became that successor, in the same place on the bar, at no cost. A skill with no successor was refunded.',
+    sv4_kept_h: 'Skills still in use',
+    tg_proj: 'Projectile', tg_melee: 'Melee', tg_self: 'Self', tg_cone: 'Cone', tg_line: 'Line', tg_dash: 'Dash', tg_around: 'Around', tg_point: 'Ground point', tg_leap: 'Leap', tg_mark: 'Mark',
+    cc_stagger: 'Stagger', cc_interrupt: 'Interrupt', cc_root: 'Root', cc_mark: 'Mark', cc_stun: 'Stun', cc_launch: 'Launch', cc_push: 'Push', cc_pull: 'Pull', cc_slow: 'Slow', cc_weaken: 'Weaken',
+    el_water: 'Water', el_physical: 'Physical', el_earth: 'Earth', el_fire: 'Fire', el_celestial: 'Celestial', el_nature: 'Nature', el_light: 'Light', el_poison: 'Poison', el_wind: 'Wind', el_ice: 'Ice', el_shadow: 'Shadow', el_void: 'Void', el_lightning: 'Lightning', el_arcane: 'Arcane', el_underworld: 'Underworld',
+    bf_power: 'Power', bf_guard: 'Guard', bf_atkSpeed: 'Attack speed', bf_crit: 'Critical hits', bf_speed: 'Speed', bf_heal: 'Healing',
+  },
+  es: {
+    sv4_band: 'Esta parte existe solo en la BETA ONLINE. La campaña tiene sus propias habilidades, más abajo.', sv4_h: 'Habilidades de oficio en línea', sv4_lead: 'En línea, todos los oficios usan el nuevo sistema de habilidades: {n} habilidades, 8 por trabajo. Desde el trabajo 2 cada habilidad del mago pertenece a una vocación. Cada habilidad se compra al instructor del oficio en su sala. Todo personaje empieza con {first} en lugar de {old}.',
+    sv4_rules: 'El maná es el coste en el nivel en que se abre y sube un poco con el nivel. Las habilidades de ataque no tienen recarga: las limitan el maná y la pausa común entre lanzamientos. Las mejoras, curaciones, guardias y controles sí tienen recarga.',
+    sv4_campaign: 'Las habilidades de abajo pertenecen a la campaña (un jugador), que las conserva.', sv4_camp_h: 'Habilidades de la campaña',
+    sv4_cat: 'Tipo', sv4_slot: 'Lugar en el trabajo', sv4_price: 'Precio', sv4_calling: 'Vocación', sv4_shared: 'Común a ambas vocaciones', sv4_first_h: 'La primera habilidad',
+    sv4_how: 'La enseña el instructor del oficio en la sala, por {p} dracmas.', sv4_first: 'Se da a todo personaje al inicio, en todos los oficios.',
+    sv4_nocd: 'Sin recarga', sv4_target: 'Objetivo', sv4_radius: 'Radio', sv4_cap: 'Objetivos', sv4_hits: 'Golpes', sv4_el: 'Elemento', sv4_status: 'Efectos', sv4_buff: 'Mejora', sv4_cast: 'Lanzamiento', sv4_arc: 'Arco', sv4_move: 'Movimiento',
+    sv4_replaces: 'Sustituye a', sv4_new: 'Nueva', sv4_tag: 'Nueva',
+    sk_retired: 'Retirada en línea', sk_retired_by: 'Retirada en línea: el nuevo sistema de habilidades la sustituyó por ', sk_refunded: 'Retirada en línea: no tiene sucesora en el nuevo sistema, y lo pagado por ella se devolvió en dracmas.',
+    sv4_old_h: 'Habilidades antiguas (retiradas)', sv4_old_lead: 'Las habilidades de oficio del sistema anterior. Una habilidad aprendida con sucesora pasó a ser esa sucesora, en el mismo lugar de la barra, sin coste. Una sin sucesora se reembolsó.',
+    sv4_kept_h: 'Habilidades que siguen en uso',
+    tg_proj: 'Proyectil', tg_melee: 'Cuerpo a cuerpo', tg_self: 'Propio', tg_cone: 'Cono', tg_line: 'Línea', tg_dash: 'Acometida', tg_around: 'Alrededor', tg_point: 'Punto del suelo', tg_leap: 'Salto', tg_mark: 'Marca',
+    cc_stagger: 'Tambaleo', cc_interrupt: 'Interrupción', cc_root: 'Inmovilizar', cc_mark: 'Marca', cc_stun: 'Aturdir', cc_launch: 'Lanzar por el aire', cc_push: 'Empujar', cc_pull: 'Atraer', cc_slow: 'Ralentizar', cc_weaken: 'Debilitar',
+    el_water: 'Agua', el_physical: 'Físico', el_earth: 'Tierra', el_fire: 'Fuego', el_celestial: 'Celeste', el_nature: 'Naturaleza', el_light: 'Luz', el_poison: 'Veneno', el_wind: 'Viento', el_ice: 'Hielo', el_shadow: 'Sombra', el_void: 'Vacío', el_lightning: 'Rayo', el_arcane: 'Arcano', el_underworld: 'Inframundo',
+    bf_power: 'Poder', bf_guard: 'Guardia', bf_atkSpeed: 'Velocidad de ataque', bf_crit: 'Golpes críticos', bf_speed: 'Velocidad', bf_heal: 'Curación',
+  },
+};
+for (const l of Object.keys(T_SV4)) Object.assign(T[l], T_SV4[l]);
 const CATS = [
   ['overview', 'M3 3h7v7H3zm9 0h7v7h-7zM3 12h7v7H3zm9 0h7v7h-7z'],
   ['monsters', 'M5 2h10v2h2v6h-2v2h-2v2h-2v-2H9v2H7v-2H5v-2H3V4h2zm2 4v2h2V6zm4 0v2h2V6zM7 16h2v2H7zm4 0h2v2h-2z'],
@@ -713,7 +765,7 @@ function chrome() {
 }
 function rail() {
   const n = { monsters: D?.monsters?.length, gear: (D?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.standalone?.length || 0) + (D?.online?.weapons?.length || 0) + (D?.online?.sets || []).reduce((s, x) => s + x.pieces.length, 0) + (D?.online?.w200?.length || 0),
-    items: (D?.items?.length || 0) + (D?.online?.items?.length || 0) + (D?.online?.craft?.materials?.length || 0) + (D?.online?.questItems?.length || 0), skills: D?.skills?.length, mounts: D?.mounts?.length,
+    items: (D?.items?.length || 0) + (D?.online?.items?.length || 0) + (D?.online?.craft?.materials?.length || 0) + (D?.online?.questItems?.length || 0), skills: (D?.skills?.length || 0) + (D?.online?.v4?.length || 0), mounts: D?.mounts?.length,
     people: (D?.towns || []).reduce((s, x) => s + x.people.length, 0) + (D?.characters?.length || 0), places: (D?.places?.length || 0) + (D?.dungeons?.length || 0), quests: D?.quests?.length, jobs: D?.online?.jobs?.length };
   $('#rail').innerHTML = CATS.filter(([c]) => c === 'overview' || n[c]).map(([c, p]) => `<a href="#${c}"${route.cat === c && !route.q ? ' aria-current="page"' : ''}>${icon(p)}<span>${esc(t(c))}</span>${n[c] ? `<b>${n[c]}</b>` : ''}</a>`).join('');
 }
@@ -991,7 +1043,7 @@ function skills() {
     (S.some((s) => !s.branch) ? `<section class="sub">${subh(t('more'))}<div class="grid small">${S.filter((s) => !s.branch).map(skCard).join('')}</div></section>` : '');
   else body = `<section class="sub">${subh(t('reg_skills'), S.filter((s) => !s.ult).length)}<div class="grid small">${S.filter((s) => !s.ult).map(skCard).join('')}</div></section>
     <section class="sub">${subh(t('ults'), S.filter((s) => s.ult).length)}<div class="grid small">${S.filter((s) => s.ult).map(skCard).join('')}</div></section>`;
-  return sec(t('skills'), `<p class="lead">${esc(t('d_skills'))}</p>`) + body;
+  return sec(t('skills'), `<p class="lead">${esc(t('d_skills'))}</p>`) + v4Sec() + (V4().length ? sec(t('sv4_camp_h'), `<p class="lead">${esc(t('sv4_campaign'))}</p>`, 'campskills') : '') + body;
 }
 function skDetail(s) {
   const sk = by(D.skills);
@@ -1232,7 +1284,7 @@ const jobName = (id) => mfName(JOB_I().jobs[id]?.name) || id;
 const personName = (key) => tx(JOB_I().people[key]?.name) || key;
 const placeOf = (id) => tx(JOB_I().halls[id]?.name) || tx(PL[id]?.name) || tx(TOWN[id]?.name) || id;
 const jobCard = (j) => card({ cat: 'jobs', id: 'job:' + j.id, img: j.img, name: mfName(j.name), tag: t('online_tag'), tagc: 'online', meta: `${esc(t('primary'))} ${STAT(j.primary)} · ${esc(t('secondary'))} ${STAT(j.secondary)}` });
-const jskCard = (s) => card({ cat: 'jobs', id: 'sk:' + s.id, img: s.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: s.ult ? t('ult') : '', meta: s.mana != null ? `${esc(t('mana'))} ${s.mana} · ${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}` : '' });
+const jskCard = (s) => card({ cat: 'jobs', id: 'sk:' + s.id, img: s.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: s.retired ? t('sk_retired') : s.ult ? t('ult') : '', meta: s.mana != null ? `${esc(t('mana'))} ${s.mana} · ${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}` : '' });
 const jwCard = (p, cat = 'jobs') => card({ cat, id: 'w:' + p.id, img: p.img, ico: true, r: p.rar === 'legendary' ? 'legendary' : p.rar === 'epic' ? 'epic' : '', name: tx(p.name), lv: `${t('lv')} ${p.lvl}`, meta: esc(catName(p.cat)) + (p.starter ? ' · ' + esc(t('starter')) : p.reward ? ' · ' + esc(t('oath_reward')) : '') });
 const jsetCard = (s, cat = 'jobs') => card({ cat, id: (cat === 'gear' ? 'jset:' : 'set:') + s.id, img: (s.pieces.find((p) => p.cat === 'body') || s.pieces[0])?.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: t('online_tag'), tagc: 'online',
   meta: esc(jobName(s.job)) + (s.path ? ' · ' + esc(pathName(s.path)) : ''), extra: `${s.colors ? `<span class="swatch">${s.colors.map((c) => `<i style="background:${esc(c)}"></i>`).join('')}</span>` : ''}<span class="icons">${s.pieces.map((p) => p.img ? `<img src="${img(p.img)}" alt="" loading="lazy" title="${esc(tx(p.name))}">` : '').join('')}</span>` });
@@ -1254,13 +1306,13 @@ function jobDetail(j) {
   const { O } = JOB_I(), sk = (O.skills || []).filter((s) => s.job === j.id), qs = (O.quests || []).filter((q) => q.job === j.id), ws = (O.weapons || []).filter((w) => w.job === j.id), sets = (O.sets || []).filter((s) => s.job === j.id);
   const tiers = j.tiers.map((x) => `<tr><td><span class="tier">${x.tier}</span></td><td><b>${esc(mfName(x.name))}</b>${x.path ? `<div class="mt">${esc(pathName(x.path))}</div>` : ''}</td><td class="n">${lvr([x.level, x.to])}</td><td class="n">${x.advancePrimary ? STAT(j.primary) + ' ' + x.advancePrimary : '–'}</td></tr>`).join('');
   const skRows = (l) => l.map((s) => `<tr><td><a class="sk" href="#jobs/sk:${s.id}" data-open="jobs|sk:${s.id}">${s.img ? `<img src="${img(s.img)}" alt="" loading="lazy">` : ''}<span>${esc(tx(s.name))}${s.ult ? ` <span class="pill gold">${esc(t('ult'))}</span>` : ''}${s.basic ? ` <span class="pill">${esc(t('basic_spell'))}</span>` : ''}</span></a></td><td class="n">${s.lvl}</td><td class="n">${s.mana ?? '–'}</td><td class="n">${s.cd != null ? cdN(s.cd) + 's' : '–'}</td><td>${s.path ? esc(pathName(s.path)) : ''}${s.needs ? `${s.path ? ' · ' : ''}${esc(tx(O.needs?.[s.needs]) || s.needs)}` : ''}</td><td>${srcShort(s)}</td></tr>`).join('');
-  const byTier = [1, 2, 3, 4, 5].map((n) => { const l = sk.filter((s) => s.tier === n); const name = j.tiers.filter((x) => x.tier === n).map((x) => mfName(x.name)).join(' · ');
+  const byTier = (sk) => [1, 2, 3, 4, 5].map((n) => { const l = sk.filter((s) => s.tier === n); const name = j.tiers.filter((x) => x.tier === n).map((x) => mfName(x.name)).join(' · ');
     return l.length ? `<div class="dsec"><h4><span class="tier">${n}</span> ${esc(t('tier_n', { n }))} · ${esc(name)} (${l.length})</h4><div class="tblwrap"><table class="tbl"><tr><th></th><th class="n">${esc(t('lv'))}</th><th class="n">${esc(t('mana'))}</th><th class="n">${esc(t('cd'))}</th><th>${esc(t('needs_w'))}</th><th>${esc(t('learned'))}</th></tr>${skRows(l)}</table></div></div>` : ''; }).join('');
   const staff = [...j.masters, ...j.trainers, ...j.outfitters].map((k) => JOB_I().people[k]).filter(Boolean).map(personRow).join('');
   return `<div class="dhead"><span class="big">${j.img ? `<img src="${img(j.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(mfName(j.name))}</h2><p class="sub2">${esc(t('primary'))} ${STAT(j.primary)} · ${esc(t('secondary'))} ${STAT(j.secondary)} · ${esc(placeOf(j.hall))}</p><div class="tags">${opill()}</div></div></div>
     <div class="dsec"><h4>${esc(t('tiers'))}</h4><div class="tblwrap"><table class="tbl"><tr><th></th><th></th><th class="n">${esc(t('lvl_range'))}</th><th class="n">${esc(t('adv_need'))}</th></tr>${tiers}</table></div></div>
     <div class="dsec"><h4>${esc(t('hall'))}: ${esc(placeOf(j.hall))}</h4><div class="rows">${staff}</div></div>
-    ${byTier}
+    ${V4().length ? v4JobTiers(j) + (sk.some((s) => !s.retired) ? `<div class="dsec"><h4>${esc(t('sv4_kept_h'))}</h4></div>${byTier(sk.filter((s) => !s.retired))}` : '') + (sk.some((s) => s.retired) ? `<details class="dsec"><summary><b>${esc(t('sv4_old_h'))} (${sk.filter((s) => s.retired).length})</b></summary><p class="mt">${esc(t('sv4_old_lead'))}</p>${byTier(sk.filter((s) => s.retired))}</details>` : '') : byTier(sk)}
     ${qs.length ? `<div class="dsec"><h4>${esc(t('quests'))} (${qs.length})</h4><div class="rows">${qs.map(jqRow).join('')}</div></div>` : ''}
     ${ws.length ? `<div class="dsec"><h4>${esc(t('job_weapons'))} (${ws.length})</h4><div class="grid small">${ws.map(jwCard).join('')}</div></div>` : ''}
     ${sets.length ? `<div class="dsec"><h4>${esc(t('job_sets'))}</h4><div class="grid wide">${sets.map(jsetCard).join('')}</div></div>` : ''}`;
@@ -1280,11 +1332,61 @@ function jskDetail(s) {
   const { O } = JOB_I(), tr = (O.people || []).find((p) => p.role === 'job_trainer' && p.job === s.job), tier = JOB_I().jobs[s.job]?.tiers.find((x) => x.tier === s.tier && (!x.path || !s.path || x.path === s.path));
   return `<div class="dhead"><span class="big" style="${s.color ? `--rc:${esc(s.color)}` : ''}">${s.img ? `<img class="ico" src="${img(s.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2>
     <p class="sub2">${esc(jobName(s.job))} · ${esc(t('tier_n', { n: s.tier }))}${tier ? ' · ' + esc(mfName(tier.name)) : ''}${s.path ? ' · ' + esc(pathName(s.path)) : ''} · ${esc(t('unlock'))} ${s.lvl}</p>
-    <div class="tags">${opill()}${s.ult ? `<span class="pill gold">${esc(t('ult'))}</span>` : ''}${s.basic ? `<span class="pill">${esc(t('basic_spell'))}</span>` : ''}${s.mana != null ? `<span class="pill" style="background:#22356a;box-shadow:inset 0 0 0 1px #5b7cff">${esc(t('mana'))} ${s.mana}</span>` : ''}${s.cd != null ? `<span class="pill">${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}</span>` : ''}</div></div></div>
-    <div class="dsec"><p>${esc(tx(s.desc))}</p></div>
+    <div class="tags">${opill()}${s.retired ? `<span class="pill">${esc(t('sk_retired'))}</span>` : ''}${s.ult ? `<span class="pill gold">${esc(t('ult'))}</span>` : ''}${s.basic ? `<span class="pill">${esc(t('basic_spell'))}</span>` : ''}${s.mana != null ? `<span class="pill" style="background:#22356a;box-shadow:inset 0 0 0 1px #5b7cff">${esc(t('mana'))} ${s.mana}</span>` : ''}${s.cd != null ? `<span class="pill">${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}</span>` : ''}</div></div></div>
+    <div class="dsec"><p>${esc(tx(s.desc))}</p></div>${jskRetired(s)}
     <div class="cols"><div class="dsec"><h4>${esc(t('how_get'))}</h4>${srcBlock(s, tr)}</div>
     <div class="dsec"><h4>${esc(t('more'))}</h4><dl class="kv"><dt>${esc(t('job_of'))}</dt><dd><a href="#jobs/job:${s.job}" data-open="jobs|job:${s.job}">${esc(jobName(s.job))}</a></dd>${s.needs ? `<dt>${esc(t('needs_w'))}</dt><dd>${esc(tx(O.needs?.[s.needs]) || s.needs)}</dd>` : ''}${s.specName && tx(s.specName) !== tx(s.name) ? `<dt>${esc(t('about'))}</dt><dd>${esc(tx(s.specName))}</dd>` : ''}</dl></div></div>`;
 }
+// ------------------------------------------------------------------------------------------------ Skills v4 (online, the live build)
+const V4 = () => D?.online?.v4 || [];
+let _v4; const V4ID = () => (_v4 ||= by(V4()));
+const v4Cat = (c) => tx(D?.online?.v4cats?.[c]?.name) || c;
+const v4Col = (c) => D?.online?.v4cats?.[c]?.color || '';
+const v4Calling = (s) => (s.oldPath ? pathName(s.oldPath) : s.job === 'mage' && s.tier === 1 ? t('sv4_shared') : '');
+const v4Tier = (s) => { const j = JOB_I().jobs[s.job]; const x = j?.tiers.find((x) => x.tier === s.tier && (!x.path || !s.oldPath || x.path === s.oldPath)); return x ? mfName(x.name) : ''; };
+const v4CatPill = (s) => `<span class="pill" style="box-shadow:inset 0 0 0 1px ${esc(v4Col(s.cat) || 'transparent')}">${esc(v4Cat(s.cat))}</span>`;
+const v4Card = (s) => card({ cat: 'skills', id: 'v4:' + s.id, img: s.img, ico: true, name: tx(s.name), lv: `${t('lv')} ${s.lvl}`, tag: s.cat === 'ULTIMATE' ? t('ult') : t('online_tag'), tagc: s.cat === 'ULTIMATE' ? '' : 'online',
+  meta: `${esc(v4Cat(s.cat))}${v4Calling(s) && s.oldPath ? ' · ' + esc(v4Calling(s)) : ''} · ${esc(t('mana'))} ${s.mana ?? '–'}${s.cd > 0 ? ` · ${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}` : ''}` });
+const v4Link = (s) => `<a class="sk" href="#skills/v4:${s.id}" data-open="skills|v4:${s.id}">${s.img ? `<img src="${img(s.img)}" alt="" loading="lazy">` : ''}<span>${esc(tx(s.name))}${s.cat === 'ULTIMATE' ? ` <span class="pill gold">${esc(t('ult'))}</span>` : ''}</span></a>`;
+const v4Rows = (l) => l.map((s) => `<tr><td>${v4Link(s)}</td><td class="n">${s.lvl}</td><td>${esc(v4Cat(s.cat))}</td><td class="n">${s.mana ?? '–'}</td><td class="n">${s.cd > 0 ? cdN(s.cd) + 's' : '–'}</td><td class="n"><span class="ltr">${s.price ? s.price.toLocaleString('en-US') + ' ₯' : '–'}</span></td></tr>`).join('');
+const v4Table = (l) => `<div class="tblwrap"><table class="tbl"><tr><th></th><th class="n">${esc(t('lv'))}</th><th>${esc(t('sv4_cat'))}</th><th class="n">${esc(t('mana'))}</th><th class="n">${esc(t('cd'))}</th><th class="n">${esc(t('sv4_price'))}</th></tr>${v4Rows(l)}</table></div>`;
+const v4Order = (a, b) => a.tier - b.tier || String(a.path || '').localeCompare(String(b.path || '')) || a.slot - b.slot;
+// a job's v4 skills, a table per job tier (the wizard: from job 2 a table per calling)
+function v4JobTiers(j) {
+  const l = V4().filter((s) => s.job === j.id).sort(v4Order); if (!l.length) return '';
+  return [1, 2, 3, 4, 5].map((n) => { const tl = l.filter((s) => s.tier === n); if (!tl.length) return '';
+    const groups = [...new Set(tl.map((s) => s.path || ''))];
+    return groups.map((p) => { const g = tl.filter((s) => (s.path || '') === p); const name = v4Tier(g[0]);
+      return `<div class="dsec"><h4><span class="tier">${n}</span> ${esc(t('tier_n', { n }))}${name ? ' · ' + esc(name) : ''}${p ? ' · ' + esc(v4Calling(g[0])) : ''} (${g.length})</h4>${v4Table(g)}</div>`; }).join(''); }).join('');
+}
+function v4Sec() {
+  const l = V4(); if (!l.length) return '';
+  const first = l.find((s) => s.id === D.online?.v4info?.first), old = (D.skills || []).find((s) => s.id === 'charge');
+  const jobsL = (D.online?.jobs || []).map((j) => { const g = l.filter((s) => s.job === j.id).sort(v4Order); return g.length ? `<section class="sub">${subh(jobName(j.id), g.length)}<div class="grid small">${g.map(v4Card).join('')}</div></section>` : ''; }).join('');
+  return sec(t('sv4_h'), `${oband('sv4_band')}<p class="lead">${esc(t('sv4_lead', { n: l.length, first: tx(first?.name) || '', old: tx(old?.name) || '' }))}</p><p class="lead">${esc(t('sv4_rules'))}</p>` +
+    (first ? `<section class="sub">${subh(t('sv4_first_h'))}<div class="grid small">${v4Card(first)}</div></section>` : ''), 'sv4') + jobsL;
+}
+const v4Fx = (s) => {
+  const c = s.cast; if (!c) return '';
+  const m = (v) => (v != null ? `<span class="ltr">${v} m</span>` : null), row = (k, v) => (v != null && v !== '' ? `<dt>${esc(t(k))}</dt><dd>${v}</dd>` : '');
+  const cc = (c.cc || []).map((x) => esc(t('cc_' + x.k)) + (x.dur ? ` <span class="ltr">${x.dur} s</span>` : '')).join(', ');
+  const bf = c.buff ? Object.entries(c.buff).filter(([k]) => k !== 'dur' && k !== 'rank').map(([k, v]) => `${esc(t('bf_' + k))} <span class="ltr">+${Math.round(v * 100)}%</span>`).join(', ') + (c.buff.dur ? ` · <span class="ltr">${c.buff.dur} s</span>` : '') : '';
+  return row('sv4_target', c.tgt ? esc(t('tg_' + c.tgt)) : null) + row('range', m(c.range)) + row('sv4_radius', m(c.radius)) + row('sv4_move', m(c.move)) + row('sv4_cap', c.cap) + row('sv4_hits', c.hits) +
+    row('sv4_el', c.el ? esc(t('el_' + c.el)) : null) + row('sv4_status', cc || null) + row('sv4_buff', bf || null) + row('sv4_cast', c.dur != null ? `<span class="ltr">${c.dur} s</span>` : null);
+};
+function v4Detail(s) {
+  const { O } = JOB_I(), tr = s.job && (O.people || []).find((p) => p.role === 'job_trainer' && p.job === s.job), olds = (s.replaces || []).map((id) => JOB_I().skills[id]).filter(Boolean);
+  const how = s.tier === 0 ? `<p>${esc(t('sv4_first'))}</p>` : `<p>${esc(t('sv4_how', { p: (s.price || 0).toLocaleString('en-US') }))}</p>${tr ? personRow(tr) : ''}`;
+  return `<div class="dhead"><span class="big" style="${v4Col(s.cat) ? `--rc:${esc(v4Col(s.cat))}` : ''}">${s.img ? `<img class="ico" src="${img(s.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(s.name))}</h2>
+    <p class="sub2">${s.job ? esc(jobName(s.job)) + ' · ' + esc(t('tier_n', { n: s.tier })) + (v4Tier(s) ? ' · ' + esc(v4Tier(s)) : '') + (v4Calling(s) ? ' · ' + esc(v4Calling(s)) : '') + ' · ' : ''}${esc(t('unlock'))} ${s.lvl}</p>
+    <div class="tags">${opill()}${v4CatPill(s)}${s.cat === 'ULTIMATE' ? `<span class="pill gold">${esc(t('ult'))}</span>` : ''}${s.mana != null ? `<span class="pill" style="background:#22356a;box-shadow:inset 0 0 0 1px #5b7cff">${esc(t('mana'))} ${s.mana}</span>` : ''}<span class="pill">${s.cd > 0 ? `${esc(t('cd'))} ${cdN(s.cd)}${esc(t('sec'))}` : esc(t('sv4_nocd'))}</span></div></div></div>
+    <div class="dsec"><p>${esc(tx(s.desc))}</p></div>
+    <div class="cols"><div class="dsec"><h4>${esc(t('how_get'))}</h4>${how}${olds.length ? `<h4>${esc(t('sv4_replaces'))}</h4><p>${olds.map((o) => `<a href="#jobs/sk:${o.id}" data-open="jobs|sk:${o.id}">${esc(tx(o.name))}</a>`).join(', ')}</p>` : ''}</div>
+    <div class="dsec"><h4>${esc(t('more'))}</h4><dl class="kv">${s.job ? `<dt>${esc(t('job_of'))}</dt><dd><a href="#jobs/job:${s.job}" data-open="jobs|job:${s.job}">${esc(jobName(s.job))}</a></dd>` : ''}<dt>${esc(t('sv4_cat'))}</dt><dd>${esc(v4Cat(s.cat))}</dd>${s.slot ? `<dt>${esc(t('sv4_slot'))}</dt><dd class="ltr">${s.slot} / 8</dd>` : ''}${v4Fx(s)}</dl></div></div>`;
+}
+const jskRetired = (s) => { if (!s.retired) return ''; const n = s.v4 && V4ID()[s.v4];
+  return `<div class="dsec"><p><span class="pill">${esc(t('sk_retired'))}</span></p><p>${n ? `${esc(t('sk_retired_by'))}<a href="#skills/v4:${n.id}" data-open="skills|v4:${n.id}">${esc(tx(n.name))}</a>.` : esc(t('sk_refunded'))}</p></div>`; };
+
 function jqDetail(q) {
   const giver = q.giver && JOB_I().people[q.giver.role];
   return `<div class="dhead"><span class="big">${giver?.img ? `<img src="${img(giver.img)}" alt="">` : ''}</span><div><h2 id="dlgt">${esc(tx(q.title))}</h2><p class="sub2">${esc(t('lv'))} ${q.lvl ?? '?'} · ${esc(qkName(q))}${q.job ? ' · ' + esc(jobName(q.job)) : ''}${q.path ? ' · ' + esc(pathName(q.path)) : ''}</p><div class="tags">${opill()}</div></div></div>
@@ -1484,7 +1586,7 @@ function find(cat, id) {
     if (k === 'qi') { const q = QITEMS().find((x) => x.id === v), Q = q && JOB_I().quests[q.quest]; return q && `<div class="dhead"><span class="big"></span><div><h2 id="dlgt">${esc(tx(q.name))}</h2><p class="sub2">${esc(t('lesson_item'))}</p><div class="tags">${opill()}</div></div></div><div class="dsec"><p>${esc(tx(q.desc))}</p></div>${Q ? `<div class="dsec"><h4>${esc(t('quests'))}</h4><div class="rows">${jqRow(Q)}</div></div>` : ''}`; }
     return null;
   }
-  if (cat === 'skills') { const s = (D.skills || []).find((x) => x.id === id); return s && skDetail(s); }
+  if (cat === 'skills') { if (id.startsWith('v4:')) { const s = V4ID()[id.slice(3)]; return s && v4Detail(s); } const s = (D.skills || []).find((x) => x.id === id); return s && skDetail(s); }
   if (cat === 'mounts') { const s = (D.mounts || []).find((x) => x.id === id); return s && mtDetail(s); }
   if (cat === 'quests') { if (id.startsWith('q:')) return jobFind(id); const s = (D.quests || []).find((x) => x.id === id); return s && questDetail(s); } // (q:id: a job quest, Roy 29.10)
   if (cat === 'jobs') return jobFind(id);
@@ -1540,6 +1642,7 @@ function index() {
   const O = D.online || {};
   for (const j of O.jobs || []) add('jobs', 'job:' + j.id, j.name?.m, [j.name?.f, ...j.tiers.flatMap((x) => [x.name?.m, x.name?.f]), 'online'], () => jobCard(j));
   for (const s of O.skills || []) add('jobs', 'sk:' + s.id, s.name, [s.desc, s.specName, 'online'], () => jskCard(s));
+  for (const s of V4()) add('skills', 'v4:' + s.id, s.name, [s.desc, s.id, D.online?.v4cats?.[s.cat]?.name, s.job && JOB_I().jobs[s.job]?.name?.m, s.job && JOB_I().jobs[s.job]?.name?.f, 'online', 'skill'], () => v4Card(s));
   for (const p of O.people || []) add('jobs', 'npc:' + p.key, p.name, [p.title, p.shopTitle, 'online'], () => card({ cat: 'jobs', id: 'npc:' + p.key, img: p.img, name: tx(p.name), tag: t('online_tag'), tagc: 'online', meta: esc(tx(JOB_I().roles[p.role]?.name) || '') }));
   for (const h of O.halls || []) add('jobs', 'hall:' + h.id, h.name, [h.sub, 'online'], () => card({ cat: 'jobs', id: 'hall:' + h.id, name: tx(h.name), tag: t('online_tag'), tagc: 'online', meta: esc(tx(h.sub)) }));
   for (const q of O.quests || []) add('jobs', 'q:' + q.id, q.title, [q.offer, ...(q.steps || []), 'online'], () => card({ cat: 'jobs', id: 'q:' + q.id, name: tx(q.title), tag: t('online_tag'), tagc: 'online', meta: esc(qkName(q)), lv: q.lvl ? `${t('lv')} ${q.lvl}` : '' }));
