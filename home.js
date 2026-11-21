@@ -125,9 +125,13 @@ window.T = T;
 Object.assign(T.en, { shot_3: 'Tartarus, the daily event', shot_4: 'The agora of Athens', shot_5: "Marathon, the warriors' village", shot_6: 'The skills window', shot_7: 'Delphi', shot_8: "Artemis' Grove, the archers' village" });
 Object.assign(T.he, { shot_3: 'טרטרוס, האירוע היומי', shot_4: 'האגורה של אתונה', shot_5: 'מרתון, כפר הלוחמים', shot_6: 'חלון הסקילים', shot_7: 'דלפי', shot_8: 'חורשת ארטמיס, כפר הקשתים' });
 Object.assign(T.es, { shot_3: 'Tártaro, el evento diario', shot_4: 'El ágora de Atenas', shot_5: 'Maratón, la aldea de los guerreros', shot_6: 'La ventana de habilidades', shot_7: 'Delfos', shot_8: 'La arboleda de Artemisa, aldea de los arqueros' });
+// the newest features, from current captures (20 to 21 Nov 2026)
+Object.assign(T.en, { shot_9: 'Monsters warn before they strike', shot_10: 'Town stock changes every few hours', shot_11: 'A trade shows the other character', shot_12: 'New food and potions', shot_13: 'Bigger caves, with a mini-boss', shot_14: 'The Fateforge: upgrades that never break the item', shot_15: 'The new home screen', shot_16: 'The Golden Goose, a daily event' });
+Object.assign(T.he, { shot_9: 'המפלצות מזהירות לפני המכה', shot_10: 'הסחורה בעיר מתחלפת כל כמה שעות', shot_11: 'במסחר רואים את הדמות שמולך', shot_12: 'אוכל ושיקויים חדשים', shot_13: 'מערות גדולות יותר, עם מיני-בוס', shot_14: 'כור הגורל: שדרוג שלא שובר את הפריט', shot_15: 'מסך הבית החדש', shot_16: 'אווז הזהב, אירוע יומי' });
+Object.assign(T.es, { shot_9: 'Los monstruos avisan antes de golpear', shot_10: 'La mercancía de la ciudad cambia cada pocas horas', shot_11: 'El comercio muestra al otro personaje', shot_12: 'Comida y pociones nuevas', shot_13: 'Cuevas más grandes, con un minijefe', shot_14: 'La Fateforge: mejoras que nunca rompen el objeto', shot_15: 'La nueva pantalla de inicio', shot_16: 'La Oca de Oro, un evento diario' });
 const SITE = window.SITE || {}, UPDATES = Array.isArray(window.UPDATES) ? window.UPDATES : [];
 // every picture of the page, by name
-const IMG = {"comp-tasks-he": "assets/r3/comp-tasks-he.jpg", "comp-tasks": "assets/r3/comp-tasks.jpg", "comp-village-he": "assets/r3/comp-village-he.jpg", "comp-village": "assets/r3/comp-village.jpg", "emblem": "assets/r3/emblem.webp", "gear": "assets/r3/gear.webp", "hercules": "assets/r3/hercules.webp", "logo_full": "assets/r3/logo_full.webp", "logotype": "assets/r3/logotype.webp", "logotype_bar": "assets/r3/logotype_bar.webp", "mon-boar": "assets/r3/mon-boar.png", "mon-crab": "assets/r3/mon-crab.png", "mon-giant_polyphemos": "assets/r3/mon-giant_polyphemos.png", "mon-giant_talos": "assets/r3/mon-giant_talos.png", "mon-kampe": "assets/r3/mon-kampe.png", "mon-obAsterionKin": "assets/r3/mon-obAsterionKin.png", "mon-obCorfuGorgon": "assets/r3/mon-obCorfuGorgon.png", "mon-obElisBear": "assets/r3/mon-obElisBear.png", "mon-obFrogman": "assets/r3/mon-obFrogman.png", "mon-obGiantBones": "assets/r3/mon-obGiantBones.png", "mon-obHesperid": "assets/r3/mon-obHesperid.png", "mon-obIsthWolf": "assets/r3/mon-obIsthWolf.png", "mon-satyr": "assets/r3/mon-satyr.png", "mon-skeleton": "assets/r3/mon-skeleton.png", "night": "assets/r3/night.webp", "pi-axe": "assets/r3/pi-axe.png", "pi-compass": "assets/r3/pi-compass.png", "pi-gstar": "assets/r3/pi-gstar.png", "pi-horse": "assets/r3/pi-horse.png", "pi-scroll": "assets/r3/pi-scroll.png", "pi-spear": "assets/r3/pi-spear.png", "pi-sword": "assets/r3/pi-sword.png", "role-priest": "assets/r3/role-priest.png", "role-shepherd": "assets/r3/role-shepherd.png", "role-smith": "assets/r3/role-smith.png", "role-trader": "assets/r3/role-trader.png", "role-weaponsmith": "assets/r3/role-weaponsmith.png", "story": "assets/r3/story.webp", "world": "assets/r3/world.webp", "hero": "assets/slots/hero-loop.jpg", "fight": "assets/slots/combat.jpg", "fight2": "assets/slots/last-call.jpg", "tart": "assets/slots/tartarus.jpg", "trailer": "assets/trailer.jpg", "shot1": "assets/shot-1.jpg", "shot2": "assets/shot-2.jpg", "shot3": "assets/shot-3.jpg", "shot4": "assets/shot-4.jpg", "shot5": "assets/shot-5.jpg", "shot6": "assets/shot-6.jpg", "shot7": "assets/shot-7.jpg", "shot8": "assets/shot-8.jpg"};
+const IMG = {"comp-tasks-he": "assets/r3/comp-tasks-he.jpg", "comp-tasks": "assets/r3/comp-tasks.jpg", "comp-village-he": "assets/r3/comp-village-he.jpg", "comp-village": "assets/r3/comp-village.jpg", "emblem": "assets/r3/emblem.webp", "gear": "assets/r3/gear.webp", "hercules": "assets/r3/hercules.webp", "logo_full": "assets/r3/logo_full.webp", "logotype": "assets/r3/logotype.webp", "logotype_bar": "assets/r3/logotype_bar.webp", "mon-boar": "assets/r3/mon-boar.png", "mon-crab": "assets/r3/mon-crab.png", "mon-giant_polyphemos": "assets/r3/mon-giant_polyphemos.png", "mon-giant_talos": "assets/r3/mon-giant_talos.png", "mon-kampe": "assets/r3/mon-kampe.png", "mon-obAsterionKin": "assets/r3/mon-obAsterionKin.png", "mon-obCorfuGorgon": "assets/r3/mon-obCorfuGorgon.png", "mon-obElisBear": "assets/r3/mon-obElisBear.png", "mon-obFrogman": "assets/r3/mon-obFrogman.png", "mon-obGiantBones": "assets/r3/mon-obGiantBones.png", "mon-obHesperid": "assets/r3/mon-obHesperid.png", "mon-obIsthWolf": "assets/r3/mon-obIsthWolf.png", "mon-satyr": "assets/r3/mon-satyr.png", "mon-skeleton": "assets/r3/mon-skeleton.png", "night": "assets/r3/night.webp", "pi-axe": "assets/r3/pi-axe.png", "pi-compass": "assets/r3/pi-compass.png", "pi-gstar": "assets/r3/pi-gstar.png", "pi-horse": "assets/r3/pi-horse.png", "pi-scroll": "assets/r3/pi-scroll.png", "pi-spear": "assets/r3/pi-spear.png", "pi-sword": "assets/r3/pi-sword.png", "role-priest": "assets/r3/role-priest.png", "role-shepherd": "assets/r3/role-shepherd.png", "role-smith": "assets/r3/role-smith.png", "role-trader": "assets/r3/role-trader.png", "role-weaponsmith": "assets/r3/role-weaponsmith.png", "story": "assets/r3/story.webp", "world": "assets/r3/world.webp", "hero": "assets/slots/hero-loop.jpg", "fight": "assets/slots/combat.jpg", "fight2": "assets/slots/last-call.jpg", "tart": "assets/slots/tartarus.jpg", "trailer": "assets/trailer.jpg", "shot1": "assets/shot-1.jpg", "shot2": "assets/shot-2.jpg", "shot3": "assets/shot-3.jpg", "shot4": "assets/shot-4.jpg", "shot5": "assets/shot-5.jpg", "shot6": "assets/shot-6.jpg", "shot7": "assets/shot-7.jpg", "shot8": "assets/shot-8.jpg", "shot9": "assets/shot-9.jpg", "shot10": "assets/shot-10.jpg", "shot11": "assets/shot-11.jpg", "shot12": "assets/shot-12.jpg", "shot13": "assets/shot-13.jpg", "shot14": "assets/shot-14.jpg", "shot15": "assets/shot-15.jpg", "shot16": "assets/shot-16.jpg"};
 const NAV = {
   he: { nav_game: 'המשחק', nav_lb: 'היכל התהילה', nav_upd: 'עדכונים', nav_wiki: 'ויקי', nav_comp: 'Companion', nav_forum: 'פורום', nav_account: 'כניסה', nav_dl: 'הורדה', nav_menu: 'תפריט' },
   en: { nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download', nav_menu: 'Menu' },
@@ -155,7 +159,7 @@ const HEROES = [
   { name: 'Leon', level: 47, job: 'warrior', pic: 'role-smith' },
 ];
 const JOBS = { he: { warrior: 'לוחם', archer: 'קשת', rogue: 'נוכל', mage: 'אשף' }, en: { warrior: 'Warrior', archer: 'Archer', rogue: 'Rogue', mage: 'Mage' }, es: { warrior: 'Guerrero', archer: 'Arquero', rogue: 'Pícaro', mage: 'Mago' } };
-const SHOT_SRC = ['shot1', 'shot2', 'shot3', 'shot4', 'shot5', 'shot6', 'shot7', 'shot8'];
+const SHOT_SRC = ['shot1', 'shot2', 'shot9', 'shot3', 'shot16', 'shot4', 'shot10', 'shot11', 'shot5', 'shot12', 'shot6', 'shot14', 'shot7', 'shot13', 'shot8', 'shot15']; // the old eight and the newest features between them
 
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
@@ -209,7 +213,7 @@ function footer() {
 // ---------- screenshots ----------
 function shots() {
   const t = T[L], film = $('#film'); film.textContent = '';
-  SHOT_SRC.forEach((k, i) => {
+  SHOT_SRC.forEach((k) => { const i = +k.slice(4) - 1;
     const b = el('button', 'shot'), im = el('span', 'im'), cap = el('span', 'cap', R(t['shot_' + (i + 1)]));
     b.type = 'button'; im.style.backgroundImage = `url(${IMG[k]})`; im.setAttribute('role', 'img'); im.setAttribute('aria-label', t['shot_' + (i + 1)]);
     b.append(im, cap); b.addEventListener('click', () => view('img', IMG[k])); film.append(b);
@@ -331,7 +335,7 @@ function heroes() {
     const hn = el('div', 'hn' + (i ? '' : ' r1')); hn.dataset.r = String(i + 1);
     const lv = el('p', 'lv'); lv.append(el('span', '', t.lb_lv), el('b', '', String(h.level)));
     const nm = el('p', 'nm', h.name); nm.title = h.name; hn.append(nm, lv);
-    if (h.job) hn.append(el('p', 'jb', JOBS[L][h.job] || h.job));
+    if (h.job && JOBS[L][h.job]) hn.append(el('p', 'jb', JOBS[L][h.job])); // (the job's name as the game writes it; null, or a key this page does not know: nothing)
     names.append(hn);
   });
   box.append(ol, names);
@@ -448,11 +452,12 @@ function draw() {
 const hero = $('.hero'), bar = $('#bar'), stages = $$('[data-stage]').map((st) => ({ st, chaps: $$('.chap', st), figs: $$('.stage-media figure', st), ticks: $$('.ticks i', st) }));
 const shotsSec = $('#shots'), pin = $('#pin'), film = $('#film');
 const navLinks = $$('#mainnav a[href^="#"]').filter((a) => a.getAttribute('href').length > 1);
+const FILM_K = .62;
 let pinned = false, travel = 0, shotEls = [], shotMid = [];
 function layout() {
   pinned = !reduced && innerWidth >= 900 && innerHeight >= 520;
   shotsSec.classList.toggle('native', !pinned);
-  if (pinned) { travel = Math.max(0, film.scrollWidth - innerWidth); pin.style.height = (innerHeight + travel) + 'px'; } else { pin.style.height = ''; film.style.transform = ''; }
+  if (pinned) { travel = Math.max(0, film.scrollWidth - innerWidth); pin.style.height = (innerHeight + travel * FILM_K) + 'px'; } else { pin.style.height = ''; film.style.transform = ''; }
   shotEls = $$('.shot', film); shotMid = shotEls.map((b) => b.offsetLeft + b.offsetWidth / 2); if (!pinned) for (const b of shotEls) b.style.removeProperty('--f');
   nodrift = reduced || innerWidth <= 900; document.documentElement.classList.toggle('nodrift', nodrift);
   if (nodrift) for (const d of drifts) { d.card.style.transform = ''; d.card.style.opacity = ''; }
@@ -474,7 +479,7 @@ function onScroll() {
     // the chapter text travels: it rises into the middle of the screen, holds, and leaves upward as the next one arrives
     if (!reduced) for (const c of S.chaps) { const r = c.getBoundingClientRect(), d = (r.top + r.height / 2 - vh / 2) / vh, a = Math.abs(d); c.style.setProperty('--co', Math.max(0, Math.min(1, 1.3 - a * 2)).toFixed(3)); c.style.setProperty('--cy', (d * 54).toFixed(1) + 'px'); }
   }
-  if (pinned) { const r = pin.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / Math.max(1, travel))); film.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`;
+  if (pinned) { const r = pin.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / Math.max(1, travel * FILM_K))); film.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`;
     const mid = p * travel + innerWidth / 2, w = innerWidth * .6; shotEls.forEach((b, i) => b.style.setProperty('--f', Math.max(0, 1 - Math.abs(shotMid[i] - mid) / w).toFixed(2))); }
   mapScroll(); serpent(y, vh); drift(y, vh);
   if (!reduced) { const r = compPh.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) compPh.style.setProperty('--cp', Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh)).toFixed(3)); }
