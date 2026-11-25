@@ -404,18 +404,7 @@ viewer.addEventListener('click', (e) => { if (e.target === viewer) unview(); });
 viewer.addEventListener('close', () => { vbody.textContent = ''; });
 // the trailer: the launcher's cinematic (assets/trailer.webm/.mp4) when it is there, else the hero clip
 $('#trailer-btn').addEventListener('click', () => view('video', SITE.TRAILER || 'assets/hero'));
-// the trailer music over the banner: off until asked for, shown only when assets/trailer.ogg exists
-{
-  const btn = $('#hero-snd'), au = $('#hero-audio');
-  const label = () => { const k = au.paused ? 'snd_on' : 'snd_off'; btn.dataset.ta = k; btn.setAttribute('aria-label', T[L][k]); btn.setAttribute('aria-pressed', String(!au.paused)); };
-  const stop = () => { if (!au.paused) { au.pause(); label(); } };
-  btn.addEventListener('click', () => { if (au.paused) { au.volume = .7; au.play().then(label).catch(label); } else stop(); });
-  au.addEventListener('pause', label); au.addEventListener('play', label);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
-  document.addEventListener('so-lang', label);
-  $('#trailer-btn').addEventListener('click', stop);
-  fetch(au.getAttribute('src'), { method: 'HEAD' }).then((r) => { if (r.ok && !/text\/html/.test(r.headers.get('content-type') || '')) { btn.hidden = false; label(); } }).catch(() => {});
-}
+// (Roy 25.11: the trailer music button over the banner is gone)
 // ---------- the video slots: assets/slots/<name>.mp4 over its still (<name>.jpg). Replace a file to replace the clip. ----------
 {
   const slow = navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || ''));
