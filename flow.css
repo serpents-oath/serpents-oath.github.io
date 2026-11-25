@@ -829,7 +829,9 @@ html[lang="he"] .playbtn { font-size: 24px; }
 .hall-names { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 1180px; }
 .hc { container-type: inline-size; --th: 250px; --nw: 160; --bw: 64; --bh: 150; --x0: 48; --y0: 150; }
 .hc.r1 { --th: 300px; }
-.hc .up { --u: min(calc(var(--th) / var(--bh)), calc(100cqw / (1.5 * var(--bw)))); }
+.hc .up { --u: var(--us, min(calc(var(--th) / var(--bh)), calc(100cqw / (1.5 * var(--bw))))); } /* --us: home.js figFit(), the whole-pixel size */
+.hc .fig img.live { image-rendering: crisp-edges; image-rendering: pixelated; }
+.hc.smooth .fig img.live { image-rendering: auto; }
 .hc .fig, .hc.r1 .fig { position: relative; display: block; width: calc(var(--u) * var(--bw)); height: calc(var(--u) * var(--bh)); margin: 0; }
 .hc .fig img, .hc.r1 .fig img, .fig img.live { display: block; width: 100%; height: 100%; max-height: none; object-fit: contain; object-position: 50% 100%; }
 .hc.boxed .fig { overflow: hidden; }

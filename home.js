@@ -41,7 +41,7 @@ const T = {
     upd_h: 'עדכונים', upd_sub: '{n} גרסאות מאז 14.10.2026, החדשה למעלה. לוחצים על גרסה כדי לפתוח אותה.', upd_more: 'כל הגרסאות', upd_less: 'פחות', upd_n: '{n} שינויים', soon: 'בקרוב',
     com_comp_h: 'אפליקציית Companion', com_comp_p: 'כפר קטן שבו הדמות שלך דגה ועובדת גם כשאת/ה לא במשחק. בטא.', com_h: 'קהילה', com_forum_h: 'פורום', com_forum_p: 'שאלות, בילדים, פריטים וקווסטים. אותו חשבון כמו במשחק.', com_wiki_h: 'ויקי', com_wiki_p: 'כל מפלצת, נשק, סט, כישור, סוס, אדם ומקום במשחק.', com_acc_h: 'החשבון שלך', com_acc_p: 'כניסה, הרשמה ודף שחקן עם הדרגה שלך.',
     cta_h: 'מוכנים לצאת לדרך?',
-    foot: 'משחק הרפתקאות חינמי ל-Windows (ול-Mac בבטא). המשגר מתקין ומעדכן אותו.', privacy: 'פרטיות', terms: 'תנאי שימוש', releases: 'כל ההורדות', top: 'למעלה', social_x: 'X', social_ig: 'Instagram', social_fb: 'Facebook', social_soon: 'בקרוב',
+    foot: 'משחק הרפתקאות חינמי ל-Windows (ול-Mac בבטא). המשגר מתקין ומעדכן אותו.', privacy: 'פרטיות', terms: 'תנאי שימוש', top: 'למעלה', social_x: 'X', social_ig: 'Instagram', social_fb: 'Facebook', social_soon: 'בקרוב',
   },
   en: {
     nav_menu: 'Menu', nav_game: 'The game', nav_lb: 'Hall of Fame', nav_upd: 'Updates', nav_wiki: 'Wiki', nav_forum: 'Forum', nav_account: 'Sign in', nav_dl: 'Download',
@@ -78,7 +78,7 @@ const T = {
     upd_h: 'Updates', upd_sub: '{n} versions since 14 Oct 2026, newest first. Click a version to open it.', upd_more: 'All versions', upd_less: 'Fewer', upd_n: '{n} changes', soon: 'Coming soon',
     com_comp_h: 'Companion app', com_comp_p: 'A little village where your character fishes and works while you are away from the game. Beta.', com_h: 'Community', com_forum_h: 'Forum', com_forum_p: 'Questions, builds, items and quests. The same account as in the game.', com_wiki_h: 'Wiki', com_wiki_p: 'Every monster, weapon, set, skill, mount, person and place in the game.', com_acc_h: 'Your account', com_acc_p: 'Sign in, sign up, and a player page with your rank.',
     cta_h: 'Ready to set out?',
-    foot: 'A free adventure game for Windows (and Mac, in beta). The launcher installs and updates it.', privacy: 'Privacy', terms: 'Terms', releases: 'All downloads', top: 'Back to top', social_x: 'X', social_ig: 'Instagram', social_fb: 'Facebook', social_soon: 'Coming soon',
+    foot: 'A free adventure game for Windows (and Mac, in beta). The launcher installs and updates it.', privacy: 'Privacy', terms: 'Terms', top: 'Back to top', social_x: 'X', social_ig: 'Instagram', social_fb: 'Facebook', social_soon: 'Coming soon',
   },
   es: {
     nav_menu: 'Menú', nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar',
@@ -115,7 +115,7 @@ const T = {
     upd_h: 'Novedades', upd_sub: '{n} versiones desde el 14 oct 2026, la más reciente primero. Pulsa una versión para abrirla.', upd_more: 'Todas las versiones', upd_less: 'Menos', upd_n: '{n} cambios', soon: 'Próximamente',
     com_comp_h: 'App Companion', com_comp_p: 'Una pequeña aldea donde tu personaje pesca y trabaja mientras estás fuera del juego. Beta.', com_h: 'Comunidad', com_forum_h: 'Foro', com_forum_p: 'Preguntas, builds, objetos y misiones. La misma cuenta que en el juego.', com_wiki_h: 'Wiki', com_wiki_p: 'Cada monstruo, arma, conjunto, habilidad, montura, persona y lugar del juego.', com_acc_h: 'Tu cuenta', com_acc_p: 'Entrar, registrarse y una página de jugador con tu rango.',
     cta_h: '¿Todo listo para partir?',
-    foot: 'Un juego de aventuras gratuito para Windows (y Mac, en beta). El launcher lo instala y lo actualiza.', privacy: 'Privacidad', terms: 'Condiciones', releases: 'Todas las descargas', top: 'Volver arriba', social_x: 'X', social_ig: 'Instagram', social_fb: 'Facebook', social_soon: 'Próximamente',
+    foot: 'Un juego de aventuras gratuito para Windows (y Mac, en beta). El launcher lo instala y lo actualiza.', privacy: 'Privacidad', terms: 'Condiciones', top: 'Volver arriba', social_x: 'X', social_ig: 'Instagram', social_fb: 'Facebook', social_soon: 'Próximamente',
   },
 };
 window.T = T;
@@ -138,9 +138,9 @@ const NAV = {
   es: { nav_game: 'El juego', nav_lb: 'Salón de la fama', nav_upd: 'Novedades', nav_wiki: 'Wiki', nav_comp: 'Companion', nav_forum: 'Foro', nav_account: 'Entrar', nav_dl: 'Descargar', nav_menu: 'Menú' },
 };
 const FOOT = {
-  he: { foot: 'משחק הרפתקאות חינמי ל-Windows (ול-Mac בבטא). המשגר מתקין ומעדכן אותו.', privacy: 'פרטיות', terms: 'תנאי שימוש', releases: 'כל ההורדות', top: 'למעלה', soon: 'בקרוב' },
-  en: { foot: 'A free adventure game for Windows (and Mac, in beta). The launcher installs and updates it.', privacy: 'Privacy', terms: 'Terms', releases: 'All downloads', top: 'Back to top', soon: 'Coming soon' },
-  es: { foot: 'Un juego de aventuras gratuito para Windows (y Mac, en beta). El launcher lo instala y lo actualiza.', privacy: 'Privacidad', terms: 'Condiciones', releases: 'Todas las descargas', top: 'Volver arriba', soon: 'Próximamente' },
+  he: { foot: 'משחק הרפתקאות חינמי ל-Windows (ול-Mac בבטא). המשגר מתקין ומעדכן אותו.', privacy: 'פרטיות', terms: 'תנאי שימוש', top: 'למעלה', soon: 'בקרוב' },
+  en: { foot: 'A free adventure game for Windows (and Mac, in beta). The launcher installs and updates it.', privacy: 'Privacy', terms: 'Terms', top: 'Back to top', soon: 'Coming soon' },
+  es: { foot: 'Un juego de aventuras gratuito para Windows (y Mac, en beta). El launcher lo instala y lo actualiza.', privacy: 'Privacidad', terms: 'Condiciones', top: 'Volver arriba', soon: 'Próximamente' },
 };
 // the texts added with the redesign (he / en / es)
 const EXTRA = {
@@ -205,7 +205,7 @@ function footer() {
     <a href="#top" aria-label="The Serpent's Oath"><img data-src="logotype" alt="The Serpent's Oath"></a>
     <p>${R(t.foot)}</p>
     <nav class="social" aria-label="Social">${social}</nav>
-    <p class="links"><a href="privacy.html">${R(t.privacy)}</a><a href="terms.html">${R(t.terms)}</a><a href="https://github.com/serpents-oath/serpents-oath.github.io/releases" rel="noopener">${R(t.releases)}</a><a href="#top" data-top>${R(t.top)}</a></p>
+    <p class="links"><a href="privacy.html">${R(t.privacy)}</a><a href="terms.html">${R(t.terms)}</a><a href="#top" data-top>${R(t.top)}</a></p>
   </div><p class="rights" aria-label="Copyright"><span lang="he">© 2026 · כל הזכויות שמורות ל-The Serpent's Oath</span><span lang="en">© 2026 The Serpent's Oath. All rights reserved.</span><span lang="es">© 2026 The Serpent's Oath. Todos los derechos reservados.</span></p>`;
   images($('#foot'));
 }
@@ -352,9 +352,32 @@ function figBox(img, li) {
     for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if (d[(j * w + i) * 4 + 3] > 24) { if (i < x0) x0 = i; if (i > x1) x1 = i; if (j < y0) y0 = j; if (j > y1) y1 = j; }
     if (x1 < x0 || y1 < y0) return;
     const S = li.style; S.setProperty('--nw', w); S.setProperty('--bw', x1 - x0 + 1); S.setProperty('--bh', y1 - y0 + 1); S.setProperty('--x0', x0); S.setProperty('--y0', y0);
-    li.classList.add('boxed');
+    // how many picture pixels one painted pixel takes (the game doubles its pixels: 2), so the page can keep them whole
+    let px = 1;
+    for (const n of [4, 3, 2]) {
+      if (w % n || h % n) continue; let same = true;
+      for (let j = 0; j < h && same; j++) for (let i = 0; i < w; i++) { const a = (j * w + i) * 4, b = ((j - j % n) * w + i - i % n) * 4; if (d[a] !== d[b] || d[a + 1] !== d[b + 1] || d[a + 2] !== d[b + 2] || d[a + 3] !== d[b + 3]) { same = false; break; } }
+      if (same) { px = n; break; }
+    }
+    li.dataset.px = String(px); li.dataset.bw = String(x1 - x0 + 1); li.dataset.bh = String(y1 - y0 + 1);
+    li.classList.add('boxed'); figFit(li);
   } catch (e) { /* the picture is shown whole */ }
 }
+// sharp figures (Roy 25.11): every painted pixel takes a whole number of screen pixels, the same for all of them, as in the
+// game; never a part of one. The size the hall asks (--th tall, a column half as wide again that fits its place) is the aim:
+// the nearest whole step to it that still fits. Under two screen pixels a painted pixel there are no steps to keep, and the
+// picture is scaled smoothly at the size asked.
+function figFit(li) {
+  try {
+    const px = +li.dataset.px, bw = +li.dataset.bw / px, bh = +li.dataset.bh / px, dpr = window.devicePixelRatio || 1;
+    const th = parseFloat(getComputedStyle(li).getPropertyValue('--th')), cw = li.clientWidth;
+    if (!(px && bw && bh && th && cw)) return;
+    const kh = th * dpr / bh, kw = cw * dpr / (1.5 * bw), snap = Math.min(kh, kw) >= 2;
+    li.classList.toggle('smooth', !snap);
+    if (snap) li.style.setProperty('--us', String(Math.min(Math.round(kh), Math.floor(kw)) / (dpr * px) + 'px')); else li.style.removeProperty('--us');
+  } catch (e) { /* the page's own size */ }
+}
+addEventListener('resize', () => document.querySelectorAll('.hc.boxed').forEach(figFit));
 let rose = false;
 function arm() {
   const p = $('.podium'); if (!p || reduced || !('IntersectionObserver' in window)) return;
